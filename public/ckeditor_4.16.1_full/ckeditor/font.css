@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Ananda Lipi Lt Bt Regular';
+    src: local('Ananda'), url("Ananda Lipi Lt Bt Regular.otf") format('truetype');
+  }
+
+  @font-face {
+    font-family: 'Kantipur';
+    src: local('Kantipur'), url("ka_____0.ttf") format('truetype');
+  }

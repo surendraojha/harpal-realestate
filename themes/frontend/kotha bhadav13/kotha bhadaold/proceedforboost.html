@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/jpg" href="./assets/imgs/favicon.jpg"/>
+
+    <title>Kotha Bdada.com One Destination For Rooms and Property</title>
+</head>
+<link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+<link href="//fonts.googleapis.com/css?family=Rubik:300,400,500,700,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./assets/icons/fontawesome/all.min.css">
+<link rel="stylesheet" href="./assets/plugins/slider/swiper.min.css">
+<link rel="stylesheet" href="./assets/icons/flaticon/flaticon.css">
+<link rel="stylesheet" href="./assets/plugins/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="./assets/css/jquery-ui.min.css">
+<link rel="stylesheet" href="./assets/css/select.min.css">
+<link rel="stylesheet" href="./assets/js/datepicker/theme/css/t-datepicker.min.css">
+<link rel="stylesheet" href="./assets/js/datepicker/theme/css/themes/t-datepicker-blue.css">
+<link rel="stylesheet" href="./assets/css/style.css">
+
+<body>
+    <style>
+        @media(min-width:767.9px){
+            .mobileNavi{
+                display: none;
+            }
+            .desktop-visible{
+                display: block;
+            }
+            .mobile-visible{
+                display: none;
+            }
+        }
+        @media(max-width:991.9px){
+            .desktopNav,.bannerImg::after{
+                display: none;
+            }
+            .mobileNavi{
+                display: flex;
+            }
+            .desktop-visible{
+                display: none;
+            }
+            .mobile-visible{
+                display: block;
+            }
+        }
+        .stepdesignSingle{
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .stepdesignSingle .leftStep{
+            height: 80px;
+            max-width: 80px;
+            background-color: rgb(221 242 240);
+            color: #000;
+            flex: 0 0 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 18px;
+        }
+    </style>
+    <header class="siteHeader">
+        <div class="menuHeader">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-1 col-md-2 col-4 col-xs-2">
+                        <a href="#" class="logo">
+                            <div>
+                                <img src="./assets/imgs/kothabhada-logofinal.png" alt="" width="130" height="80" style="object-fit: contain;">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-md-2 col-3">
+                        <nav class="siteNav desktopNav">
+                            <ul>
+                                <li>
+                                    <a href="#">
+                                        Rent
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        Home Stay
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                        <div class="mobileNavi">
+                            <a class="" data-bs-toggle="offcanvas" href="#mobileMenuBox" role="button" aria-controls="mobileMenuBox">
+                                <i class="fas fa-bars"></i>
+                            </a>
+                            <a href="#searchTab">
+                                <i class="fas fa-search"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-3  col-5 d-md-block">
+                        <div class="iconsMenu">
+                            <ul>
+                                <li>
+                                    <a href="#">
+                                        <div class="listNum">
+                                            2
+                                        </div>
+                                        WishList <img src="./assets/imgs/wishlist.svg" alt="">
+                                    </a>
+                                </li>
+                                <li class="d-md-block d-none">
+                                    <a href="#">
+                                        Login<img src="./assets/imgs/user.svg" alt="">
+                                    </a>
+                                </li>
+                                <li class="d-md-block d-none">
+                                    <a href="#">
+                                        Add Property  <img src="./assets/imgs/plus.svg" alt="">
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-5 d-none d-md-block ">
+                        <div class="topRight text-end">
+                            <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Customize Service">
+                               Find Me Room
+                            </a>
+                            <a href="#" class="colorBtn"  data-bs-toggle="tooltip" data-bs-placement="left" title="" data-bs-original-title="🎈Home Flat Office Shifting Packers and Movers Transport Services in Kathmandu                            ">
+                                 <i class="fas fa-truck-pickup"></i> Shift Home
+                             </a>
+                        </div>
+                    </div>
+                    <div class="mobileBottom d-block d-md-none">
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    <i class="fas fa-home"></i>
+                                    Home
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fas fa-search"></i>
+                                    Find Me Room
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fas fa-user"></i>
+                                    Login / Signup
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fas fa-truck-moving"></i>
+                                    Shift Home
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Site Footer start -->
+    <!-- Lopgin signup Box -->
+    <section class="siteSec">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 signupleft">
+                    <div class="siteTitle mb-4">
+                        <h3>
+                           Boost This is Property Title
+                        </h3>
+                        <p>
+                            Scan For The Payment
+                        </p>
+                    </div>
+                    <img src="./assets/imgs/images.jfif" alt="">
+                    <ul class="signupMenu">
+                        <li>
+                            <a href="#">
+                                Terms and condition
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Privacy Policy
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                FAQ'S
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="siteTitle mb-4">
+                        <h3>
+                           Did You confirm Your Payment & read all the concept
+                        </h3>
+                    </div>
+                    <a href="#" class="colorBtn px-3 py-2">
+                        I understand and Proceed
+                    </a>
+                </div>
+                <div class="col-md-6 signupRight">
+                    <div class="ContactForm">
+                            <div class="">
+                                <h5 class="mb-2 text-center">
+                                    How to Boost
+                                </h5>
+                                <div class="stepDesign">
+                                    <div class="stepdesignSingle">
+                                        <div class="leftStep">
+                                            Step 1.
+                                        </div>
+                                        <div class="rightStep">
+                                            First <a href="">'Click here'</a> link
+                                        </div>
+                                    </div>
+                                    <div class="stepdesignSingle">
+                                        <div class="leftStep">
+                                           Step 2.
+                                        </div>
+                                        <div class="rightStep">
+                                            Go to active ads
+                                        </div>
+                                    </div>
+                                    <div class="stepdesignSingle">
+                                        <div class="leftStep">
+                                           Step 3.
+                                        </div>
+                                        <div class="rightStep">
+                                            Click on boost link
+                                        </div>
+                                    </div>
+                                    <div class="stepdesignSingle">
+                                        <div class="leftStep">
+                                           Step 4.
+                                        </div>
+                                        <div class="rightStep">
+                                            Fill out the given form and attach the payment screenshot or bill.
+                                        </div>
+                                    </div>
+                                    <div class="stepdesignSingle">
+                                        <div class="leftStep">
+                                           Step 5.
+                                        </div>
+                                        <div class="rightStep">
+                                            The admin will view your request and contact you to complete the further procedure.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="siteSec">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="siteTitle">
+                        <h3>
+                           Boosting Packages
+                        </h3>
+                    </div>
+                    <span class="d-block mb-4">
+                        Boosting in Kotha bhada refers to paying for the promotion of the property posted on the site and different social media like Facebook and Instagram, increasing the property's visibility, further creating a considerable demand.
+                    </span>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="card card-corner-md pricing-card">
+                        <div class="px-4 pt-3 pb-2">
+                            <h3 class="fw-normal opacity-7 mt-1 mb-4">
+                                Recommendation Boosting
+                            </h3>
+                            <div>
+                                <div class="pricing-table-price" data-total-price="29">
+                                    NPR. 1500
+                                    <span class="p1"> / One Time</span>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <span>
+                                    Ads Positioning :
+                                </span>
+                                <a data-src="./assets/imgs/homestay1.webp"
+                                data-fancybox="gallery"
+                                data-caption="Bed Room" >
+                                    <img src="./assets/imgs/rec.PNG" alt="">
+                                </a>
+                                <h4 class="opacity-7 mb-4">Plan Highlights</h4>
+                                <div class="p3 d-flex align-items-center mb-4">
+                                    <span class="svg-icon me-3" area-hidden="true"><svg width="22" height="23" fill="none" xmlns="http://www.w3.org/2000/svg"><defs></defs><path fill-rule="evenodd" clip-rule="evenodd" d="M9.017 3.216a9 9 0 015.646.557 1 1 0 10.814-1.826A11 11 0 1022 12v-.921a1 1 0 10-2 0V12A9 9 0 119.017 3.215zm12.69 1.49a1 1 0 00-1.415-1.413L11 12.595l-2.293-2.292a1 1 0 10-1.414 1.414l3 3a1 1 0 001.415 0l10-10.01z" fill="#9FA6B6"></path></svg></span>
+                                    <span>1 Week Recommended</span>
+                                </div>
+                                <div class="p3 d-flex align-items-center mb-4">
+                                    <span class="svg-icon me-3" area-hidden="true"><svg width="22" height="23" fill="none" xmlns="http://www.w3.org/2000/svg"><defs></defs><path fill-rule="evenodd" clip-rule="evenodd" d="M9.017 3.216a9 9 0 015.646.557 1 1 0 10.814-1.826A11 11 0 1022 12v-.921a1 1 0 10-2 0V12A9 9 0 119.017 3.215zm12.69 1.49a1 1 0 00-1.415-1.413L11 12.595l-2.293-2.292a1 1 0 10-1.414 1.414l3 3a1 1 0 001.415 0l10-10.01z" fill="#9FA6B6"></path></svg></span>
+                                    <span>Facebook Post</span>
+                                </div>
+                                <div class="p3 d-flex align-items-center mb-4">
+                                    <span class="svg-icon me-3" area-hidden="true"><svg width="22" height="23" fill="none" xmlns="http://www.w3.org/2000/svg"><defs></defs><path fill-rule="evenodd" clip-rule="evenodd" d="M9.017 3.216a9 9 0 015.646.557 1 1 0 10.814-1.826A11 11 0 1022 12v-.921a1 1 0 10-2 0V12A9 9 0 119.017 3.215zm12.69 1.49a1 1 0 00-1.415-1.413L11 12.595l-2.293-2.292a1 1 0 10-1.414 1.414l3 3a1 1 0 001.415 0l10-10.01z" fill="#9FA6B6"></path></svg></span>
+                                    <span>Youtube Post</span>
+                                </div>
+                                <div class="p3 d-flex align-items-center mb-4">
+                                    <span class="svg-icon me-3" area-hidden="true"><svg width="22" height="23" fill="none" xmlns="http://www.w3.org/2000/svg"><defs></defs><path fill-rule="evenodd" clip-rule="evenodd" d="M9.017 3.216a9 9 0 015.646.557 1 1 0 10.814-1.826A11 11 0 1022 12v-.921a1 1 0 10-2 0V12A9 9 0 119.017 3.215zm12.69 1.49a1 1 0 00-1.415-1.413L11 12.595l-2.293-2.292a1 1 0 10-1.414 1.414l3 3a1 1 0 001.415 0l10-10.01z" fill="#9FA6B6"></path></svg></span>
+                                    <span>Instagram Post</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="card card-corner-md pricing-card">
+                        <div class="px-4 pt-3 pb-2">
+                            <h3 class="fw-normal opacity-7 mt-1 mb-4">
+                                Featured Post Boosting
+                            </h3>
+                            <div>
+                                <div class="pricing-table-price" data-total-price="29">
+                                    NPR. 2500
+                                    <span class="p1"> / One Time</span>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <span>
+                                    Ads Positioning :
+                                </span>
+                                <a data-src="./assets/imgs/homestay1.webp"
+                                data-fancybox="gallery"
+                                data-caption="Bed Room" >
+                                    <img src="./assets/imgs/featured.PNG" alt="">
+                                </a>
+                                <h4 class="opacity-7 mb-4">Plan Highlights</h4>
+                                <div class="p3 d-flex align-items-center mb-4">
+                                    <span class="svg-icon me-3" area-hidden="true"><svg width="22" height="23" fill="none" xmlns="http://www.w3.org/2000/svg"><defs></defs><path fill-rule="evenodd" clip-rule="evenodd" d="M9.017 3.216a9 9 0 015.646.557 1 1 0 10.814-1.826A11 11 0 1022 12v-.921a1 1 0 10-2 0V12A9 9 0 119.017 3.215zm12.69 1.49a1 1 0 00-1.415-1.413L11 12.595l-2.293-2.292a1 1 0 10-1.414 1.414l3 3a1 1 0 001.415 0l10-10.01z" fill="#9FA6B6"></path></svg></span>
+                                    <span>1 Week Recommended</span>
+                                </div>
+                                <div class="p3 d-flex align-items-center mb-4">
+                                    <span class="svg-icon me-3" area-hidden="true"><svg width="22" height="23" fill="none" xmlns="http://www.w3.org/2000/svg"><defs></defs><path fill-rule="evenodd" clip-rule="evenodd" d="M9.017 3.216a9 9 0 015.646.557 1 1 0 10.814-1.826A11 11 0 1022 12v-.921a1 1 0 10-2 0V12A9 9 0 119.017 3.215zm12.69 1.49a1 1 0 00-1.415-1.413L11 12.595l-2.293-2.292a1 1 0 10-1.414 1.414l3 3a1 1 0 001.415 0l10-10.01z" fill="#9FA6B6"></path></svg></span>
+                                    <span>Facebook Post</span>
+                                </div>
+                                <div class="p3 d-flex align-items-center mb-4">
+                                    <span class="svg-icon me-3" area-hidden="true"><svg width="22" height="23" fill="none" xmlns="http://www.w3.org/2000/svg"><defs></defs><path fill-rule="evenodd" clip-rule="evenodd" d="M9.017 3.216a9 9 0 015.646.557 1 1 0 10.814-1.826A11 11 0 1022 12v-.921a1 1 0 10-2 0V12A9 9 0 119.017 3.215zm12.69 1.49a1 1 0 00-1.415-1.413L11 12.595l-2.293-2.292a1 1 0 10-1.414 1.414l3 3a1 1 0 001.415 0l10-10.01z" fill="#9FA6B6"></path></svg></span>
+                                    <span>Youtube Post</span>
+                                </div>
+                                <div class="p3 d-flex align-items-center mb-4">
+                                    <span class="svg-icon me-3" area-hidden="true"><svg width="22" height="23" fill="none" xmlns="http://www.w3.org/2000/svg"><defs></defs><path fill-rule="evenodd" clip-rule="evenodd" d="M9.017 3.216a9 9 0 015.646.557 1 1 0 10.814-1.826A11 11 0 1022 12v-.921a1 1 0 10-2 0V12A9 9 0 119.017 3.215zm12.69 1.49a1 1 0 00-1.415-1.413L11 12.595l-2.293-2.292a1 1 0 10-1.414 1.414l3 3a1 1 0 001.415 0l10-10.01z" fill="#9FA6B6"></path></svg></span>
+                                    <span>Instagram Post</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer>
+        <div class="container pb-4">
+            <div class="row">
+                <div class="col-md-3">
+                    <h4>
+                        Most Serach Locations
+                    </h4>
+                    <ul>
+                        <li>
+                            <a href="#">
+                                Samakhushui Kahnamandu
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Swyambhu Kathmandu
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Lekhnath Chowk Pokhara
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Byashi Bhaktapur
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Balkhu, Lalitpur
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Kirtipur Kathmandu
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h4>
+                        Quick Links
+                    </h4>
+                    <ul>
+                        <li>
+                            <a href="#">
+                                About Us
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Contact us
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                               Ask For Wastu
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Find Me Room
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                News and Blogs
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Customer Support
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h4>
+                        Accounts
+                    </h4>
+                    <ul>
+                        <li>
+                            <a href="#">
+                                My Account
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Listed Property
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Wishlist
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Top Rated
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Privacy policy
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Terms and Condition
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <img src="./assets/imgs/logo.jpg" alt="">
+                    <ul>
+                        <li>
+                            <a href="tel:9860881363">+977-9860560446</a>
+                        </li>
+                        <li>
+                            <a href="mail-to:mohamreet@gmail.com">mohamreet@gmail.com</a>
+                        </li>
+                    </ul>
+                    <ul class="contactForAdvetisement">
+                        <li>
+                            <a href="#">
+                                Contact For Advetisment
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="top-header-social-icons">
+                        <li><a href="https://www.facebook.com/" data-toggle="tooltip" data-placement="top" title="" data-original-title="Facebook"><i class="fab fa-facebook"></i></a></li>
+                        <li><a href="https://twitter.com" data-toggle="tooltip" data-placement="top" title="" data-original-title="Twitter"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="https://www.youtube.com/" data-toggle="tooltip" data-placement="top" title="" data-original-title="Youtube"><i class="fab fa-youtube"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="belowBottom border-top">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 text-center mb-3 pt-4">
+                        <p>
+                            Disclaimer: Classifieds is FREE online classified which enables individuals as well as companies to list wide variety of new or used product online. We at Classifieds believe that Internet is a great promotional vehicle as well as communication channel for connecting buyers and sellers. Classifieds is perfect solution which helps to list your products for free.
+                        </p>
+                    </div>
+                    <div class="col-md-6 text-center pt-4">
+                        <div class="newsLetter">
+                            <h4 class="pb-2">
+                                WIN A TICKET ENTER NOW
+                            </h4>
+                            <p>
+                                Subscribe to our newsletter and we’ll keep you up to date on our products and services
+                            </p>
+                            <form action="">
+                                <div class="d-flex suscribeForm">
+                                    <input type="text" placeholder="Enter Your Email Address" />
+                                    <button class="siteBtn">
+                                        <i class="flaticon-right-arrow"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="copyrightFooter pt-5 pb-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>
+                            1992-2022. All rights reserved to Kotha Bhada.com
+                        </p>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <p>
+                            Designed and Developed By
+                            <a href="#">
+                                Ivazz Technology
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Site footer ends -->
+    <!-- Portion of menu in footer -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileMenuBox" aria-labelledby="mobileMenuBoxLabel">
+        <nav class="siteNav">
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <a href="#" class="logo">
+                <div>
+                    <img src="./assets/imgs/logofinal.png" alt=""  width="151" height="28">
+                </div>
+            </a>
+            <ul>
+                <li>
+                    <a href="#">
+                        Property for Rent
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        Property for Sale
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        Wastu
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <!-- Serch Modal -->
+    <div class="modal fade" id="searchBox" tabindex="-1" aria-labelledby="searchBoxLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="searchForm">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <form action="">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-9">
+                                    <div class="fieldBox">
+                                        <i class="flaticon-hourglass"></i>
+                                        <label for="keyword">Keyword</label>
+                                        <input type="text" class="formCustom" placeholder="Search..." id="keywords" name="keywords">
+                                    </div>
+                                </div>
+                                <div class="col-3 text-end">
+                                    <button type="submit" class="siteBtn">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Search Modal -->
+    <div class="modal fade" id="searchOptions" tabindex="-1" role="dialog" aria-labelledby="searchOptionsLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Open modal for @mdo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./assets/js/jquery.min.js"></script>
+<script src="./assets/plugins/bootstrap/js/popover.min.js"></script>
+<script src="./assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="./assets/plugins/niceselect/jquery.nice-select.js"></script>
+<script src="./assets/plugins/slider/swiper.min.js"></script>
+<script src="./assets/js/jquery-ui.min.js"></script>
+<script src="./assets/js/select.min.js"></script>
+<script src="./assets/js/datepicker/theme/js/t-datepicker.min.js"></script>
+<script src="./assets/js/scripts.js"></script>
+<script>
+    //js lazyload on image tag
+    document.addEventListener("DOMContentLoaded", function() {
+        var lazyloadImages;
+
+        if ("IntersectionObserver" in window) {
+            lazyloadImages = document.querySelectorAll(".lazy");
+            var imageObserver = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        var image = entry.target;
+                        image.src = image.dataset.src;
+                        image.classList.remove("lazy");
+                        imageObserver.unobserve(image);
+                    }
+                });
+            });
+
+            lazyloadImages.forEach(function(image) {
+                imageObserver.observe(image);
+            });
+        } else {
+            var lazyloadThrottleTimeout;
+            lazyloadImages = document.querySelectorAll(".lazy");
+
+            function lazyload () {
+                if(lazyloadThrottleTimeout) {
+                    clearTimeout(lazyloadThrottleTimeout);
+                }
+
+                lazyloadThrottleTimeout = setTimeout(function() {
+                    var scrollTop = window.pageYOffset;
+                    lazyloadImages.forEach(function(img) {
+                        if(img.offsetTop < (window.innerHeight + scrollTop)) {
+                            img.src = img.dataset.src;
+                            img.classList.remove('lazy');
+                        }
+                    });
+                    if(lazyloadImages.length == 0) {
+                        document.removeEventListener("scroll", lazyload);
+                        window.removeEventListener("resize", lazyload);
+                        window.removeEventListener("orientationChange", lazyload);
+                    }
+                }, 20);
+            }
+
+            document.addEventListener("scroll", lazyload);
+            window.addEventListener("resize", lazyload);
+            window.addEventListener("orientationChange", lazyload);
+        }
+    })
+    //js only for home stay page
+    new SlimSelect({
+  select: '.customLocation'
+});
+</script>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<link rel="stylesheet" href="./assets/icons/fontawesome/all.min.css">
+<link rel="stylesheet" href="./assets/plugins/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="./assets/css/style.css">
+
+<style>
+    .flexingBox{
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        flex-direction: column;
+        height: 100vh;
+    }
+    .frontLoadingBox {
+        background: #fafafa;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+.load-box{
+    text-align: center;
+    margin: 40px;
+    position: relative;
+    transition: 0.8s ease-in-out;
+
+}
+
+    .load-box:hover{
+        transform: scale(1.4);
+    }
+span {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1f3a54;
+    margin-bottom: 0.2rem;
+    display: block;
+}
+.icon img{
+    margin-bottom: 0.3rem;
+}
+@keyframes animate {
+  50% {
+    transform: scale(1.4);
+  }
+}
+p{
+    margin-bottom: 20px;
+    font-size: 1rem;
+}
+</style>
+<body>
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-12">
+                <div class="flexingBox">
+                    <div class="logoBox">
+                        <img src="./assets/imgs/kothabhada-logofinal.png" height="50" alt="" class="mb-4">
+                    </div>
+                    <div class="siteTitle">
+                        <p>
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quos dolorem omnis esse quidem sed error, repudiandae illo minus iure illum. Inventore doloribus iure, tenetur odio doloremque ex, dolore, natus repudiandae quia pariatur alias ipsam modi aliquam incidunt recusandae est aperiam quam? Ex dolorum expedita architecto, dolor laboriosam impedit explicabo id ea culpa laudantium quae quam accusantium, deserunt distinctio tempora rem, deleniti iusto quo asperiores. Obcaecati, placeat?
+                        </p>
+                        <h3 style="font-size: 24px;text-transform: uppercase;">
+                          Select You Looking For
+                        </h3>
+                    </div>
+                    <div class="frontLoadingBox">
+                        <div class="load-box">
+                            <a href="index.html">
+                                <div class="loading2">
+                                </div>
+                                <div class="icon">
+                                    <img src="./assets/imgs/rrom.svg" alt="" height="30px" width="30px">
+                                </div>
+                                <span>
+                                    Kotha Bhada
+                                </span>
+                            </a>
+                                <ul>
+                                    <li>
+                                        <a href="#">
+                                            # Login /Signup
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            # Add Free Ads
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            # View All Listing
+                                        </a>
+                                    </li>
+                                </ul>
+                        </div>
+                            <div class="load-box">
+                                <a href="homestayindex.html">
+                                    <div class="loading2">
+                                    </div>
+                                    <div class="icon">
+                                        <img src="./assets/imgs/homestay.svg" alt=""  height="30px" width="30px">
+                                    </div>
+                                    <span>
+                                        Home Stay
+                                    </span>
+                                </a>
+                                    <ul>
+                                        <li>
+                                            <a href="#">
+                                                # Login /Signup
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                # Become a Host
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                # View All Home Stay
+                                            </a>
+                                        </li>
+                                    </ul>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,291 @@
+@media(min-width:767.9px){
+
+}
+@media(max-width:991.9px){
+    body{
+        font-size: 12px;
+    }
+    .logo > div{
+        font-size: 1.2rem;
+    }
+    .mobileNavi{
+        display: flex;
+        align-items: center;
+        a{
+            display: block;
+            padding: 0 20px;
+            font-size: 1.2rem;
+        }
+    }
+    .topRight a{
+        padding: 4px 15px;
+    }
+    .bannerImg{
+        img{
+        }
+        .bannerCaption{
+            *{
+                line-height: 27px;
+            }
+            .bannersubTitle{
+                font-size: 1rem;
+            }
+            .bannerTitle{
+                font-size: 2rem;
+                font-weight: 600;
+            }
+            .tempOf{
+                font-size: 1rem;
+                display: inline-block
+            }
+        }
+    }
+    .bannerSec{
+        padding-bottom: 0rem;
+        margin-top: 0;
+    }
+    .siteSec{
+        .secTitle{
+            font-size: 1.4rem;
+            &~p{
+                font-size: 14px;
+            }
+        }
+    }
+    .innerActiBox{
+        padding: 10px;
+    }
+    .actiSec .clickableSing{
+        height: 30px;
+        width: 30px;
+        top: 110%;
+        left: 40%;
+        &::after{
+            font-size: 18px;
+        }
+    }
+    .swiper-button-next.clickableSing {
+        left: 51%;
+    }
+    .searchForm{
+        position: unset;
+        padding: 20px 10px;
+        margin-top: 30px;
+        transform: translate(00);
+        box-shadow: 0 0 10px #eee;
+        border: 1px #eee solid;
+        left: unset;
+    }
+    .searchForm .nav-tabs .nav-link{
+        font-size: 12px;
+    }
+    .mb-search__title::after{
+        top: 25px !important;
+    }
+    .mb-search__property .mb-search__dropdown{
+        width: 100% !important;
+    }
+    .searchForm {
+        .formCustom{
+            font-size: 12px;
+            margin-bottom: 20px;
+
+        }
+        label{
+            font-size: 14px;
+        }
+        .fieldBox{
+        }
+        .price-range-slider {
+            margin-bottom: 44px;
+        }
+    }
+//    div#searchTab{
+//        display: none;
+//     }
+    .col-md-25{
+        flex: 0 0 33.33%;
+    }
+    .recomedPro{
+        margin-bottom: 1.5rem;
+    }
+}
+@media(max-width:767.9px){
+    .singleProductImg{
+        z-index: -1;
+    }
+    .dualOption {
+        flex-direction: column;
+    }
+    .contactFrom{
+        margin-top: 3rem;
+    }
+    .iconsMenu ul{
+        justify-content: space-around;
+    }
+    .col-md-25{
+        flex: 0 0 50%;
+    }
+    .timeline{
+        &:last-child{
+            margin-bottom: 2.5rem;
+        }
+    }
+    .aboutUsSec .col-md-8{
+        margin-bottom: 2.5rem;
+    }
+    .col-md-4{
+        &:last-child{
+            .singleTest{
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .singleTest{
+        margin-bottom: 2rem;
+
+    }
+    .aboutUsSec{
+        padding: 30px 0;
+    }
+    .productGallery img{
+        height: 120px;
+    }
+    .productGallery .largeImg img {
+        height: 250px;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+    .yt-lazyload{
+        border-top-right-radius: 0;
+
+    }
+    .productGallery .smallPhotoes .col-md-6:nth-child(4) img{
+        border-bottom-right-radius: 0;
+    }
+    .profileBox{
+        display: none;
+    }
+    .dashNav {
+        width: 50px;
+        visibility: visible !important;
+        transform: none;
+        &.show{
+            width: 200px;
+            position: fixed !important;
+            li{
+                a{
+                    span{
+                        display: block !important;
+                    }
+                }
+            }
+        }
+    }
+    #mobileMenuBox .siteNav .dashboardMenu li a,#dashMenu .siteNav .dashboardMenu li a{
+        padding: 10px 7px;
+        i{
+            margin-left: 0;
+        }
+        span{
+            display: none;
+        }
+    }
+    .closeBtnDash {
+        position: absolute;
+        right: -42px !important;
+        background-color: #fff !important;
+        background-image: unset !important;
+        height: 35px;
+        width: 35px;
+        border: 1px #eee solid;
+        border-radius: 50% !important;
+        padding: 7px !important;
+    }
+    .commentsListing .commentNoti {
+        flex-direction: column;
+        padding: 5px;
+    }
+    .commentsListing .commentNoti span{
+        flex: 0 0 30%;
+    }
+    .commentsListing h6{
+        font-size: 16px !important;
+    }
+    .commentsListing{
+        margin-top: 0;
+        padding: 20px 0;
+    }
+    .signupRight .moreDetailSignup{
+        padding: 10px;
+    }
+    .listingBoxes .nav-tabs{
+        flex-wrap: nowrap;
+    }
+    .midtop{
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+    .mb-search__location{
+        width: 100% !important;
+    }
+    .mb-search__property{
+        width: 100% !important;
+        height: 60px !important;
+        margin-top: 30px !important;
+        border-radius: 32px;
+        box-shadow: 0 3px 12px -9px rgba(0 ,0, 0, 0.4);
+        border: solid 1px #909090;
+        background-color: #fff;
+        padding-left: 40px !important;
+    }
+    .mb-search__title{
+        line-height: 60px !important;
+
+    }
+    .mb-search__budget {
+        width: 100% !important;
+        height: 60px !important;
+        margin: 0px auto;
+        border-radius: 32px;
+        box-shadow: 0 3px 12px -9px rgba(0 ,0, 0, 0.4);
+        border: solid 1px #909090;
+        background-color: #fff;
+        padding-left: 40px !important;
+    }
+    .mb-search__property::before{
+        top: 22px !important;
+        left: 20px !important;
+    }
+    .mb-search__budget::before{
+        top: 22px !important;
+        left: 20px !important;
+    }
+    .mb-search__budget{
+        width: 100% !important;
+    }
+    .mb-search__btn{
+        width: 100% !important;
+    }
+    .mb-search__wrap{
+        width: 100% !important;
+    }
+}
+.singleStatBox{
+    margin-bottom: 30px;
+}
+@media(max-width:480px){
+    .col-md-25{
+        flex: 0 100%;
+    }
+
+}
+@media(max-width:400px){
+    .mobileNavi a{
+        padding: 0 10px;
+    }
+    .mobileBottom ul li{
+        flex: unset;
+    }
+}

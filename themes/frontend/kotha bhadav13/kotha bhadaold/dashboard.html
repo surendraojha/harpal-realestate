@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/jpg" href="./assets/imgs/favicon.jpg"/>
+
+    <title>Kotha Bdada.com One Destination For Rooms and Property</title>
+</head>
+<link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+<link href="//fonts.googleapis.com/css?family=Rubik:300,400,500,700,900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./assets/icons/fontawesome/all.min.css">
+<link rel="stylesheet" href="./assets/plugins/slider/swiper.min.css">
+<link rel="stylesheet" href="./assets/icons/flaticon/flaticon.css">
+<link rel="stylesheet" href="./assets/plugins/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="./assets/css/jquery-ui.min.css">
+<link rel="stylesheet" href="./assets/css/select.min.css">
+<link rel="stylesheet" href="./assets/js/datepicker/theme/css/t-datepicker.min.css">
+<link rel="stylesheet" href="./assets/js/datepicker/theme/css/themes/t-datepicker-blue.css">
+<link rel="stylesheet" href="./assets/css/style.css">
+
+<body>
+    <section class="dashboardSec">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2 col-2">
+                    <div class="offcanvas dashNav offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="dashMenu" aria-controls="offcanvasScrolling" style="position: relative;">
+                        <nav class="siteNav">
+                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                            <button class="closeBtnDash" type="button" data-bs-toggle="offcanvas" data-bs-target="#dashMenu" aria-controls="dashMenu">
+                                <i class="fas fa-angle-right"></i>
+                              </button>
+                            <a href="#" class="profileBox">
+                                <div>
+                                    <img src="./assets/imgs/user.png" alt="" height="50px" width="50px">
+                                    Hello Mr. Diwash 
+                                </div>
+                            </a>
+                            <ul class="dashboardMenu">
+                                <li>
+                                    <a href="#" class="active">
+                                        <i class="fas fa-cookie"></i>
+                                        <span>
+                                            Dashboard
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fas fa-home"></i>
+                                        <span>
+                                            My Property
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fas fa-heart"></i>
+                                        <span>
+                                            Wishlist
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fas fa-user"></i>
+                                        <span>
+                                            Profile
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fas fa-chart-bar"></i>
+                                        <span>
+                                            Stastcis
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fas fa-cog"></i>
+                                        <span>
+                                            Setting
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                        <span>
+                                            Logout
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-md-10 col-10">
+                    <div class="row py-2 align-items-center">
+                        <div class="col-md-2 col-4 order-1">
+                            <a href="#">
+                                <img src="./assets/imgs/kothabhada-logofinal.png" alt="">
+                            </a>
+                        </div>
+                        <div class="col-md-7 col-12 order-3 order-md-2">
+                            <form action="">
+                                <div class="customForm d-flex">
+                                    <input type="text" class="mb-0" placeholder="Type Here to Search">
+                                    <button class="px-4 py-3 customBtn" style="padding: unset;">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-3 col-6 text-end order-2 order-md-3">
+                            <a href="#" class="colorBtn py-2 px-4" data-bs-toggle="tooltip" data-bs-placement="left" title="" data-bs-original-title="🎈Home Flat Office Shifting Packers and Movers Transport Services in Kathmandu                            ">
+                               <i class="fas fa-plus"></i> Add Listing
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+<script src="./assets/js/jquery.min.js"></script>
+<script src="./assets/plugins/bootstrap/js/popover.min.js"></script>
+<script src="./assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="./assets/plugins/niceselect/jquery.nice-select.js"></script>
+<script src="./assets/plugins/slider/swiper.min.js"></script>
+<script src="./assets/js/jquery-ui.min.js"></script>
+<script src="./assets/js/select.min.js"></script>
+<script src="./assets/js/datepicker/theme/js/t-datepicker.min.js"></script>
+<script src="./assets/js/scripts.js"></script>
+<script>
+    //js lazyload on image tag
+    document.addEventListener("DOMContentLoaded", function() {
+        var lazyloadImages;    
+        
+        if ("IntersectionObserver" in window) {
+            lazyloadImages = document.querySelectorAll(".lazy");
+            var imageObserver = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        var image = entry.target;
+                        image.src = image.dataset.src;
+                        image.classList.remove("lazy");
+                        imageObserver.unobserve(image);
+                    }
+                });
+            });
+            
+            lazyloadImages.forEach(function(image) {
+                imageObserver.observe(image);
+            });
+        } else {  
+            var lazyloadThrottleTimeout;
+            lazyloadImages = document.querySelectorAll(".lazy");
+            
+            function lazyload () {
+                if(lazyloadThrottleTimeout) {
+                    clearTimeout(lazyloadThrottleTimeout);
+                }    
+                
+                lazyloadThrottleTimeout = setTimeout(function() {
+                    var scrollTop = window.pageYOffset;
+                    lazyloadImages.forEach(function(img) {
+                        if(img.offsetTop < (window.innerHeight + scrollTop)) {
+                            img.src = img.dataset.src;
+                            img.classList.remove('lazy');
+                        }
+                    });
+                    if(lazyloadImages.length == 0) { 
+                        document.removeEventListener("scroll", lazyload);
+                        window.removeEventListener("resize", lazyload);
+                        window.removeEventListener("orientationChange", lazyload);
+                    }
+                }, 20);
+            }
+            
+            document.addEventListener("scroll", lazyload);
+            window.addEventListener("resize", lazyload);
+            window.addEventListener("orientationChange", lazyload);
+        }
+    })
+    //js only for home stay page
+    new SlimSelect({
+  select: '.customLocation'
+});
+</script>
+</html>

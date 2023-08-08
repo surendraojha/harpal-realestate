@@ -1,0 +1,7 @@
+.optionalPages{
+    position:sticky;
+    top:6rem;
+}
+.append-locations textarea.select2-search__field {
+    height: 48px !important;
+}

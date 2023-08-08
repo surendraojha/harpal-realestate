@@ -1,0 +1,309 @@
+.form-select{
+    border: 0;
+    border-bottom: 2px solid #eaeaea;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 500;
+    color: #3b444f;
+}
+.elseContinue{
+    ul{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        li{
+            margin: 7px;
+
+        }
+    }
+    h6{
+        font-size: 20px !important;
+        text-align: center;
+    }
+    button{
+        padding: 4px 20px;
+        background-color: #fff;
+        border: 1px $secondaryColor solid;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        svg{
+            margin-right: 0.4rem;
+        }
+        &:hover{
+            border-color: $primary;
+            background-color: $primary;
+            color: $whitecolor;
+        }
+    }
+}
+//left sidfe of signup
+.signupleft{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    img{
+        border-radius: 15px;
+    }
+    .siteTitle{
+        img{
+            max-width: 100%;
+            width: unset;
+            height: 80px;
+            margin-bottom: 0.9rem;
+        }
+        h3{
+            font-size: 28px;
+            margin-bottom: 0.4rem;
+            font-weight: 400;
+            text-transform: uppercase;
+        }
+    }
+    .signupMenu{
+        display: flex;
+        color: $primary;
+        margin-top: 32px;
+        li{
+            margin: 10px;
+            list-style-type: circle;
+            a{
+                margin-right: 15px;
+                &:hover{
+                    color: #333;
+                }
+            }
+        }
+    }
+}
+.termsandConditionText{
+    font-size: 14px;
+    a{
+        color: $primary;
+    }
+}
+.OrText {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 24px;
+}
+.signupRight{
+    .ContactForm{
+        padding: 0 0 0 20px; 
+        background-color: #fff;
+        border: 0;
+        border-left: 1px rgb(221, 221, 221) solid;
+        h5{
+            font-size: 28px;
+            font-weight: 400;
+            text-transform: uppercase;
+        }
+    }
+    img#profileImage {
+        height: 100px;
+        width: 100px;
+        border-radius: 50%;
+        background-color: #eee;
+        border: 2px $primary solid;
+    }
+    label.editText {
+        background-color: #f65104;
+        padding: 4px 10px;
+        color: #fff;
+        border-radius: 4px;
+    }
+    .profileImageBox{
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        .inputBox {
+            i{
+                position: absolute;
+                bottom: 5px;
+                background-color: rgba(51, 51, 51, 0.165);
+                padding: 10px;
+                font-size: 18px;
+                border-radius: 50%;
+                right: 0;
+                color: #fff;
+            }
+        }
+    }
+    .form-check{
+        margin-right: 15px;
+    }
+    .customForm{
+        position: relative;
+        i{
+            &.fa-trash{
+                position: absolute;
+                right: 9px;
+                top: 2px;
+                height: 46px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: #f65104;
+                padding: 10px;
+                color: #fff;
+            }
+        }
+    }
+    .a,.remove{
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        .fa-plus{
+            margin-left: 0.3rem;
+        }
+    }
+    .a{
+        color: $primary;
+    }
+    h6{
+        font-size: 24px;
+        margin-bottom: 20px;
+        font-weight: 400;
+    }
+}
+.profileBox{
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px #eee solid;
+    display: block;
+    div{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        img{
+            margin-bottom: 0.3rem;
+        }
+    }
+}
+#mobileMenuBox,#dashMenu {
+    .siteNav {
+        .dashboardMenu{
+            li{
+                a{
+                    padding: 20px 7px;
+                    display: flex;
+                    align-items: center;
+                    text-transform: capitalize;
+                    i{
+                        font-size: 24px;
+                        margin-right: 0.4rem;
+                    }
+                    &.active{
+                        background-color: $primary;
+                        color: #fff;
+                        &:hover{
+                            color: $whitecolor;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.customForm {
+    .customBtn{
+        margin-left: 0 !important;
+        border: 0;
+        border-bottom: 2px solid #eaeaea;
+        background-color: #fff;
+        border-radius: 0;
+        padding: 6px 12px !important;
+    }
+    .colorBtn{
+        display: block;
+        width: 100%;
+        margin-left: 0;
+        margin-top: 30px;
+        padding: 13px 0;
+        font-size: 14px;
+    }
+}
+.ContactForm{
+    a{
+        color: $primary;
+    }
+}
+.signupRight {
+    .moreDetailSignup{
+        margin: 00px;
+        padding-left: 0;
+        padding: 30px;
+        border: 0px #eee solid;
+    }
+}
+.radioTitle{
+    font-size: 16px;
+    margin-bottom: 0.6rem;
+    display: block;
+}
+//user dahboard tab and fade
+.listingBoxes {
+    .nav-tabs {
+        margin-bottom: 1.2rem;
+            .nav-item{
+                .nav-link{
+                    color: $primary;
+                    &.active,&.show{
+                        border: unset;
+                        color: $secondaryColor;
+                        border-bottom: 1px $secondaryColor solid;
+                    }
+                }
+            }
+    }
+}
+.singleenterBox{
+    padding: 20px;
+    background-color: #f4f4fe;
+    h4{
+        font-size: 20px;
+        font-weight: 400;
+        margin-bottom: 0.4rem;
+    }
+    span{
+        font-size: 14px;
+        font-weight: 600;
+    }
+    img{
+        height: 80px;
+        border-radius: 15px;
+    }
+    .location,.pricong,.removeBox{
+        font-size: 14px;
+    }
+    .pricong{
+        color: $primary;
+        font-weight: 500;
+    }
+}
+//stastics
+.singleStatBox{
+    text-align: center;
+    background-color: $primary;
+    padding: 30px;
+    border-radius: 5px;
+    *{
+        color: $whitecolor;
+    }
+    h4{
+        font-size: 32px;
+        font-weight: 400;
+        margin-bottom: 0.5rem;
+    }
+    .statNum{
+        font-size: 20px;
+    }
+}
