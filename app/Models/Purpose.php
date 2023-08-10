@@ -12,4 +12,8 @@ class Purpose extends Model
     public function category(){
         return $this->belongsTo(Category::class,'category_id');
     }
+
+    public function property(){
+        return $this->hasMany(Property::class,'purpose_id');
+    }
 }

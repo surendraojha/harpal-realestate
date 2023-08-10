@@ -50,4 +50,10 @@ class Property extends Model
     public function boostPost(){
         return $this->hasOne(BoostPost::class,'property_id');
     }
+
+
+    public function wishlist(){
+        return $this->hasMany(WishList::class,'property_id');
+
+    }
 }

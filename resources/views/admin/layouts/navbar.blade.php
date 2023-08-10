@@ -111,6 +111,9 @@
                 'sub-category.index',
                 'sub-category.edit',
 
+                'child-category.index',
+                'child-category.edit',
+
                 'location.index',
                 'location.edit',
 
@@ -151,7 +154,7 @@
                 <li class="@if (in_array($current_route, $route)) active @endif">
                     <a href="{{ route('category.index') }}">
                         &nbsp;&nbsp;&nbsp;&nbsp;
-                        <span>Rental Type</span></a>
+                        <span>Main Category</span></a>
                 </li>
 
                 @php
@@ -162,8 +165,25 @@
                     <a href="{{ route('sub-category.index') }}">
                         &nbsp;&nbsp;&nbsp;&nbsp;
 
-                        <span>Categories</span></a>
+                        <span>Sub Category</span></a>
                 </li>
+
+
+                @php
+                $route = [
+                            'child-category.index',
+                            'child-category.edit',
+
+
+                        ];
+                 @endphp
+                <li class="@if (in_array($current_route, $route)) active @endif">
+                    <a href="{{ route('child-category.index') }}">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <span>Child Category</span></a>
+                </li>
+
+
                 @php
                     $route = ['location.index', 'location.edit'];
                 @endphp

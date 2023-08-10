@@ -46,29 +46,29 @@
                         <li class="nav-item"><a class="nav-link @if(!session()->get('errors')) active show @endif"
                                 data-toggle="tab" href="#Users">{{$module}} list
                             </a></li>
-                        {{-- <li class="nav-item"><a class="nav-link @if(session()->get('errors')) active show @endif"
+                        <li class="nav-item"><a class="nav-link @if(session()->get('errors')) active show @endif"
                                 data-toggle="tab" href="#addUser">Add {{$module}}
-                            </a></li> --}}
+                            </a></li>
                     </ul>
                     <div class="tab-content mt-0">
                         <div class="tab-pane  @if(!session()->get('errors')) active show @endif" id="Users">
                             <div class="table-responsive">
                                 <form method="post">
                                     @csrf
-                                    {{-- <button class="btn btn-danger" onclick="return confirm('Are You Sure?')"
+                                    <button class="btn btn-danger" onclick="return confirm('Are You Sure?')"
                                         formaction="{{ route('category.delete') }}" type="submit">
                                         <i class="fa fa-trash"></i>
-                                    </button> --}}
+                                    </button>
 
                                     <table class="table table-hover table-custom spacing8" id="myTable">
                                         <thead>
                                             <tr>
-                                                {{-- <th>
+                                                <th>
                                                     <label class="fancy-checkbox">
                                                         <input class="checkbox-tick" type="checkbox" id="check_all">
                                                         <span>#</span>
                                                     </label>
-                                                </th> --}}
+                                                </th>
                                                 <th>Title</th>
                                                 <th>Created At</th>
                                                 <th>Action</th>
@@ -79,14 +79,14 @@
                                             @foreach ($informations as $value)
 
                                             <tr>
-                                                {{-- <td>
+                                                <td>
 
                                                     <label class="fancy-checkbox">
                                                         <input class="checkbox-tick checkitem" type="checkbox"
                                                             name="id[]" value="{{ $value->id }}">
                                                         <span></span>
                                                     </label>
-                                                </td> --}}
+                                                </td>
 
                                                 <td>{{$value->title}}</td>
 

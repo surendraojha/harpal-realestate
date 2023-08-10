@@ -130,6 +130,10 @@ class PropertyController extends Controller
      */
     public function create(){
 
+        $data['categories'] = Category::where('level',1)->get();
+
+        $data['purposes'] = Purpose::orderBy('order')->get();
+        return view('front-new.property.create');
 
         return view('front.property.create');
     }

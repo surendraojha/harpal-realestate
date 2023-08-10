@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 
 class SubCategoryController extends Controller
 {
-
+    public $module;
     public function __construct(){
         $this->module = 'Category';
     }
@@ -152,7 +152,7 @@ class SubCategoryController extends Controller
             $information->slug = Str::slug($request->title).'-KB'.date('ymdhis');
 
         }
-        $information->depth =2;
+        // $information->depth =2;
         $information->order = $request->order;
         $information->status = $request->status;
         $information->parent = $request->parent;

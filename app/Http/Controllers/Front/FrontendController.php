@@ -25,6 +25,7 @@ use App\Models\Page;
 use App\Models\Partner;
 use App\Models\Property;
 use App\Models\PropertyFeature;
+use App\Models\Purpose;
 use App\Models\RecommendedProperty;
 use App\Models\RoadSize;
 use App\Models\Setting;
@@ -40,30 +41,31 @@ use Spatie\Menu\Laravel\Link;
 class FrontendController extends Controller
 {
 
-    public function index(){
-        $meta = Meta::where('module','Home Page')->first();
-        $testimonials = CustomerStory::where('status','!=','0')->orderBy('order')->get();
+    public function index()
+    {
+        $meta = Meta::where('module', 'Home Page')->first();
+        $testimonials = CustomerStory::where('status', '!=', '0')->orderBy('order')->get();
 
         $categories = Category::with('subcategory')->orderBy('order')->has('subcategory')->get();
 
-        $locations = Location::orderBy('order')->where('status',1)->get();
+        $locations = Location::orderBy('order')->where('status', 1)->get();
 
 
         $recommended_properties = RecommendedProperty::orderBy('order')->with('property')->limit(5)->get();
 
         $featured_properties = FeaturedProperty::orderBy('order')->with('property')->limit(5)->get();
 
-        $new_deals = Property::orderBy('id','DESC')->where('status','!=','0')->limit(12)->get();
+        $new_deals = Property::orderBy('id', 'DESC')->where('status', '!=', '0')->limit(12)->get();
 
         $about_us = AboutUs::first();
 
 
         $homepage_categories =  Category::whereNull('parent')->orderBy('order')->get();
 
-        $homepage_properties = HomePageProduct::orderBy('order')->pluck('property_id','property_id')->toArray();
+        $homepage_properties = HomePageProduct::orderBy('order')->pluck('property_id', 'property_id')->toArray();
 
 
-        $partners = Partner::where('status','1')->limit(6)->orderBy('order')->get();
+        $partners = Partner::where('status', '1')->limit(6)->orderBy('order')->get();
 
 
         // for filtering
@@ -78,40 +80,60 @@ class FrontendController extends Controller
         //         ->price;
 
 
-        $forums = SupportForum::where('status','!=','0')
-                ->whereNull('parent')
-                ->orderBy('id','DESC')
-                ->limit(2)
-                ->get();
+        $forums = SupportForum::where('status', '!=', '0')
+            ->whereNull('parent')
+            ->orderBy('id', 'DESC')
+            ->limit(2)
+            ->get();
 
-        $above_featured = AdvertisementPosition::where('position','above-featured-product')->get();
+        $above_featured = AdvertisementPosition::where('position', 'above-featured-product')->get();
 
         // dd($above_featured);
-        $below_featured = AdvertisementPosition::where('position','below-featured-product')->get();
+        $below_featured = AdvertisementPosition::where('position', 'below-featured-product')->get();
 
 
 
 
 
-        $between_home_page_product = AdvertisementPosition::where('position','between-home-page')->get();
+        $between_home_page_product = AdvertisementPosition::where('position', 'between-home-page')->get();
 
-        $below_home_page_product = AdvertisementPosition::where('position','below-home-page-product')->get();
-
-
-        $below_new_deals= AdvertisementPosition::where('position','below-new-deals')->get();
-
-        $below_forum = AdvertisementPosition::where('position','below-forum')->get();
-
-        $below_recommended = AdvertisementPosition::where('position','below-recommended')->get();
-
-        $below_about_us = AdvertisementPosition::where('position','below-about-us')->get();
+        $below_home_page_product = AdvertisementPosition::where('position', 'below-home-page-product')->get();
 
 
-        $category = Category::orderBy('order')->whereNull('parent')->where('status',1)->get();
+        $below_new_deals = AdvertisementPosition::where('position', 'below-new-deals')->get();
+
+        $below_forum = AdvertisementPosition::where('position', 'below-forum')->get();
+
+        $below_recommended = AdvertisementPosition::where('position', 'below-recommended')->get();
+
+        $below_about_us = AdvertisementPosition::where('position', 'below-about-us')->get();
 
 
-        return view('front.index',
-            compact('testimonials',
+        $data['categories'] = $categories = Category::orderBy('order')->whereNull('parent')->where('status', 1)->get();
+
+        $data['purposes'] = Purpose::orderBy('order')->get();
+
+        $data['recent_properties'] = Property::where('status', 1)
+            ->orderBy('id', 'desc')
+            ->limit(8)
+            ->get();
+
+
+        $data['recommended_properties'] = RecommendedProperty::
+            orderBy('id', 'desc')
+            ->limit(8)
+            ->get();
+
+        $data['main_categories'] = Category::where('depth',1)->get();
+
+        $data['featured_properties'] = FeaturedProperty::orderBy('order')->get();
+        return view('front-new.index', $data);
+
+
+        return view(
+            'front.index',
+            compact(
+                'testimonials',
                 'categories',
                 'locations',
                 'recommended_properties',
@@ -145,9 +167,10 @@ class FrontendController extends Controller
             )
         );
     }
-    public function rentalHome(){
+    public function rentalHome()
+    {
 
-        $testimonials = CustomerStory::where('status','!=','0')->orderBy('order')->get();
+        $testimonials = CustomerStory::where('status', '!=', '0')->orderBy('order')->get();
 
         $categories = Category::with('subcategory')->orderBy('order')->has('subcategory')->get();
 
@@ -158,31 +181,33 @@ class FrontendController extends Controller
 
         $featured_properties = FeaturedProperty::orderBy('order')->with('property')->get();
 
-        $new_deals = Property::orderBy('id','DESC')->limit(10)->get();
+        $new_deals = Property::orderBy('id', 'DESC')->limit(10)->get();
 
         $about_us = AboutUs::first();
 
 
         $homepage_categories =  Category::whereNull('parent')->orderBy('order')->get();
-        $homepage_properties = HomePageProduct::orderBy('order')->pluck('property_id','property_id')->toArray();
+        $homepage_properties = HomePageProduct::orderBy('order')->pluck('property_id', 'property_id')->toArray();
 
 
-        $partners = Partner::where('status','1')->orderBy('order')->get();
+        $partners = Partner::where('status', '1')->orderBy('order')->get();
 
 
         // for filtering
         $max = Property::max('price');
         $min = Property::min('price');
 
-        $forums = SupportForum::where('status','!=','0')
-                ->whereNull('parent')
-                ->orderBy('id','DESC')
-                ->limit(2)
-                ->get();
+        $forums = SupportForum::where('status', '!=', '0')
+            ->whereNull('parent')
+            ->orderBy('id', 'DESC')
+            ->limit(2)
+            ->get();
 
 
-        return view('front.index',
-            compact('testimonials',
+        return view(
+            'front.index',
+            compact(
+                'testimonials',
                 'categories',
                 'locations',
                 'recommended_properties',
@@ -200,38 +225,40 @@ class FrontendController extends Controller
     }
 
 
-    public function shifthome(){
+    public function shifthome()
+    {
 
-        $shift_home_items = ShiftHomeItem::orderBy('order')->where('status',1)->get();
-        $meta = Meta::where('module','Shift Home Page')->first();
-        return view('front.shift-home.index',
-            compact('shift_home_items','meta')
+        $shift_home_items = ShiftHomeItem::orderBy('order')->where('status', 1)->get();
+        $meta = Meta::where('module', 'Shift Home Page')->first();
+        return view(
+            'front.shift-home.index',
+            compact('shift_home_items', 'meta')
         );
-
     }
-    public function shiftHomePost(Request $request){
+    public function shiftHomePost(Request $request)
+    {
 
 
 
-       if($request->when == 'Instant Booking'){
+        if ($request->when == 'Instant Booking') {
             $rules = [
-                'type'=>'required',
-                'pick_up_location'=>'required',
-                'drop_off_location'=>'required',
-                'phone'=>'required',
-                'when'=>'required'
+                'type' => 'required',
+                'pick_up_location' => 'required',
+                'drop_off_location' => 'required',
+                'phone' => 'required',
+                'when' => 'required'
 
             ];
-        }else{
+        } else {
             $rules = [
-                'type'=>'required',
-                'pick_up_location'=>'required',
-                'drop_off_location'=>'required',
-                'phone'=>'required',
-                'email'=>'email|required',
-                'when'=>'required',
-                'schedule_time'=>'required',
-                'schedule_date'=>'required'
+                'type' => 'required',
+                'pick_up_location' => 'required',
+                'drop_off_location' => 'required',
+                'phone' => 'required',
+                'email' => 'email|required',
+                'when' => 'required',
+                'schedule_time' => 'required',
+                'schedule_date' => 'required'
             ];
         }
 
@@ -250,26 +277,25 @@ class FrontendController extends Controller
 
         $information->schedule_date = $request->schedule_date;
 
-        $arr=[];
+        $arr = [];
 
-        for ($i=0; $i <count($request->item_id) ; $i++) {
+        for ($i = 0; $i < count($request->item_id); $i++) {
 
-            if($request->item_quantity[$i] !=0){
-                $a=[];
-                $a['item']= $request->item_id[$i];
-                $a['quantity']= $request->item_quantity[$i];
-                $arr[]=$a;
+            if ($request->item_quantity[$i] != 0) {
+                $a = [];
+                $a['item'] = $request->item_id[$i];
+                $a['quantity'] = $request->item_quantity[$i];
+                $arr[] = $a;
             }
-
         }
 
         $information->items = json_encode($arr);
 
-        if($request->hasFile('deposit_slip')){
+        if ($request->hasFile('deposit_slip')) {
             $file = $request->file('deposit_slip');
-            $extension = '.'.$request->file('deposit_slip')->extension();
-            $path = public_path().'/uploads/';
-            $filename = date('ymdhis').$extension;
+            $extension = '.' . $request->file('deposit_slip')->extension();
+            $path = public_path() . '/uploads/';
+            $filename = date('ymdhis') . $extension;
             $file->move($path, $filename);
             $information->deposit_slip = $filename;
         }
@@ -282,23 +308,27 @@ class FrontendController extends Controller
 
 
         return redirect()
-                ->route('front.home')
-                ->with('message','Shift Request is sent successfully!!');
-
-
-
+            ->route('front.home')
+            ->with('message', 'Shift Request is sent successfully!!');
     }
 
-    public function contactUsPost(Request $request){
+
+    public function contactUsForm()
+    {
+        return view('front-new.contact-us');
+    }
+
+    public function contactUsPost(Request $request)
+    {
 
         $rules = [
-            'name'=>'required',
-            'phone'=>'required',
-            'email'=>'required',
-            'total_area'=>'required',
+            'name' => 'required',
+            'phone' => 'required',
+            'email' => 'required',
+            // 'total_area'=>'required',
             // 'message'=>'required',
-            'location'=>'required',
-            'rental_type'=>'required',
+            // 'location'=>'required',
+            // 'rental_type'=>'required',
             // 'deposit_slip'=>'mimes:JPG,jpg,JPEG,jpeg,png,PNG,pdf,PDF|image'
         ];
 
@@ -309,15 +339,15 @@ class FrontendController extends Controller
         $information->phone = $request->phone;
         $information->email = $request->email;
         $information->message = $request->message;
-        $information->total_area = $request->total_area;
-        $information->location = json_encode($request->location);
-        $information->rental_type = json_encode($request->rental_type);
+        $information->total_area = $request->total_area ?? '';
+        $information->location = $request->location ? json_encode($request->location) : '';
+        $information->rental_type = $request->rental_type ? json_encode($request->rental_type) : '';
 
-        if($request->hasFile('deposit_slip')){
+        if ($request->hasFile('deposit_slip')) {
             $file = $request->file('deposit_slip');
-            $extension = '.'.$request->file('deposit_slip')->extension();
-            $path = public_path().'/uploads/';
-            $filename = date('ymdhis').$extension;
+            $extension = '.' . $request->file('deposit_slip')->extension();
+            $path = public_path() . '/uploads/';
+            $filename = date('ymdhis') . $extension;
             $file->move($path, $filename);
             $information->deposit_slip = $filename;
         }
@@ -327,35 +357,37 @@ class FrontendController extends Controller
         Mail::to($setting->email)->send(new FindMeRoom($information));
 
         return redirect()->route('front.home')
-                ->with('message','Thank you for your request , you will get a call from our representative soon');
-
+            ->with('message', 'Thank you for your request , you will get a call from our representative soon');
     }
 
 
-    public function message(){
-        $meta = Meta::where('module','Contact Us Page')->first();
-        return view('front.message',
+    public function message()
+    {
+        $data['meta'] = $meta = Meta::where('module', 'Contact Us Page')->first();
+
+        return view('front-new.message', $data);
+
+        return view(
+            'front.message',
             compact('meta')
         );
-
-
-
     }
 
-    public function messagePost(Request $request){
+    public function messagePost(Request $request)
+    {
         $rules = [
-            'contact_for'=>'required',
-            'name'=>'required',
-            'email'=>'required',
-            'phone'=>'required',
-            'message'=>'required'
+            // 'contact_for'=>'required',
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'message' => 'required'
         ];
 
         $request->validate($rules);
 
         $information = new Message();
 
-        $information->contact_for = $request->contact_for;
+        $information->contact_for = $request->contact_for ?? '';
         $information->name = $request->name;
         $information->email = $request->email;
         $information->phone = $request->phone;
@@ -363,65 +395,71 @@ class FrontendController extends Controller
 
         $information->save();
 
-        return redirect()->route('front.home')->with('message','Your Message Is Received, We will contact you sortly!!');
+        $setting = Setting::first();
+
+        Mail::to($setting->email)->send(new FindMeRoom($information));
+
+
+        return redirect()->route('front.home')->with('message', 'Your Message Is Received, We will contact you sortly!!');
     }
 
 
 
 
 
-    public function showPropertyDetail($slug){
+    public function showPropertyDetail($slug)
+    {
 
 
 
 
 
 
-        $information = Property::where('slug',$slug)->firstOrFail();
-        $information->overview = str_replace("&nbsp;"," ",$information->overview);
+        $information = Property::where('slug', $slug)->firstOrFail();
+        $information->overview = str_replace("&nbsp;", " ", $information->overview);
         $information->overview  = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $information->overview);
 
         $user = auth()->user();
 
-        if($user){
-            if(!$user->id == $information->user_id){
-                $information->view = $information->view +1;
+        if ($user) {
+            if (!$user->id == $information->user_id) {
+                $information->view = $information->view + 1;
             }
-        }else{
-            $information->view = $information->view +1;
-
+        } else {
+            $information->view = $information->view + 1;
         }
         $information->save();
-        $additional_features = PropertyFeature::where('property_id',$information->id)->get();
+        $additional_features = PropertyFeature::where('property_id', $information->id)->get();
 
 
 
         // faqs
 
-        $faqs = FAQ::where('property_id',$information->id)->orderBy('order')->get();
+        $faqs = FAQ::where('property_id', $information->id)->orderBy('order')->get();
 
 
-        $forums = SupportForum::where('property_id',$information->id)
-                ->whereNull('parent')
-                ->orderBy('id','desc')
-                ->paginate(2);
+        $forums = SupportForum::where('property_id', $information->id)
+            ->whereNull('parent')
+            ->orderBy('id', 'desc')
+            ->paginate(2);
 
-        $advertisement = AdvertisementPosition::where('position','single-page-sidebar')->get();
+        $advertisement = AdvertisementPosition::where('position', 'single-page-sidebar')->get();
 
         $price = (float) str_replace(',', '', $information->price);
 
         // dd($information->price);
 
-        $recommended_properties = Property::where(function($q) use ($information,$price){
-            $q->where('price','<=', $price)
-              ->orWhere('category_id', $information->category_id)
-              ->orWhere('sub_category_id', $information->sub_category_id)
-              ->orWhere('location_id', $information->location_id);
+        $recommended_properties = Property::where(function ($q) use ($information, $price) {
+            $q->where('price', '<=', $price)
+                ->orWhere('category_id', $information->category_id)
+                ->orWhere('sub_category_id', $information->sub_category_id)
+                ->orWhere('location_id', $information->location_id);
+        })->where('status', '!=', '0')->limit(10)->get();
 
-        })->where('status','!=','0')->limit(10)->get();
-
-        return view('front.property.show',
-            compact('information',
+        return view(
+            'front.property.show',
+            compact(
+                'information',
                 'additional_features',
                 'faqs',
                 'forums',
@@ -435,10 +473,11 @@ class FrontendController extends Controller
 
     // newsletter
 
-    public function newsletterPost(Request $request){
+    public function newsletterPost(Request $request)
+    {
 
         $rules = [
-            'email'=>'unique:news_letters,email|max:100'
+            'email' => 'unique:news_letters,email|max:100'
         ];
 
         $request->validate($rules);
@@ -447,116 +486,132 @@ class FrontendController extends Controller
         $information->email = $request->email;
         $information->save();
 
-        return redirect()->back()->with('message','Thank You For Subscribing!!');
+        return redirect()->back()->with('message', 'Thank You For Subscribing!!');
     }
 
-    public function findMeRoom(){
+    public function findMeRoom()
+    {
         // dd('here');
 
-        $meta = Meta::where('module','Find Me Room Page')->first();
-        $locations = Location::orderBy('order')->where('status','!=','0')->get();
+        $meta = Meta::where('module', 'Find Me Room Page')->first();
+        $locations = Location::orderBy('order')->where('status', '!=', '0')->get();
         $categories = Category::with('subcategory')->orderBy('order')->has('subcategory')->get();
 
-        return view('front.find-me-room',
-            compact('locations','categories','meta')
+        return view(
+            'front.find-me-room',
+            compact('locations', 'categories', 'meta')
         );
     }
 
-    public function topRated(){
-        $informations = Property::orderBy('view','DESC')
-                        ->where('status','!=',0)->limit(60)
-                        ->paginate(10);
-        $meta = Meta::where('module','Top Rated Page')->first();
-         $locations = Location::orderBy('order')->where('status',1)->get();
+    public function topRated()
+    {
+        $informations = Property::orderBy('view', 'DESC')
+            ->where('status', '!=', 0)->limit(60)
+            ->paginate(10);
+        $meta = Meta::where('module', 'Top Rated Page')->first();
+        $locations = Location::orderBy('order')->where('status', 1)->get();
 
         $categories = Category::with('subcategory')->orderBy('order')->has('subcategory')->get();
 
-        return view('front.top-rated',
-            compact('informations',
-            'locations',
-            'categories',
-            'meta'
+        return view(
+            'front.top-rated',
+            compact(
+                'informations',
+                'locations',
+                'categories',
+                'meta'
             )
         );
     }
 
-    public function aboutUs(){
+    public function aboutUs()
+    {
         $information = AboutUs::first();
-                $meta = Meta::where('module','Aboutus Page')->first();
+        $meta = Meta::where('module', 'Aboutus Page')->first();
+        $testimonials = CustomerStory::orderBy('order')->get();
 
-        return view('front.about-us',
-            compact('information','meta')
+        return view(
+            'front-new.about-us',
+            compact('information', 'meta', 'testimonials')
+        );
+        return view(
+            'front.about-us',
+            compact('information', 'meta', 'testimonials')
         );
     }
 
-    public function faq(){
-        $faqs = FAQ::orderBy('order')->where('status','!=','0')->paginate(20);
-        return view('front.faq',
+    public function faq()
+    {
+        $data['informations'] = $faqs = FAQ::orderBy('order')->where('status', '!=', '0')->paginate(20);
+
+        return view('front-new.faq', $data);
+        return view(
+            'front.faq',
             compact('faqs')
         );
     }
 
-    public function page($slug){
+    public function page($slug)
+    {
 
 
-        $information = Page::where('slug',$slug)->where('status','!=','0')->firstorFail();
+        $information = Page::where('slug', $slug)->where('status', '!=', '0')->firstorFail();
 
-        return view('front.page',
+        return view(
+            'front.page',
             compact('information')
         );
-
     }
 
-    public function partner(){
-        $informations = Partner::orderBy('order')->where('status','!=','0')->get();
-        $meta = Meta::where('module','Partner Page')->first();
+    public function partner()
+    {
+        $informations = Partner::orderBy('order')->where('status', '!=', '0')->get();
+        $meta = Meta::where('module', 'Partner Page')->first();
 
-        return view('front.partner',compact('informations','meta'));
+        return view('front.partner', compact('informations', 'meta'));
     }
-    public function boost(){
+    public function boost()
+    {
 
         $boost_steps = BoostingStep::orderBy('order')->get();
 
         $boost_features = BoostFeature::orderBy('order')->get();
 
-        $meta = Meta::where('module','Boost Detail Page')->first();
+        $meta = Meta::where('module', 'Boost Detail Page')->first();
 
 
-        return view('front.boost-detail',compact('boost_steps','boost_features','meta'));
+        return view('front.boost-detail', compact('boost_steps', 'boost_features', 'meta'));
     }
 
 
     // show properties by location
 
-    public function propertyByLocation(Request $request,$location){
+    public function propertyByLocation(Request $request, $location)
+    {
 
         $order = $request->order;
 
-        $information = Location::where('location',$location)->where('status','!=',0)->firstOrfail();
+        $information = Location::where('location', $location)->where('status', '!=', 0)->firstOrfail();
 
-        $informations = Property::where('location_id',$information->id);
- $locations = Location::orderBy('order')->where('status',1)->get();
+        $informations = Property::where('location_id', $information->id);
+        $locations = Location::orderBy('order')->where('status', 1)->get();
 
-                $categories = Category::with('subcategory')->orderBy('order')->has('subcategory')->get();
+        $categories = Category::with('subcategory')->orderBy('order')->has('subcategory')->get();
 
- if($order){
+        if ($order) {
 
 
-                      if($order=='latest'){
-                $informations = $informations->orderBy('id','DESC');
-            }elseif($order=='oldest'){
+            if ($order == 'latest') {
+                $informations = $informations->orderBy('id', 'DESC');
+            } elseif ($order == 'oldest') {
                 $informations = $informations->orderBy('id');
-
-            }elseif($order=='lowest-price'){
+            } elseif ($order == 'lowest-price') {
                 $informations = $informations->orderBy('price');
-
-            }elseif($order=='highest-price'){
-                $informations = $informations->orderBy('price','DESC');
-
+            } elseif ($order == 'highest-price') {
+                $informations = $informations->orderBy('price', 'DESC');
             }
-        }else{
-                    $informations = $informations->orderBy('created_at','DESC');
-
+        } else {
+            $informations = $informations->orderBy('created_at', 'DESC');
         }
 
 
@@ -565,19 +620,22 @@ class FrontendController extends Controller
         $informations = $informations->paginate(30);
 
 
-        return view('front.location',
-            compact('information',
-                    'informations',
-                    'order',
-                    'locations',
-                    'categories'
+        return view(
+            'front.location',
+            compact(
+                'information',
+                'informations',
+                'order',
+                'locations',
+                'categories'
             )
         );
     }
 
 
     // featured
-    public function featured(Request $request){
+    public function featured(Request $request)
+    {
 
         $order = $request->order;
         // $title = 'Featured Properties';
@@ -585,43 +643,46 @@ class FrontendController extends Controller
         $setting = Setting::first();
         $title = $setting->featured_term;
 
-        $meta = Meta::where('module','Featured Page')->first();
 
-        $informations = FeaturedProperty::select('featured_properties.*','properties.price as price')
-                        ->join('properties','properties.id','=','featured_properties.property_id');
-
+        $informations = FeaturedProperty::select('featured_properties.*', 'properties.price as price')
+            ->join('properties', 'properties.id', '=', 'featured_properties.property_id');
 
 
-            $locations = Location::orderBy('order')->where('status',1)->get();
 
-                $categories = Category::with('subcategory')->orderBy('order')->has('subcategory')->get();
+        $locations = Location::orderBy('order')->where('status', 1)->get();
 
-  if($order){
+        $categories = Category::with('subcategory')->orderBy('order')->has('subcategory')->get();
+
+        if ($order) {
 
 
-                      if($order=='latest'){
-                $informations = $informations->orderBy('id','DESC');
-            }elseif($order=='oldest'){
+            if ($order == 'latest') {
+                $informations = $informations->orderBy('id', 'DESC');
+            } elseif ($order == 'oldest') {
                 $informations = $informations->orderBy('id');
-
-            }elseif($order=='lowest-price'){
+            } elseif ($order == 'lowest-price') {
                 $informations = $informations->orderBy('properties.price');
-
-            }elseif($order=='highest-price'){
-                $informations = $informations->orderBy('properties.price','DESC');
-
+            } elseif ($order == 'highest-price') {
+                $informations = $informations->orderBy('properties.price', 'DESC');
             }
-        }else{
-                    $informations = $informations->orderBy('order');
-
+        } else {
+            $informations = $informations->orderBy('order');
         }
 
 
 
 
-        $informations = $informations->paginate(20);
+       $data['informations'] = $informations = $informations->paginate(20);
 
-        return view('front.featured-recommended',
+       $data['title'] = "Featured Property";
+
+       $data['meta'] = $meta = Meta::where('module', 'Featured Page')->first();
+
+
+        return view('front-new.featured-listing',$data);
+
+        return view(
+            'front.featured-recommended',
             compact(
                 'title',
                 'informations',
@@ -630,48 +691,45 @@ class FrontendController extends Controller
                 'categories',
                 'meta'
             )
-    );
+        );
     }
 
     // recommended
-    public function recommended(Request $request){
+    public function recommended(Request $request)
+    {
 
         $order = $request->order;
 
         $setting = Setting::first();
         $title = $setting->recommended_term;
         // $title = 'Recommended Properties';
-                $meta = Meta::where('module','Recommended Page')->first();
+        $meta = Meta::where('module', 'Recommended Page')->first();
 
-        $informations = RecommendedProperty::select('recommended_properties.*','properties.price as price')
-                        ->join('properties','properties.id','=','recommended_properties.property_id');
+        $informations = RecommendedProperty::select('recommended_properties.*', 'properties.price as price')
+            ->join('properties', 'properties.id', '=', 'recommended_properties.property_id');
 
-    $locations = Location::orderBy('order')->where('status',1)->get();
+        $locations = Location::orderBy('order')->where('status', 1)->get();
 
-                $categories = Category::with('subcategory')->orderBy('order')->has('subcategory')->get();
-
-
-
-        if($order){
+        $categories = Category::with('subcategory')->orderBy('order')->has('subcategory')->get();
 
 
-                      if($order=='latest'){
-                $informations = $informations->orderBy('properties.id','DESC');
-            }elseif($order=='oldest'){
+
+        if ($order) {
+
+
+            if ($order == 'latest') {
+                $informations = $informations->orderBy('properties.id', 'DESC');
+            } elseif ($order == 'oldest') {
                 $informations = $informations->orderBy('properties.id');
-
-            }elseif($order=='lowest-price'){
+            } elseif ($order == 'lowest-price') {
                 $informations = $informations->orderBy('properties.price');
-
-            }elseif($order=='highest-price'){
-                $informations = $informations->orderBy('properties.price','DESC');
-
+            } elseif ($order == 'highest-price') {
+                $informations = $informations->orderBy('properties.price', 'DESC');
             }
-        }else{
+        } else {
 
 
-                    $informations = $informations->orderBy('order');
-
+            $informations = $informations->orderBy('order');
         }
 
 
@@ -683,7 +741,8 @@ class FrontendController extends Controller
 
         // $informations = $informations->sortBy('properties.id',SORT_REGULAR,false)
 
-        return view('front.featured-recommended',
+        return view(
+            'front.featured-recommended',
             compact(
                 'title',
                 'informations',
@@ -695,51 +754,51 @@ class FrontendController extends Controller
         );
     }
     // new deals
-    public function newDeals(Request $request){
+    public function newDeals(Request $request)
+    {
 
         $order = $request->order;
         $setting = Setting::first();
         $title = $setting->new_deals_term;
 
-        $meta = Meta::where('module','New Deals Page')->first();
-        $locations = Location::orderBy('order')->where('status',1)->get();
+        $meta = Meta::where('module', 'New Deals Page')->first();
+        $locations = Location::orderBy('order')->where('status', 1)->get();
 
-                $categories = Category::with('subcategory')->orderBy('order')->has('subcategory')->get();
+        $categories = Category::with('subcategory')->orderBy('order')->has('subcategory')->get();
 
-        $informations = Property::where('status','!=','0');
+        $informations = Property::where('status', '!=', '0');
 
-        if($order){
+        if ($order) {
 
 
-                      if($order=='latest'){
-                $informations = $informations->orderBy('id','DESC');
-            }elseif($order=='oldest'){
+            if ($order == 'latest') {
+                $informations = $informations->orderBy('id', 'DESC');
+            } elseif ($order == 'oldest') {
                 $informations = $informations->orderBy('id');
-
-            }elseif($order=='lowest-price'){
+            } elseif ($order == 'lowest-price') {
                 $informations = $informations->orderBy('price');
-
-            }elseif($order=='highest-price'){
-                $informations = $informations->orderBy('price','DESC');
-
+            } elseif ($order == 'highest-price') {
+                $informations = $informations->orderBy('price', 'DESC');
             }
         }
 
 
-        $informations = $informations->paginate(20);
+       $data['informations'] = $informations = $informations->paginate(20);
 
+        $data['title'] = "Latest Properties";
+        $advertisements = AdvertisementPosition::where('position', 'page-top')->get();
 
-        $advertisements = AdvertisementPosition::where('position','page-top')->get();
-
-        return view('front.new-deals',
+        return view('front-new.normal-listing',$data);
+        return view(
+            'front.new-deals',
             compact(
-                    'title',
-                    'informations',
-                    'order',
-                    'advertisements',
-                    'locations',
-                    'categories',
-                    'meta'
+                'title',
+                'informations',
+                'order',
+                'advertisements',
+                'locations',
+                'categories',
+                'meta'
             )
         );
     }
@@ -749,70 +808,67 @@ class FrontendController extends Controller
 
 
     // category
-    public function category(Request $request,$slug){
+    public function category(Request $request, $slug)
+    {
         $order = $request->order;
 
-        $meta=  $information = Category::where('slug',$slug)->firstOrFail();
+        $meta =  $information = Category::where('slug', $slug)->firstOrFail();
 
 
         $informations = Property::where(function ($query) use ($information) {
             $query->where('category_id', $information->id)
-                  ->orWhere('sub_category_id', $information->id);
+                ->orWhere('sub_category_id', $information->id);
         });
 
 
-        $locations = Location::orderBy('order')->where('status',1)->get();
+        $locations = Location::orderBy('order')->where('status', 1)->get();
 
-                $categories = Category::with('subcategory')->orderBy('order')->has('subcategory')->get();
+        $categories = Category::with('subcategory')->orderBy('order')->has('subcategory')->get();
 
-if($order){
+        if ($order) {
 
 
-            if($order=='latest'){
-                $informations = $informations->orderBy('id','DESC');
-            }elseif($order=='oldest'){
+            if ($order == 'latest') {
+                $informations = $informations->orderBy('id', 'DESC');
+            } elseif ($order == 'oldest') {
                 $informations = $informations->orderBy('id');
-
-            }elseif($order=='lowest-price'){
+            } elseif ($order == 'lowest-price') {
                 $informations = $informations->orderBy('price');
-
-            }elseif($order=='highest-price'){
-                $informations = $informations->orderBy('price','DESC');
-
+            } elseif ($order == 'highest-price') {
+                $informations = $informations->orderBy('price', 'DESC');
             }
-
-
-        }else{
-                            $informations = $informations->orderBy('id','DESC');
-
+        } else {
+            $informations = $informations->orderBy('id', 'DESC');
         }
 
-    $informations = $informations->where('status','!=','0')->paginate(20);
-        return view('front.category',
+        $informations = $informations->where('status', '!=', '0')->paginate(20);
+        return view(
+            'front.category',
             compact(
-                    'information',
-                    'meta',
-                    'informations',
-                    'order',
-                    'locations',
-                    'categories'
+                'information',
+                'meta',
+                'informations',
+                'order',
+                'locations',
+                'categories'
             )
         );
-
     }
 
 
 
-    public function viewProfile($email){
-        $information = User::where('email',$email)->firstOrFail();
+    public function viewProfile($email)
+    {
+        $information = User::where('email', $email)->firstOrFail();
 
-        $properties = Property::where('user_id',$information->id)->paginate(10);
+        $properties = Property::where('user_id', $information->id)->paginate(10);
 
-        $properties_count = Property::where('user_id',$information->id)->count();
+        $properties_count = Property::where('user_id', $information->id)->count();
 
-        return view('front.profile.index',
+        return view(
+            'front.profile.index',
 
-            compact('information','properties','properties_count')
+            compact('information', 'properties', 'properties_count')
         );
     }
 }

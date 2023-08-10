@@ -15,9 +15,9 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
+    public $module;
     public function __construct(){
-        $this->module = 'Rental Type';
+        $this->module = 'Main Category';
     }
 
     public function index(Request $request)
@@ -131,13 +131,13 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $rules = [
-        //     'title'=>'required',
-        //     'order'=>'required',
-        //     'status'=>'required'
-        // ];
+        $rules = [
+            'title'=>'required',
+            'order'=>'required',
+            'status'=>'required'
+        ];
 
-        // $request->validate($rules);
+        $request->validate($rules);
 
 
         $information = Category::findorfail($id);

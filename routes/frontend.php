@@ -154,14 +154,17 @@ Route::get('location/{location}',[FrontendController::class,'propertyByLocation'
 
 
 // featured
-Route::get('featured-properties',[FrontendController::class,'featured'])->name('front.featured');
+Route::get('featured-properties',[FrontendController::class,'featured'])
+->name('front.featured');
 
 
 // recommended
-Route::get('recommended-properties',[FrontendController::class,'recommended'])->name('front.recommended');
+Route::get('recommended-properties',[FrontendController::class,'recommended'])
+->name('front.recommended');
 
 // new deals
-Route::get('latest-properties',[FrontendController::class,'newDeals'])->name('front.newdeals');
+Route::get('latest-properties',[FrontendController::class,'newDeals'])
+->name('front.newdeals');
 
 
 // category

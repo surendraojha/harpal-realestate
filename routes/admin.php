@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\BoostFeatureController;
 use App\Http\Controllers\Admin\BoostingStepController;
 use App\Http\Controllers\Admin\BoostSubscriptionController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ChildCategoryController;
 use App\Http\Controllers\Admin\ContactUsController;
 use App\Http\Controllers\Admin\FamilyWelcomeController;
 use App\Http\Controllers\Admin\FAQController;
@@ -83,6 +84,12 @@ Route::group(['middleware'=>['auth','is-agent'],'prefix'=>'iv-admin'],function()
 
     Route::resource('sub-category',SubCategoryController::class);
     Route::post('sub-category/delete',[SubCategoryController::class,'delete'])->name('sub-category.delete')->middleware('editor');
+
+
+
+    Route::resource('child-category',ChildCategoryController::class);
+    Route::post('child-category/delete',[ChildCategoryController::class,'delete'])->name('child-category.delete')
+    ->middleware('editor');
 
 
 

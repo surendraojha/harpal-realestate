@@ -96,7 +96,7 @@ Route::get('/forgot-password', function () {
     return view('auth.forgot-password',
         compact('advertisement','meta')
     );
-    
+
 })->middleware('guest')->name('password.request');
 
 Route::middleware(['auth:sanctum', 'verified','is-agent'])->get('/dashboard', function () {
