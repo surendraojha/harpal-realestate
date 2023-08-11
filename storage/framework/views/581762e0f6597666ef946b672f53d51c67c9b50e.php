@@ -1,12 +1,10 @@
-@extends('front-new.layouts.main')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="propertylist-section">
         <div class="container">
             <div class="row">
                 <div class="col-12 col-sm-12 property-box">
-                    <form method="post" action="{{ route('my-property.store') }}" enctype="multipart/form-data">
-                        @csrf
+                    <form method="post" action="<?php echo e(route('my-property.store')); ?>" enctype="multipart/form-data">
+                        <?php echo csrf_field(); ?>
                         <h2>Please list your property here.</h2>
 
 
@@ -15,7 +13,7 @@
                                 <div class="md-form">
                                     <label for="title" class="">Title</label>
 
-                                    @php
+                                    <?php
                                         $field = [
                                             'type' => 'text',
                                             'placeholder' => 'Title',
@@ -24,8 +22,19 @@
                                             'id' => 'title',
                                             'required' => false,
                                         ];
-                                    @endphp
-                                    <x-textbox :information="$field" />
+                                    ?>
+                                    <?php if (isset($component)) { $__componentOriginal10c1e54ebc4fb55496c515cfbe3597be44a2f9b8 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\Textbox::class, ['information' => $field]); ?>
+<?php $component->withName('textbox'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal10c1e54ebc4fb55496c515cfbe3597be44a2f9b8)): ?>
+<?php $component = $__componentOriginal10c1e54ebc4fb55496c515cfbe3597be44a2f9b8; ?>
+<?php unset($__componentOriginal10c1e54ebc4fb55496c515cfbe3597be44a2f9b8); ?>
+<?php endif; ?>
                                 </div>
                             </div>
                         </div>
@@ -35,9 +44,9 @@
                                 <label>Main Category</label>
                                 <select name="main_category_id" id="main_category_id" class="form-control">
                                     <option value="">-- Type of Property --</option>
-                                    @foreach ($categories as $value)
-                                        <option value="{{ $value->id }}">{{ $value->title }}</option>
-                                    @endforeach
+                                    <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($value->id); ?>"><?php echo e($value->title); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                                 </select>
                             </div>
@@ -48,9 +57,7 @@
                                 <label>Parent Category</label>
                                 <select name="sub_category_id" id="sub_category_id" class="form-control">
                                     <option value="">-- Type of Property --</option>
-                                    {{-- @foreach ($categories as $value)
-                                        <option value="{{ $value->id }}">{{ $value->title }}</option>
-                                    @endforeach --}}
+                                    
 
                                 </select>
                             </div>
@@ -62,9 +69,7 @@
                                 <label>Category</label>
                                 <select name="child_category_id" id="child_category_id" class="form-control">
                                     <option value="">-- Select Option --</option>
-                                    {{-- @foreach ($categories as $value)
-                                        <option value="{{ $value->id }}">{{ $value->title }}</option>
-                                    @endforeach --}}
+                                    
 
                                 </select>
                             </div>
@@ -75,9 +80,9 @@
                                 <label>Purpose</label>
                                 <select name="purpose_id" id="purpose_id" class="form-control">
                                     <option value="">-- Select Option --</option>
-                                    @foreach ($purposes as $value)
-                                        <option value="{{ $value->id }}">{{ $value->title }}</option>
-                                    @endforeach
+                                    <?php $__currentLoopData = $purposes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($value->id); ?>"><?php echo e($value->title); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                                 </select>
                             </div>
@@ -90,42 +95,16 @@
                                 <label>Road Size</label>
                                 <select name="road_size_id" id="road_size_id" class="form-control" required>
                                     <option value="">-- Select Option --</option>
-                                    @foreach ($road_types as $value)
-                                        <option value="{{ $value->id }}">{{ $value->title }}</option>
-                                    @endforeach
+                                    <?php $__currentLoopData = $road_types; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($value->id); ?>"><?php echo e($value->title); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                                 </select>
                             </div>
                         </div>
 
 
-                        {{-- <div class="row">
-                            <div class="col-md-12">
-                                <div class="md-form">
-                                    <label for="message">Address</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="md-form">
-                                    <input type="text" name="name" class="form-control" placeholder="street Name">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="md-form">
-                                    <input type="text" name="name" class="form-control" placeholder="Post Code">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="md-form">
-                                    <input type="text" name="name" class="form-control" placeholder="Province">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="md-form">
-                                    <input type="text" name="name" class="form-control" placeholder="Country">
-                                </div>
-                            </div>
-                        </div> --}}
+                        
 
 
                         <div class="row">
@@ -133,7 +112,7 @@
                                 <div class="md-form">
                                     <label for="location_for_map" class="">Location For Map</label>
 
-                                    @php
+                                    <?php
                                         $field = [
                                             'type' => 'text',
                                             'placeholder' => 'latitude,longiture',
@@ -142,8 +121,19 @@
                                             'id' => 'location_for_map',
                                             'required' => false,
                                         ];
-                                    @endphp
-                                    <x-textbox :information="$field" />
+                                    ?>
+                                    <?php if (isset($component)) { $__componentOriginal10c1e54ebc4fb55496c515cfbe3597be44a2f9b8 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\Textbox::class, ['information' => $field]); ?>
+<?php $component->withName('textbox'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal10c1e54ebc4fb55496c515cfbe3597be44a2f9b8)): ?>
+<?php $component = $__componentOriginal10c1e54ebc4fb55496c515cfbe3597be44a2f9b8; ?>
+<?php unset($__componentOriginal10c1e54ebc4fb55496c515cfbe3597be44a2f9b8); ?>
+<?php endif; ?>
                                 </div>
                             </div>
                         </div>
@@ -151,18 +141,14 @@
 
 
                         <div class="row">
-                            {{-- <div class="col-md-12">
-                                <div class="md-form">
-                                    <label for="message">Price </label>
-                                </div>
-                            </div> --}}
+                            
                             <div class="col-md-6">
                                 <div class="md-form">
 
                                     <label for="message">Price </label>
 
 
-                                    @php
+                                    <?php
                                         $field = [
                                             'type' => 'number',
                                             'placeholder' => 'Rs 123456.00',
@@ -171,26 +157,37 @@
                                             'id' => 'price',
                                             'required' => true,
                                         ];
-                                    @endphp
-                                    <x-textbox :information="$field" />
+                                    ?>
+                                    <?php if (isset($component)) { $__componentOriginal10c1e54ebc4fb55496c515cfbe3597be44a2f9b8 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\Textbox::class, ['information' => $field]); ?>
+<?php $component->withName('textbox'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal10c1e54ebc4fb55496c515cfbe3597be44a2f9b8)): ?>
+<?php $component = $__componentOriginal10c1e54ebc4fb55496c515cfbe3597be44a2f9b8; ?>
+<?php unset($__componentOriginal10c1e54ebc4fb55496c515cfbe3597be44a2f9b8); ?>
+<?php endif; ?>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="md-form">
-                                    @php
+                                    <?php
                                         $price_negotiable = [
                                             '0' => 'No',
                                             '1' => 'Yes',
                                         ];
-                                    @endphp
+                                    ?>
 
                                     <label for="price_negotiable">Price Negotiable </label>
 
 
                                     <select name="price_negotiable" class="form-control" id="price_negotiable">
-                                        @foreach ($price_negotiable as $key => $value)
-                                            <option value="{{ $key }}">{{ $value }}</option>
-                                        @endforeach
+                                        <?php $__currentLoopData = $price_negotiable; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($key); ?>"><?php echo e($value); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                 </div>
                             </div>
@@ -206,7 +203,7 @@
                             <div class="col-md-6">
                                 <div class="md-form">
 
-                                    @php
+                                    <?php
                                         $field = [
                                             'type' => 'number',
                                             'placeholder' => '200 sq',
@@ -215,8 +212,19 @@
                                             'id' => 'area_covered',
                                             'required' => true,
                                         ];
-                                    @endphp
-                                    <x-textbox :information="$field" />
+                                    ?>
+                                    <?php if (isset($component)) { $__componentOriginal10c1e54ebc4fb55496c515cfbe3597be44a2f9b8 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\Textbox::class, ['information' => $field]); ?>
+<?php $component->withName('textbox'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal10c1e54ebc4fb55496c515cfbe3597be44a2f9b8)): ?>
+<?php $component = $__componentOriginal10c1e54ebc4fb55496c515cfbe3597be44a2f9b8; ?>
+<?php unset($__componentOriginal10c1e54ebc4fb55496c515cfbe3597be44a2f9b8); ?>
+<?php endif; ?>
 
 
                                 </div>
@@ -230,7 +238,7 @@
 
                             <div class="col-md-6">
                                 <div class="md-form">
-                                    @php
+                                    <?php
                                         $field = [
                                             'type' => 'number',
                                             'placeholder' => '200 sq',
@@ -239,8 +247,19 @@
                                             'id' => 'buld_up_area',
                                             'required' => true,
                                         ];
-                                    @endphp
-                                    <x-textbox :information="$field" />
+                                    ?>
+                                    <?php if (isset($component)) { $__componentOriginal10c1e54ebc4fb55496c515cfbe3597be44a2f9b8 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\Textbox::class, ['information' => $field]); ?>
+<?php $component->withName('textbox'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal10c1e54ebc4fb55496c515cfbe3597be44a2f9b8)): ?>
+<?php $component = $__componentOriginal10c1e54ebc4fb55496c515cfbe3597be44a2f9b8; ?>
+<?php unset($__componentOriginal10c1e54ebc4fb55496c515cfbe3597be44a2f9b8); ?>
+<?php endif; ?>
 
                                 </div>
                             </div>
@@ -252,7 +271,7 @@
                                 <div class="md-form">
                                     <label for="featured_photo">Featured Photo</label>
 
-                                    @php
+                                    <?php
                                         $field = [
                                             'type' => 'file',
                                             'placeholder' => 'form-control',
@@ -261,8 +280,19 @@
                                             'id' => 'featured_photo',
                                             'required' => true,
                                         ];
-                                    @endphp
-                                    <x-textbox :information="$field" />
+                                    ?>
+                                    <?php if (isset($component)) { $__componentOriginal10c1e54ebc4fb55496c515cfbe3597be44a2f9b8 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\Textbox::class, ['information' => $field]); ?>
+<?php $component->withName('textbox'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal10c1e54ebc4fb55496c515cfbe3597be44a2f9b8)): ?>
+<?php $component = $__componentOriginal10c1e54ebc4fb55496c515cfbe3597be44a2f9b8; ?>
+<?php unset($__componentOriginal10c1e54ebc4fb55496c515cfbe3597be44a2f9b8); ?>
+<?php endif; ?>
 
 
                                 </div>
@@ -275,7 +305,7 @@
                                 <div class="md-form">
                                     <label for="contact_number" class="">Mobile</label>
 
-                                    @php
+                                    <?php
                                         $field = [
                                             'type' => 'text',
                                             'placeholder' => '98********',
@@ -284,8 +314,19 @@
                                             'id' => 'contact_number',
                                             'required' => true,
                                         ];
-                                    @endphp
-                                    <x-textbox :information="$field" />
+                                    ?>
+                                    <?php if (isset($component)) { $__componentOriginal10c1e54ebc4fb55496c515cfbe3597be44a2f9b8 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\Textbox::class, ['information' => $field]); ?>
+<?php $component->withName('textbox'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal10c1e54ebc4fb55496c515cfbe3597be44a2f9b8)): ?>
+<?php $component = $__componentOriginal10c1e54ebc4fb55496c515cfbe3597be44a2f9b8; ?>
+<?php unset($__componentOriginal10c1e54ebc4fb55496c515cfbe3597be44a2f9b8); ?>
+<?php endif; ?>
 
                                 </div>
                             </div>
@@ -295,7 +336,7 @@
                                 <div class="md-form">
                                     <label for="subject" class="">Email Id</label>
 
-                                    @php
+                                    <?php
                                         $field = [
                                             'type' => 'email',
                                             'placeholder' => 'hello@example.com',
@@ -304,8 +345,19 @@
                                             'id' => 'email',
                                             'required' => true,
                                         ];
-                                    @endphp
-                                    <x-textbox :information="$field" />
+                                    ?>
+                                    <?php if (isset($component)) { $__componentOriginal10c1e54ebc4fb55496c515cfbe3597be44a2f9b8 = $component; } ?>
+<?php $component = $__env->getContainer()->make(App\View\Components\Textbox::class, ['information' => $field]); ?>
+<?php $component->withName('textbox'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal10c1e54ebc4fb55496c515cfbe3597be44a2f9b8)): ?>
+<?php $component = $__componentOriginal10c1e54ebc4fb55496c515cfbe3597be44a2f9b8; ?>
+<?php unset($__componentOriginal10c1e54ebc4fb55496c515cfbe3597be44a2f9b8); ?>
+<?php endif; ?>
                                 </div>
                             </div>
                         </div>
@@ -318,7 +370,7 @@
                                 <div class="md-form">
                                     <label for="message">Description</label>
                                     <textarea type="text" id="description" name="description" rows="2" class="form-control md-textarea"
-                                        placeholder="Property related your message">{{ old('description') }}</textarea>
+                                        placeholder="Property related your message"><?php echo e(old('description')); ?></textarea>
                                 </div>
                             </div>
                             <div class="col-12 col-sm-12 center-on-small-only">
@@ -332,14 +384,14 @@
             </div>
         </div>
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@push('script')
+<?php $__env->startPush('script'); ?>
     <script>
         function getSubCategory(id, child_category_id) {
 
 
-            var url = "{{ route('get.sub-category') }}?id=" + id;
+            var url = "<?php echo e(route('get.sub-category')); ?>?id=" + id;
             var mainData;
 
             $.ajax({
@@ -385,4 +437,6 @@
 
         });
     </script>
-@endpush
+<?php $__env->stopPush(); ?>
+
+<?php echo $__env->make('front-new.layouts.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\xampp\htdocs\harpal-realestate\resources\views/front-new/property/create.blade.php ENDPATH**/ ?>

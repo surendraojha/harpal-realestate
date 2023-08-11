@@ -100,7 +100,7 @@ Route::get('single-forum/{id}',[ProfileController::class,'singleForum'])->name('
 
 
 
-Route::get('get-sub-category/{id}',[AjaxController::class,'getSubcategory'])->name('get.sub-category');
+Route::get('get-sub-category',[AjaxController::class,'getSubcategory'])->name('get.sub-category');
 
 
 Route::post('contact-us-post',[FrontendController::class,'contactUsPost'])->name('front.contact-us.post');

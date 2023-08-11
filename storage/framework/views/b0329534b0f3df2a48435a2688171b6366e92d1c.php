@@ -24,6 +24,9 @@
     <link rel="stylesheet" href="<?php echo e(asset('front-new/css/owl.carousel.min.css')); ?>">
     <link rel="stylesheet" href="<?php echo e(asset('front-new/css/owl.theme.default.min.css')); ?>">
 
+    <link rel="stylesheet" href="<?php echo e(asset('toaster.min.css')); ?>">
+
+
 </head>
 <body>
 
@@ -257,9 +260,9 @@
       <div class="row">
         <div class="col-12 col-sm-12 col-md-6 col-lg-3 contact-info">
           <h4>Contact Info</h4>
-          <p><i class="fa fa-map-marker-alt"></i> Anamnagar, Kathmandu</p>
-          <p><i class="fa fa-phone-volume"></i> 1234567890</p>
-          <p><i class="fa fa-envelope"></i> test@test.com</p>
+          <p><i class="fa fa-map-marker-alt"></i> <?php echo e($setting->address); ?></p>
+          <p><i class="fa fa-phone-volume"></i> <?php echo e($setting->phone); ?></p>
+          <p><i class="fa fa-envelope"></i> <?php echo e($setting->email); ?></p>
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-3 links">
           <h4>Links</h4>
@@ -283,20 +286,21 @@
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-3 footer-socials">
           <h4>Subscribe Us</h4>
-          <div class="content">
+          <form method="post" action="<?php echo e(route('newsletter.post')); ?>" class="content">
+            <?php echo csrf_field(); ?>
             <div class="input-group">
-             <input type="email" class="form-control" placeholder="Enter your email">
+             <input name="email" type="email" value="<?php echo e(old('email')); ?>" class="form-control" placeholder="Enter your email">
              <span class="input-group-btn">
               <button class="btn" type="submit"><i class="fa fa-paper-plane"></i></button>
              </span>
             </div>
-          </div>
+        </form>
           <h5>Follow Us</h5>
           <ul>
-            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-            <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
-            <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+            <li><a target="_blank" href="<?php echo e($setting->facebook); ?>"><i class="fab fa-facebook-f"></i></a></li>
+            <li><a target="_blank" href="<?php echo e($setting->twitter); ?>"><i class="fab fa-twitter"></i></a></li>
+            <li><a target="_blank" href="<?php echo e($setting->linkedin); ?>"><i class="fab fa-linkedin-in"></i></a></li>
+            <li><a target="_blank" href="<?php echo e($setting->youtube); ?>"><i class="fab fa-youtube"></i></a></li>
           </ul>
         </div>
       </div>
@@ -306,7 +310,7 @@
     <div class="container">
       <div class="row">
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 copyright">
-          <p>Copyright © 2022 Harpalsewa Property. All Rights reserved.</p>
+          <p>Copyright © <?php echo e(date('Y')); ?> <?php echo e($setting->company_name); ?>. All Rights reserved.</p>
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6 design">
           <p>Developed by : <a href="#" target="_blank">Webbank Nepal</a></p>
@@ -329,8 +333,31 @@
 <script src="<?php echo e(asset('front-new')); ?>/js/owl.carousel.min.js"></script>
 <script src="<?php echo e(asset('front-new')); ?>/js/main.js"></script>
 <script src="<?php echo e(asset('front-new')); ?>/js/wow.min.js"></script>
+
+<?php echo $__env->yieldPushContent('script'); ?>
 <script>
   new WOW().init();
+</script>
+
+<script src="<?php echo e(asset('toaster.min.js')); ?>"></script>
+<script type="text/javascript">
+    <?php if(\Session::has('message')): ?>
+        toastr.success("<?php echo e(\Session::get('message')); ?>");
+    <?php endif; ?>
+
+      <?php if(\Session::has('status')): ?>
+        toastr.success("<?php echo e(\Session::get('status')); ?>");
+    <?php endif; ?>
+    <?php if($errors->any()): ?>
+
+        <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $e): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            toastr.error("<?php echo e($e); ?>");
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    <?php endif; ?>
+
+    <?php if(\Session::has('error')): ?>
+        toastr.error("<?php echo e(\Session::get('error')); ?>");
+    <?php endif; ?>
 </script>
 <script>
   wow = new WOW(

@@ -43,7 +43,7 @@
                         </div>
                     <div class="location">
                         <i class="fas fa-location-alt"></i>
-                        {{$value->location->location}}
+                        {{@$value->location->location}}
                     </div>
                     <div class="pricong">
 

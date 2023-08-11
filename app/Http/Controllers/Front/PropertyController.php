@@ -130,10 +130,13 @@ class PropertyController extends Controller
      */
     public function create(){
 
-        $data['categories'] = Category::where('level',1)->get();
+        $data['categories'] = Category::where('depth',1)->get();
 
         $data['purposes'] = Purpose::orderBy('order')->get();
-        return view('front-new.property.create');
+
+        $data['road_types'] = RoadSize::orderBy('order')->get();
+
+        return view('front-new.property.create',$data);
 
         return view('front.property.create');
     }
@@ -151,20 +154,22 @@ class PropertyController extends Controller
     public function store(Request $request)
     {
 
-        // dd($request->location_id);
+        // dd($request->all());
         $rules = [
             'featured_photo'=>'required|image',
             'title'=>'required',
             'purpose_id'=>'required',
-            'bedroom'=>'required',
-            'bathroom'=>'required',
+            // 'bedroom'=>'required',
+            // 'bathroom'=>'required',
 
-            'water'=>'required',
+            // 'water'=>'required',
             'price'=>'required',
-            'category_id'=>'required',
+            'main_category_id'=>'required',
             'sub_category_id'=>'required',
-            'location_id'=>'required',
-            'floor_id'=>'required',
+            'child_category_id'=>'required',
+
+            // 'location_id'=>'required',
+            // 'floor_id'=>'required',
             'road_size_id'=>'required',
 	        'contact_number'=>'required',
             'price_negotiable'=>'required',
@@ -172,7 +177,7 @@ class PropertyController extends Controller
 
         ];
         $msg = [
-                'sub_category_id'=>'Room Type',
+                'child_category_id'=>'Category',
                 'location_id'=>'location',
                 'floor_id'=>'floor',
                 'road_size_id'=>'road size'
@@ -196,7 +201,7 @@ class PropertyController extends Controller
         $information->balcony = $request->balcony;
         $information->water = $request->water;
         $information->location_for_map = $request->location_for_map;
-        $information->overview = $request->overview;
+        $information->overview = $request->overview??$request->message;
         $information->featured_video = $request->featured_video;
 
 
@@ -207,40 +212,34 @@ class PropertyController extends Controller
 
         $information->price =  NumberHelper::unformatNumber($request->price);
 
-         if($request->category_id){
 
-                    if($request->category_id=='both'){
-                        $information->both = 1;
-                    }else{
-                        $information->category_id = $request->category_id;
+        $information->category_id = $request->sub_category_id;
+        $information->sub_category_id = $request->child_category_id;
 
-                    }
-                }
-        $information->sub_category_id = $request->sub_category_id;
         $information->user_id = $user->id;
 
         $information->view =0;
         $information->status =0;
 
-        $information->floor_id = $request->floor_id;
+        // $information->floor_id = $request->floor_id;
 
 
         if($request->road_size_id){
             $information->road_size_id = $request->road_size_id;
         }
 
-        $location = Location::where('id',$request->location_id)->first();
+        // $location = Location::where('id',$request->location_id)->first();
 
-        if(!$location){
-            $location = new Location();
-            $location->location = $request->location_id;
-            $location->order = rand(1,2000);
-            $location->save();
-            $information->location_id = $location->id;
-        }else{
-            $information->location_id = $request->location_id;
+        // if(!$location){
+        //     $location = new Location();
+        //     $location->location = $request->location_id;
+        //     $location->order = rand(1,2000);
+        //     $location->save();
+        //     $information->location_id = $location->id;
+        // }else{
+        //     $information->location_id = $request->location_id;
 
-        }
+        // }
 
         if($request->hasFile('featured_photo'))
         {
@@ -269,9 +268,9 @@ class PropertyController extends Controller
         $information->expiration_date = date('Y-m-d', strtotime("+9 months", strtotime(date('Y-m-d'))));
 
 
-        $information->kitchen = $request->kitchen;
-        $information->furnishing = $request->furnishing;
-        $information->faced = $request->faced;
+        // $information->kitchen = $request->kitchen;
+        // $information->furnishing = $request->furnishing;
+        // $information->faced = $request->faced;
         $information->contact_number = $request->contact_number;
         $information->area_covered = $request->area_covered;
         $information->buld_up_area = $request->buld_up_area;

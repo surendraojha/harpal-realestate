@@ -22,7 +22,7 @@
 
     <p><strong>Purpose:</strong> {{$information->purpose->title}}</p>
     <p><strong>Price:</strong> {{$information->price}}</p>
-    <p><strong>Location:</strong>{{$information->location->location}}</p>
+    <p><strong>Location:</strong>{{@$information->location->location}}</p>
 
 
 </body>

@@ -9,14 +9,15 @@ use Illuminate\Http\Request;
 use File;
 class AjaxController extends Controller
 {
-    public function getSubcategory($id){
+    public function getSubcategory(Request $request){
 
-        if($id=='both'){
-            $informations = Category::whereNotNull('parent')->orderBy('order')->where('status','1')->get();
-        }else{
-            $informations =Category::where('parent',$id)->orderBy('order')->where('status','1')->get();
+        $id = $request->id;
+        $informations =Category::where('parent',$id)
+                        ->orderBy('order')
+                        ->where('status','1')
+                        ->get();
 
-        }
+
 
 
 
