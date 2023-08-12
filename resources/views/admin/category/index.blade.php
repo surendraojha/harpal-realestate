@@ -113,7 +113,7 @@
                         <div class="tab-pane @if(session()->get('errors'))  active show  @endif" id="addUser">
                             <div class="body mt-2">
 
-                                {!! Form::open(['route' => 'category.store', 'method' => 'post']) !!}
+                                {!! Form::open(['route' => 'category.store', 'method' => 'post','files'=>true]) !!}
 
                                     @csrf
                                     @include('admin.category.form')

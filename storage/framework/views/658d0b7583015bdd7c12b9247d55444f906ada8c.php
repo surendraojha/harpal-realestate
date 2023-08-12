@@ -1,5 +1,5 @@
 <style>
-    .slimScrollBar{
+    .slimScrollBar {
         background-color: #fff !important;
     }
 </style>
@@ -104,28 +104,7 @@
 
 
         <?php
-            $route = [
-                'category.index',
-                'category.edit',
-
-                'sub-category.index',
-                'sub-category.edit',
-
-                'child-category.index',
-                'child-category.edit',
-
-                'location.index',
-                'location.edit',
-
-                'feature.index',
-                'feature.edit',
-
-                'floor.index',
-                'floor.edit',
-
-                'road-size.index',
-                'road-size.edit',
-            ];
+            $route = ['category.index', 'category.edit', 'sub-category.index', 'sub-category.edit', 'child-category.index', 'child-category.edit', 'location.index', 'location.edit', 'feature.index', 'feature.edit', 'floor.index', 'floor.edit', 'road-size.index', 'road-size.edit'];
         ?>
 
 
@@ -144,13 +123,8 @@
 
 
                 <?php
-                $route = [
-                            'category.index',
-                            'category.edit',
-
-
-                        ];
-                 ?>
+                    $route = ['category.index', 'category.edit'];
+                ?>
                 <li class="<?php if(in_array($current_route, $route)): ?> active <?php endif; ?>">
                     <a href="<?php echo e(route('category.index')); ?>">
                         &nbsp;&nbsp;&nbsp;&nbsp;
@@ -170,13 +144,8 @@
 
 
                 <?php
-                $route = [
-                            'child-category.index',
-                            'child-category.edit',
-
-
-                        ];
-                 ?>
+                    $route = ['child-category.index', 'child-category.edit'];
+                ?>
                 <li class="<?php if(in_array($current_route, $route)): ?> active <?php endif; ?>">
                     <a href="<?php echo e(route('child-category.index')); ?>">
                         &nbsp;&nbsp;&nbsp;&nbsp;
@@ -325,6 +294,33 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;
 
                 <span>Shift Home Content</span></a>
+        </li>
+
+
+
+        <?php
+            $route = ['blog.index', 'blog.edit'];
+        ?>
+        
+        <li class="<?php if(in_array($current_route, $route)): ?> active <?php endif; ?>">
+            <a href="<?php echo e(route('blog.index')); ?>">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                <span>Blogs
+                </span></a>
+        </li>
+
+
+        <?php
+            $route = ['blog-category.index', 'blog-category.edit'];
+        ?>
+        
+        <li class="<?php if(in_array($current_route, $route)): ?> active <?php endif; ?>">
+            <a href="<?php echo e(route('blog-category.index')); ?>">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                <span>Blog Category
+                </span></a>
         </li>
 
 
@@ -496,7 +492,7 @@
                 <span>Watermark
                 </span></a>
         </li>
-
+        
         <?php
             $route = ['advertisement.index', 'advertisement.edit'];
         ?>
@@ -534,24 +530,22 @@
 
 
 
-    <?php if($user->role!='editor'): ?>
+        <?php if($user->role != 'editor'): ?>
+            <?php
+                $route = ['user.index', 'user.edit'];
+            ?>
 
-        <?php
-            $route = ['user.index', 'user.edit'];
-        ?>
+            <li class="<?php if(in_array($current_route, $route)): ?> active <?php endif; ?>">
 
-        <li class="<?php if(in_array($current_route, $route)): ?> active <?php endif; ?>">
-
-            <a href="<?php echo e(route('user.index')); ?>">
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                Users
-            </a>
-        </li>
-
+                <a href="<?php echo e(route('user.index')); ?>">
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    Users
+                </a>
+            </li>
         <?php endif; ?>
 
 
-          <?php
+        <?php
             $route = ['meta-tag.index', 'meta-tag.edit'];
         ?>
 

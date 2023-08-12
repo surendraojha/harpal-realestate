@@ -7,6 +7,8 @@ use App\Mail\FindMeRoom;
 use App\Mail\ShiftHomeMail;
 use App\Models\AboutUs;
 use App\Models\AdvertisementPosition;
+use App\Models\Blog;
+use App\Models\BlogCategory;
 use App\Models\BoostFeature;
 use App\Models\BoostingStep;
 use App\Models\Category;
@@ -222,6 +224,55 @@ class FrontendController extends Controller
                 'min'
             )
         );
+    }
+
+
+    // blog listing
+    public function blog(Request $request){
+
+        $category_id = 0;
+        if($request->slug){
+            $category = BlogCategory::where('slug',$request->slug)->firstOrfail();
+            $category_id = $category->id;
+        }
+
+
+         $informations = Blog::orderBy('id','DESC');
+
+        if($category_id){
+            $informations = $informations->where('category_id',$category_id);
+        }
+
+
+         $data['informations'] = $informations->paginate(6);
+
+        $data['categories'] = BlogCategory::where('slug','!=',$request->slug)->get();
+
+
+
+        $data['recent_blogs'] = Blog::orderBy('id','DESC')
+                                ->offset(6)
+                                ->limit(6)
+                                ->get()
+                                ->shuffle();
+        return view('front-new.blog.blog-listing',$data);
+
+    }
+
+
+
+    // blog detail page
+
+    public function blogDetail($slug){
+        $data['information']=$information = Blog::where('slug',$slug)->firstOrfail();
+        $data['recent_blogs'] = Blog::orderBy('id','DESC')->where('slug','!=',$slug)
+                                ->limit(6)
+                                ->get();
+
+        $data['categories'] = BlogCategory::where('id','!=',$information->category_id)->get();
+
+
+        return view('front-new.blog.blog-detail',$data);
     }
 
 

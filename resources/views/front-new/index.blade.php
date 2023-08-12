@@ -119,14 +119,14 @@
                         <div class="col-12 col-sm-12 category-item owl-carousel">
                             <div class="category-box">
                                 <div class="row">
-                                    @foreach ($categories as $value)
+                                    @foreach ($main_categories as $value)
                                         <div class="col-12 col-sm-12 col-md-3 col-lg-3">
 
 
                                             <a href="#">
                                                 <div class="grid">
                                                     <figure class="effect-lily">
-                                                        <img src="./images/key1.jpg" alt="">
+                                                        <img src="{{ asset('category/'.$value->photo) }}" alt="">
                                                         <figcaption>
                                                             <div>
                                                                 <h3>{{ $value->title }}</h3>
@@ -142,7 +142,7 @@
 
                                 </div>
                             </div>
-                            <div class="category-box">
+                            {{-- <div class="category-box">
                                 <a href="#">
                                     <img class="cato-image" src="./images/house3.jpg" alt="">
                                 </a>
@@ -161,7 +161,7 @@
                                 <a href="#">
                                     <img class="cato-image" src="./images/house4.jpg" alt="">
                                 </a>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>

@@ -135,6 +135,8 @@ class PropertyController extends Controller
         $data['purposes'] = Purpose::orderBy('order')->get();
 
         $data['road_types'] = RoadSize::orderBy('order')->get();
+        $data['title']= "Please list your property here.";
+
 
         return view('front-new.property.create',$data);
 
@@ -203,6 +205,9 @@ class PropertyController extends Controller
         $information->location_for_map = $request->location_for_map;
         $information->overview = $request->overview??$request->message;
         $information->featured_video = $request->featured_video;
+
+        $information->area_covered = $request->area_covered;
+        $information->buld_up_area = $request->buld_up_area;
 
 
         if($request->featured_video){
@@ -325,8 +330,8 @@ class PropertyController extends Controller
 
 
         return redirect()
-                ->route('my-property.index')
-                ->with('message','Your Property Listed Successfully!!');
+        ->route('my-property.index',['page_type'=>1])
+        ->with('message','Your Property Listed Successfully!!');
 
 
 
@@ -374,12 +379,12 @@ class PropertyController extends Controller
         // dd($id);
         $information = Property::where('slug',$id)->firstOrFail();
 
-        if($information->category_id==1){
-            return redirect()->route('residental-property.edit',$information->slug);
-        }else{
-            return redirect()->route('commercial-property.edit',$information->slug);
+        // if($information->category_id==1){
+        //     return redirect()->route('residental-property.edit',$information->slug);
+        // }else{
+        //     return redirect()->route('commercial-property.edit',$information->slug);
 
-        }
+        // }
 
         $user = auth()->user();
 
@@ -425,8 +430,22 @@ class PropertyController extends Controller
         ->pluck('feature_id','feature_id')
         ->toArray();
 
+        $data['title']= "Edit Your Property";
 
-        return view('front.property.edit',
+        $data['information'] = Property::where('slug',$id)->where('user_id',auth()->user()->id)->firstOrfail();
+
+
+        $data['categories'] = Category::where('depth',1)->get();
+
+        $data['purposes'] = Purpose::orderBy('order')->get();
+
+        $data['road_types'] = RoadSize::orderBy('order')->get();
+
+        return view('front-new.property.edit',$data);
+
+
+
+        return view('front-new.property.edit',
             compact(
                 'information',
                 'user',
@@ -458,17 +477,20 @@ class PropertyController extends Controller
         $rules = [
             'featured_photo'=>'image',
             'title'=>'required',
-            'bedroom'=>'required',
-            'bathroom'=>'required',
+            // 'bedroom'=>'required',
+            // 'bathroom'=>'required',
             // 'parking'=>'required',
             // 'balcony'=>'required',
-            'water'=>'required',
+            // 'water'=>'required',
             'price'=>'required',
-            'category_id'=>'required',
             'purpose_id'=>'required',
+            'main_category_id'=>'required',
+
             'sub_category_id'=>'required',
-            'location_id'=>'required',
-            'floor_id'=>'required',
+            'child_category_id'=>'required',
+
+            // 'location_id'=>'required',
+            // 'floor_id'=>'required',
             // 'kitchen'=>'required',
 	        // 'furnishing'=>'required',
 	        // 'faced'=>'required',
@@ -485,21 +507,26 @@ class PropertyController extends Controller
         $request->validate($rules);
 
         $user = auth()->user();
-        $information = Property::find($id);
+        $information = Property::findOrfail($id);
         $information->title = $request->title;
-        $information->ad_id = 'KB'.date('ymdhis').$user->id;
-        $information->slug = Str::slug($request->title).'-'.$information->ad_id;
+        // $information->ad_id = 'KB'.date('ymdhis').$user->id;
+
+        // $information->slug = Str::slug($request->title).'-'.$information->ad_id;
         $information->purpose_id = $request->purpose_id;
-        $information->date_of_build = $request->date_of_build;
+        // $information->date_of_build = $request->date_of_build;
 
 
-        $information->bedroom = $request->bedroom;
-        $information->bathroom = $request->bathroom;
-        $information->parking = $request->parking;
-        $information->balcony = $request->balcony;
+        // $information->bedroom = $request->bedroom;
+        // $information->bathroom = $request->bathroom;
+        // $information->parking = $request->parking;
+        // $information->balcony = $request->balcony;
         $information->water = $request->water;
         $information->location_for_map = $request->location_for_map;
         $information->overview = $request->overview;
+
+        $information->category_id = $request->sub_category_id;
+        $information->sub_category_id = $request->child_category_id;
+
 
         if($request->featured_video){
             $information = VideoHelper::saveVideoCode($information,$request);
@@ -509,27 +536,6 @@ class PropertyController extends Controller
 
         $information->price = NumberHelper::unformatNumber($request->price);
 
-
-
-
-        if($request->category_id){
-
-            if($request->category_id=='both'){
-                $information->both = 1;
-
-                $category = Category::where('id',$request->sub_category_id)
-                            ->with('category')->first();
-
-                $information->category_id = $category->category->id;
-
-            }else{
-                $information->category_id = $request->category_id;
-
-            }
-        }
-
-        $information->sub_category_id = $request->sub_category_id;
-        $information->user_id = $user->id;
 
         // $information->status =$request->status;
 
@@ -586,12 +592,8 @@ class PropertyController extends Controller
         $information->area_covered = $request->area_covered;
         $information->buld_up_area = $request->buld_up_area;
         $information->price_negotiable = $request->price_negotiable;
-        if($request->view){
-            $information->view = $request->view;
 
-        }else{
-            $information->view = 0;
-        }
+
 
 
         $information->save();
@@ -636,7 +638,7 @@ class PropertyController extends Controller
 
 
         return redirect()
-                ->route('my-property.index')
+                ->route('my-property.index',['page_type'=>1])
                 ->with('message','Your Property Listed Successfully!!');
 
     }
@@ -675,7 +677,7 @@ class PropertyController extends Controller
 
         $information->delete();
 
-        return redirect()->route('my-property.index')
+        return redirect()->back()
             ->with('error','Property Unlisted Successfully!!');
     }
 

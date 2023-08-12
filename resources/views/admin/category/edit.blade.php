@@ -30,7 +30,7 @@ Edit {{$module}}
                         <div class="tab-pane active show" id="addUser">
                             <div class="body mt-2">
                                 {!! Form::model($information,['route' => ['category.update',$information->id],
-                                'method' => 'post']) !!}
+                                'method' => 'post','files'=>true]) !!}
 
                                 @csrf
                                 @method('put')

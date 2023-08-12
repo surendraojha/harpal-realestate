@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Admin\AboutUsController;
 use App\Http\Controllers\Admin\AdvertisementController;
+use App\Http\Controllers\Admin\BlogCategoryController;
+use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\BoostController;
 use App\Http\Controllers\Admin\BoostDetailController;
 use App\Http\Controllers\Admin\BoostFeatureController;
@@ -91,6 +93,14 @@ Route::group(['middleware'=>['auth','is-agent'],'prefix'=>'iv-admin'],function()
     Route::post('child-category/delete',[ChildCategoryController::class,'delete'])->name('child-category.delete')
     ->middleware('editor');
 
+
+
+    Route::resource('blog-category',BlogCategoryController::class);
+    Route::post('blog-category/delete',[BlogCategoryController::class,'delete'])->name('blog-category.delete');
+
+
+    Route::resource('blog',BlogController::class);
+    Route::post('blog/delete',[BlogController::class,'delete'])->name('blog.delete');
 
 
 

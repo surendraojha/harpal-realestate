@@ -1,5 +1,5 @@
 <style>
-    .slimScrollBar{
+    .slimScrollBar {
         background-color: #fff !important;
     }
 </style>
@@ -104,28 +104,7 @@
 
 
         @php
-            $route = [
-                'category.index',
-                'category.edit',
-
-                'sub-category.index',
-                'sub-category.edit',
-
-                'child-category.index',
-                'child-category.edit',
-
-                'location.index',
-                'location.edit',
-
-                'feature.index',
-                'feature.edit',
-
-                'floor.index',
-                'floor.edit',
-
-                'road-size.index',
-                'road-size.edit',
-            ];
+            $route = ['category.index', 'category.edit', 'sub-category.index', 'sub-category.edit', 'child-category.index', 'child-category.edit', 'location.index', 'location.edit', 'feature.index', 'feature.edit', 'floor.index', 'floor.edit', 'road-size.index', 'road-size.edit'];
         @endphp
 
 
@@ -144,13 +123,8 @@
 
 
                 @php
-                $route = [
-                            'category.index',
-                            'category.edit',
-
-
-                        ];
-                 @endphp
+                    $route = ['category.index', 'category.edit'];
+                @endphp
                 <li class="@if (in_array($current_route, $route)) active @endif">
                     <a href="{{ route('category.index') }}">
                         &nbsp;&nbsp;&nbsp;&nbsp;
@@ -170,13 +144,8 @@
 
 
                 @php
-                $route = [
-                            'child-category.index',
-                            'child-category.edit',
-
-
-                        ];
-                 @endphp
+                    $route = ['child-category.index', 'child-category.edit'];
+                @endphp
                 <li class="@if (in_array($current_route, $route)) active @endif">
                     <a href="{{ route('child-category.index') }}">
                         &nbsp;&nbsp;&nbsp;&nbsp;
@@ -327,6 +296,33 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;
 
                 <span>Shift Home Content</span></a>
+        </li>
+
+
+
+        @php
+            $route = ['blog.index', 'blog.edit'];
+        @endphp
+        {{-- pages --}}
+        <li class="@if (in_array($current_route, $route)) active @endif">
+            <a href="{{ route('blog.index') }}">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                <span>Blogs
+                </span></a>
+        </li>
+
+
+        @php
+            $route = ['blog-category.index', 'blog-category.edit'];
+        @endphp
+        {{-- pages --}}
+        <li class="@if (in_array($current_route, $route)) active @endif">
+            <a href="{{ route('blog-category.index') }}">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                <span>Blog Category
+                </span></a>
         </li>
 
 
@@ -498,7 +494,7 @@
                 <span>Watermark
                 </span></a>
         </li>
-{{-- About us --}}
+        {{-- About us --}}
         @php
             $route = ['advertisement.index', 'advertisement.edit'];
         @endphp
@@ -536,24 +532,22 @@
 
 
 
-    @if($user->role!='editor')
+        @if ($user->role != 'editor')
+            @php
+                $route = ['user.index', 'user.edit'];
+            @endphp
 
-        @php
-            $route = ['user.index', 'user.edit'];
-        @endphp
+            <li class="@if (in_array($current_route, $route)) active @endif">
 
-        <li class="@if (in_array($current_route, $route)) active @endif">
-
-            <a href="{{ route('user.index') }}">
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                Users
-            </a>
-        </li>
-
+                <a href="{{ route('user.index') }}">
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    Users
+                </a>
+            </li>
         @endif
 
 
-          @php
+        @php
             $route = ['meta-tag.index', 'meta-tag.edit'];
         @endphp
 

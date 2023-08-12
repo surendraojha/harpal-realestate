@@ -7,7 +7,7 @@ use App\Models\Category;
 use App\Models\Property;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-
+use File;
 class CategoryController extends Controller
 {
     /**
@@ -65,7 +65,7 @@ class CategoryController extends Controller
         $rules = [
             'title'=>'required',
             'order'=>'required',
-            'status'=>'required'
+            // 'status'=>'required'
         ];
 
         $request->validate($rules);
@@ -77,7 +77,23 @@ class CategoryController extends Controller
         $information->slug = Str::slug($request->title).'-KB'.date('ymdhis');
         $information->depth = 1;
         $information->order = $request->order;
-        $information->status = $request->status;
+        $information->status = $request->status??1;
+
+        if($request->hasFile('photo'))
+        {
+            $old_file = public_path().'/category/'.$information->photo;
+
+
+            if(File::exists($old_file)){
+                File::delete($old_file);
+            }
+           $file = $request->file('photo');
+           $extension = '.'.$request->file('photo')->extension();
+           $path = public_path().'/category/';
+           $filename = date('ymdhis').$extension;
+           $file->move($path, $filename);
+           $information->photo = $filename;
+        }
 
            $information->meta_title = $request->meta_title;
         $information->meta_keyword = $request->meta_keyword;
@@ -134,7 +150,7 @@ class CategoryController extends Controller
         $rules = [
             'title'=>'required',
             'order'=>'required',
-            'status'=>'required'
+            // 'status'=>'required'
         ];
 
         $request->validate($rules);
@@ -142,7 +158,24 @@ class CategoryController extends Controller
 
         $information = Category::findorfail($id);
 
+        if($request->hasFile('photo'))
+        {
+            $old_file = public_path().'/category/'.$information->photo;
 
+
+            if(File::exists($old_file)){
+                File::delete($old_file);
+            }
+           $file = $request->file('photo');
+           $extension = '.'.$request->file('photo')->extension();
+           $path = public_path().'/category/';
+           $filename = date('ymdhis').$extension;
+           $file->move($path, $filename);
+           $information->photo = $filename;
+        }
+        $information->title = $request->title;
+        $information->order = $request->order??1;
+        $information->status = $request->status??1;
         $information->meta_title = $request->meta_title;
         $information->meta_keyword = $request->meta_keyword;
         $information->meta_description = $request->meta_description;

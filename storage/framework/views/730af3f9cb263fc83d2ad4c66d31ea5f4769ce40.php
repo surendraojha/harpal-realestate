@@ -117,14 +117,14 @@
                         <div class="col-12 col-sm-12 category-item owl-carousel">
                             <div class="category-box">
                                 <div class="row">
-                                    <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <?php $__currentLoopData = $main_categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <div class="col-12 col-sm-12 col-md-3 col-lg-3">
 
 
                                             <a href="#">
                                                 <div class="grid">
                                                     <figure class="effect-lily">
-                                                        <img src="./images/key1.jpg" alt="">
+                                                        <img src="<?php echo e(asset('category/'.$value->photo)); ?>" alt="">
                                                         <figcaption>
                                                             <div>
                                                                 <h3><?php echo e($value->title); ?></h3>
@@ -140,26 +140,7 @@
 
                                 </div>
                             </div>
-                            <div class="category-box">
-                                <a href="#">
-                                    <img class="cato-image" src="./images/house3.jpg" alt="">
-                                </a>
-                            </div>
-                            <div class="category-box">
-                                <a href="#">
-                                    <img class="cato-image" src="./images/house1.jpg" alt="">
-                                </a>
-                            </div>
-                            <div class="category-box">
-                                <a href="#">
-                                    <img class="cato-image" src="./images/house2.jpg" alt="">
-                                </a>
-                            </div>
-                            <div class="category-box">
-                                <a href="#">
-                                    <img class="cato-image" src="./images/house4.jpg" alt="">
-                                </a>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>

@@ -12,9 +12,11 @@ class Textbox extends Component
      * @return void
      */
     public $information;
-    public function __construct($information)
+    public $d;
+    public function __construct($information,$d=null)
     {
         $this->information = $information;
+        $this->d = $d;
     }
 
     /**
@@ -25,6 +27,9 @@ class Textbox extends Component
     public function render()
     {
         $data['information'] = $this->information;
+        $data['d']= $this->d;
+
+        // dd('ram',$data['d']);
         return view('components.textbox',$data);
     }
 }

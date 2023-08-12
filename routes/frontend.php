@@ -22,6 +22,11 @@ use App\Http\Controllers\Front\WishListController;
 Route::get('/',[FrontendController::class,'index'])->name('front.home');
 
 
+Route::get('/blog',[FrontendController::class,'blog'])->name('front.blog');
+
+Route::get('/blog-detail/{slug}',[FrontendController::class,'blogDetail'])->name('front.blog-detail');
+
+
 Route::get('/rental-property',[FrontendController::class,'rentalHome'])->name('rental.home');
 
 
