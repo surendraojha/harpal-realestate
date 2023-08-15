@@ -103,7 +103,8 @@
         <select name="purpose_id" id="purpose_id" class="form-control">
             <option value="">-- Select Option --</option>
             <?php $__currentLoopData = $purposes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <option value="<?php echo e($value->id); ?>" <?php echo e(old('purpose_id', @$information->purpose_id)==$value->id?'selected':''); ?>>
+                <option value="<?php echo e($value->id); ?>"
+                    <?php echo e(old('purpose_id', @$information->purpose_id) == $value->id ? 'selected' : ''); ?>>
                     <?php echo e($value->title); ?></option>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
@@ -119,7 +120,8 @@
         <select name="road_size_id" id="road_size_id" class="form-control" required>
             <option value="">-- Select Option --</option>
             <?php $__currentLoopData = $road_types; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <option value="<?php echo e($value->id); ?>" <?php echo e(old('road_size_id', @$information->road_size_id)==$value->id?'selected':''); ?>>
+                <option value="<?php echo e($value->id); ?>"
+                    <?php echo e(old('road_size_id', @$information->road_size_id) == $value->id ? 'selected' : ''); ?>>
                     <?php echo e($value->title); ?></option>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
@@ -128,7 +130,117 @@
 </div>
 
 
+<div class="row">
+    <div class="col-md-12">
+        <div class="md-form">
+            <label for="message">Address</label>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="md-form">
 
+            <label for="">Province</label>
+
+            <select name="province_id" class="form-control" id="province_id">
+                <option value="" selected>Select Option</option>
+                <?php $__currentLoopData = $provinces; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <option value="<?php echo e($value->id); ?>"
+                        <?php echo e(old('province_id', @$information->province_id) == $value->id ? 'selected' : ''); ?>>
+                        <?php echo e($value->title); ?></option>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            </select>
+
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="md-form">
+            <label for="">District</label>
+
+
+
+            <select name="district_id" class="form-control" id="district_id">
+                <option value="" selected>Select Option</option>
+
+
+                <?php if(old('province_id', @$information->province_id)): ?>
+
+                    <?php
+                        $province_id = old('province_id', @$information->province_id);
+
+                        $districts = \App\Models\District::where('province_id', $province_id)->get();
+                    ?>
+
+
+
+                    <?php $__currentLoopData = $districts; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <option value="<?php echo e($value->id); ?>"
+                            <?php echo e(old('district_id', @$information->district_id) == $value->id ? 'selected' : ''); ?>>
+                            <?php echo e($value->title); ?></option>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+
+                <?php endif; ?>
+
+            </select>
+
+
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="md-form">
+            <label for="">Gau/Nagarpalika</label>
+
+            <select name="municipality_id" class="form-control" id="municipality_id">
+                <option value="" selected>Select Option</option>
+
+                <?php if(old('province_id', @$information->province_id)): ?>
+
+                    <?php
+                        $district_id = old('district_id', @$information->district_id);
+
+                        $municipalities = \App\Models\Municipality::where('district_id', $district_id)->get();
+                    ?>
+                    <?php $__currentLoopData = $municipalities; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <option value="<?php echo e($value->id); ?>"
+                            <?php echo e(old('municipality_id', @$information->municipality_id) == $value->id ? 'selected' : ''); ?>>
+                            <?php echo e($value->title); ?></option>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+                <?php endif; ?>
+            </select>
+
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="md-form">
+            <label for="">Woda</label>
+
+            <select name="woda_id" class="form-control" id="woda_id">
+                <option value="" selected>Select Option</option>
+
+                <?php if(old('municipality_id', @$information->municipality_id)): ?>
+
+                    <?php
+                        $municipality_id = old('municipality_id', @$information->municipality_id);
+
+                        $wodas = \App\Models\Woda::where('municipality_id', $municipality_id)
+                            ->orderBy('number')
+                            ->get();
+                    ?>
+
+                    <?php $__currentLoopData = $wodas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <option value="<?php echo e($value->id); ?>"
+                            <?php echo e(old('woda_id', @$information->woda_id) == $value->id ? 'selected' : ''); ?>>
+                            <?php echo e($value->number); ?>
+
+                        </option>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+                <?php endif; ?>
+            </select>
+        </div>
+    </div>
+</div>
 
 
 <div class="row">
@@ -311,6 +423,22 @@
                 <img width="300px" src="<?php echo e(asset('uploads/' . $information->featured_photo)); ?>" alt="">
             <?php endif; ?>
 
+            <?php if(@$information): ?>
+                <?php $__currentLoopData = $information->photo; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <img width="300px" src="<?php echo e(asset('uploads/' . $value->photo)); ?>" alt="">
+
+                    <a class="btn btn-danger" href="<?php echo e(route('remove.property.photo', $value->id)); ?>"
+                        onclick="return confirm('Are you sure, you want to remove this photo?');"><i
+                            class='fa fa-trash'></i></a>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+            <?php endif; ?>
+
+            <div id="add-more-photos"></div>
+
+            <a href="#" class="d-block mb-4" onclick="event.preventDefault();addPhotos()" class="a">Add
+                More Photos +</a>
+
 
         </div>
     </div>
@@ -359,10 +487,145 @@
             <textarea id="overview" name="overview" rows="2" class="form-control md-textarea"><?php echo e(old('overview', @$information->overview)); ?></textarea>
         </div>
     </div>
+
+
+    <div class="col-md-12">
+        <label for="message">Amenities/Local Area Facilities</label>
+        <?php
+            $selected_features =[];
+
+            if(@$information){
+
+                $selected_features = \App\Models\PropertyFeature::where('property_id',$information->id)
+                                    ->pluck('feature_id','feature_id')
+                                    ->toArray();
+
+                                    // dd($selected_features);
+            }
+        ?>
+
+        <?php $__currentLoopData = $features; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <div class="md-form">
+                <input type="checkbox" id="feature<?php echo e($value->id); ?>" name="feature_id[]"
+                    value="<?php echo e($value->id); ?>"  <?php echo e(in_array($value->id,$selected_features)?'checked':''); ?> >
+                <label for="feature<?php echo e($value->id); ?>"><?php echo e($value->title); ?></label>
+            </div>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+    </div>
+
+
+
     <div class="col-12 col-sm-12 center-on-small-only">
 
         <button class="btn btn-primary" type="submit"> send</button>
 
     </div>
 </div>
+
+
+<?php $__env->startPush('script'); ?>
+    
+    <script>
+        var count = 0;
+
+        function addPhotos() {
+            $('#add-more-photos').append(`
+        <div class='mb-3' id="photo-${count}">
+        <input type='file' name="photo[]" accept="image/*">
+
+        <button class="btn btn-danger" onclick="event.preventDefault();deletePhoto('photo-'+${count})"><i class='fa fa-trash'></i></button>
+        <div>
+    `);
+
+            count++;
+        }
+
+        function deletePhoto(id) {
+            $('#' + id).remove();
+        }
+    </script>
+
+
+
+
+
+    
+    <script>
+        $('#province_id').on('change', function() {
+
+            $('#district_id').empty();
+
+            var province_id = $('#province_id option:selected').val();
+
+            var url = "<?php echo e(route('get.district')); ?>?id=" + province_id;
+
+            $.ajax({
+                url: url, // Replace with your Laravel route
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    $('#district_id').append('<option value="">-- Select Option --</option>');
+                    $.each(data, function(key, value) {
+                        $('#district_id').append('<option value="' + value.id + '">' + value
+                            .title +
+                            '</option>');
+                    });
+                }
+            });
+        });
+
+        // district
+
+        $('#district_id').on('change', function() {
+
+            $('#municipality_id').empty();
+
+            var district_id = $('#district_id option:selected').val();
+
+            var url = "<?php echo e(route('get.municipality')); ?>?id=" + district_id;
+
+            $.ajax({
+                url: url, // Replace with your Laravel route
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+
+
+                    $('#municipality_id').append('<option value="">-- Select Option --</option>');
+                    $.each(data, function(key, value) {
+                        $('#municipality_id').append('<option value="' + value.id + '">' + value
+                            .title +
+                            '</option>');
+                    });
+                }
+            });
+        });
+
+        // municipality
+
+
+        $('#municipality_id').on('change', function() {
+
+            $('#woda_id').empty();
+            var district_id = $('#municipality_id option:selected').val();
+            var url = "<?php echo e(route('get.woda')); ?>?id=" + district_id;
+            $.ajax({
+                url: url, // Replace with your Laravel route
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+
+
+                    $('#woda_id').append('<option value="">-- Select Option --</option>');
+                    $.each(data, function(key, value) {
+                        $('#woda_id').append('<option value="' + value.id + '">' + value
+                            .number +
+                            '</option>');
+                    });
+                }
+            });
+        });
+    </script>
+<?php $__env->stopPush(); ?>
 <?php /**PATH E:\xampp\htdocs\harpal-realestate\resources\views/front-new/property/form.blade.php ENDPATH**/ ?>

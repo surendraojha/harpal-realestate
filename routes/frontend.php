@@ -8,7 +8,6 @@ use App\Http\Controllers\Front\CommercialPropertyController;
 use App\Http\Controllers\Front\DashboardController;
 use App\Http\Controllers\Front\ForumController;
 use App\Http\Controllers\Front\FrontendController;
-use App\Http\Controllers\Front\HomeStayController;
 use App\Http\Controllers\Front\ProfileController;
 use App\Http\Controllers\Front\PropertyController;
 use App\Http\Controllers\Front\RegisterController;
@@ -17,6 +16,14 @@ use App\Http\Controllers\Front\SearchController;
 use App\Http\Controllers\Front\TestimonialController;
 use App\Http\Controllers\Front\WishListController;
 
+
+
+
+Route::get('remove-property-photo/{id}',[PropertyController::class,'removePropertyPhoto'])->name('remove.property.photo');
+
+Route::get('get-district',[AjaxController::class,'getDistrict'])->name('get.district');
+Route::get('get-municipality',[AjaxController::class,'getMunicipality'])->name('get.municipality');
+Route::get('get-woda',[AjaxController::class,'getWoda'])->name('get.woda');
 
 
 Route::get('/',[FrontendController::class,'index'])->name('front.home');

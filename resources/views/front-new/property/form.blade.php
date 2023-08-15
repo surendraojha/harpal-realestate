@@ -92,7 +92,8 @@
         <select name="purpose_id" id="purpose_id" class="form-control">
             <option value="">-- Select Option --</option>
             @foreach ($purposes as $value)
-                <option value="{{ $value->id }}" {{ old('purpose_id', @$information->purpose_id)==$value->id?'selected':'' }}>
+                <option value="{{ $value->id }}"
+                    {{ old('purpose_id', @$information->purpose_id) == $value->id ? 'selected' : '' }}>
                     {{ $value->title }}</option>
             @endforeach
 
@@ -108,7 +109,8 @@
         <select name="road_size_id" id="road_size_id" class="form-control" required>
             <option value="">-- Select Option --</option>
             @foreach ($road_types as $value)
-                <option value="{{ $value->id }}" {{ old('road_size_id', @$information->road_size_id)==$value->id?'selected':'' }}>
+                <option value="{{ $value->id }}"
+                    {{ old('road_size_id', @$information->road_size_id) == $value->id ? 'selected' : '' }}>
                     {{ $value->title }}</option>
             @endforeach
 
@@ -117,7 +119,7 @@
 </div>
 
 
-{{-- <div class="row">
+<div class="row">
     <div class="col-md-12">
         <div class="md-form">
             <label for="message">Address</label>
@@ -125,25 +127,108 @@
     </div>
     <div class="col-md-6">
         <div class="md-form">
-            <input type="text" name="name" class="form-control" placeholder="street Name">
+
+            <label for="">Province</label>
+
+            <select name="province_id" class="form-control" id="province_id">
+                <option value="" selected>Select Option</option>
+                @foreach ($provinces as $value)
+                    <option value="{{ $value->id }}"
+                        {{ old('province_id', @$information->province_id) == $value->id ? 'selected' : '' }}>
+                        {{ $value->title }}</option>
+                @endforeach
+            </select>
+
         </div>
     </div>
     <div class="col-md-6">
         <div class="md-form">
-            <input type="text" name="name" class="form-control" placeholder="Post Code">
+            <label for="">District</label>
+
+
+
+            <select name="district_id" class="form-control" id="district_id">
+                <option value="" selected>Select Option</option>
+
+
+                @if (old('province_id', @$information->province_id))
+
+                    @php
+                        $province_id = old('province_id', @$information->province_id);
+
+                        $districts = \App\Models\District::where('province_id', $province_id)->get();
+                    @endphp
+
+
+
+                    @foreach ($districts as $value)
+                        <option value="{{ $value->id }}"
+                            {{ old('district_id', @$information->district_id) == $value->id ? 'selected' : '' }}>
+                            {{ $value->title }}</option>
+                    @endforeach
+
+
+                @endif
+
+            </select>
+
+
         </div>
     </div>
     <div class="col-md-6">
         <div class="md-form">
-            <input type="text" name="name" class="form-control" placeholder="Province">
+            <label for="">Gau/Nagarpalika</label>
+
+            <select name="municipality_id" class="form-control" id="municipality_id">
+                <option value="" selected>Select Option</option>
+
+                @if (old('province_id', @$information->province_id))
+
+                    @php
+                        $district_id = old('district_id', @$information->district_id);
+
+                        $municipalities = \App\Models\Municipality::where('district_id', $district_id)->get();
+                    @endphp
+                    @foreach ($municipalities as $value)
+                        <option value="{{ $value->id }}"
+                            {{ old('municipality_id', @$information->municipality_id) == $value->id ? 'selected' : '' }}>
+                            {{ $value->title }}</option>
+                    @endforeach
+
+                @endif
+            </select>
+
         </div>
     </div>
     <div class="col-md-6">
         <div class="md-form">
-            <input type="text" name="name" class="form-control" placeholder="Country">
+            <label for="">Woda</label>
+
+            <select name="woda_id" class="form-control" id="woda_id">
+                <option value="" selected>Select Option</option>
+
+                @if (old('municipality_id', @$information->municipality_id))
+
+                    @php
+                        $municipality_id = old('municipality_id', @$information->municipality_id);
+
+                        $wodas = \App\Models\Woda::where('municipality_id', $municipality_id)
+                            ->orderBy('number')
+                            ->get();
+                    @endphp
+
+                    @foreach ($wodas as $value)
+                        <option value="{{ $value->id }}"
+                            {{ old('woda_id', @$information->woda_id) == $value->id ? 'selected' : '' }}>
+                            {{ $value->number }}
+                        </option>
+                    @endforeach
+
+                @endif
+            </select>
         </div>
     </div>
-</div> --}}
+</div>
 
 
 <div class="row">
@@ -286,6 +371,22 @@
                 <img width="300px" src="{{ asset('uploads/' . $information->featured_photo) }}" alt="">
             @endif
 
+            @if (@$information)
+                @foreach ($information->photo as $value)
+                    <img width="300px" src="{{ asset('uploads/' . $value->photo) }}" alt="">
+
+                    <a class="btn btn-danger" href="{{ route('remove.property.photo', $value->id) }}"
+                        onclick="return confirm('Are you sure, you want to remove this photo?');"><i
+                            class='fa fa-trash'></i></a>
+                @endforeach
+
+            @endif
+
+            <div id="add-more-photos"></div>
+
+            <a href="#" class="d-block mb-4" onclick="event.preventDefault();addPhotos()" class="a">Add
+                More Photos +</a>
+
 
         </div>
     </div>
@@ -323,9 +424,144 @@
             <textarea id="overview" name="overview" rows="2" class="form-control md-textarea">{{ old('overview', @$information->overview) }}</textarea>
         </div>
     </div>
+
+
+    <div class="col-md-12">
+        <label for="message">Amenities/Local Area Facilities</label>
+        @php
+            $selected_features =[];
+
+            if(@$information){
+
+                $selected_features = \App\Models\PropertyFeature::where('property_id',$information->id)
+                                    ->pluck('feature_id','feature_id')
+                                    ->toArray();
+
+                                    // dd($selected_features);
+            }
+        @endphp
+
+        @foreach ($features as $value)
+            <div class="md-form">
+                <input type="checkbox" id="feature{{ $value->id }}" name="feature_id[]"
+                    value="{{ $value->id }}"  {{ in_array($value->id,$selected_features)?'checked':'' }} >
+                <label for="feature{{ $value->id }}">{{ $value->title }}</label>
+            </div>
+        @endforeach
+
+    </div>
+
+
+
     <div class="col-12 col-sm-12 center-on-small-only">
 
         <button class="btn btn-primary" type="submit"> send</button>
 
     </div>
 </div>
+
+
+@push('script')
+    {{-- add more photos --}}
+    <script>
+        var count = 0;
+
+        function addPhotos() {
+            $('#add-more-photos').append(`
+        <div class='mb-3' id="photo-${count}">
+        <input type='file' name="photo[]" accept="image/*">
+
+        <button class="btn btn-danger" onclick="event.preventDefault();deletePhoto('photo-'+${count})"><i class='fa fa-trash'></i></button>
+        <div>
+    `);
+
+            count++;
+        }
+
+        function deletePhoto(id) {
+            $('#' + id).remove();
+        }
+    </script>
+
+
+
+
+
+    {{-- category and province script --}}
+    <script>
+        $('#province_id').on('change', function() {
+
+            $('#district_id').empty();
+
+            var province_id = $('#province_id option:selected').val();
+
+            var url = "{{ route('get.district') }}?id=" + province_id;
+
+            $.ajax({
+                url: url, // Replace with your Laravel route
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    $('#district_id').append('<option value="">-- Select Option --</option>');
+                    $.each(data, function(key, value) {
+                        $('#district_id').append('<option value="' + value.id + '">' + value
+                            .title +
+                            '</option>');
+                    });
+                }
+            });
+        });
+
+        // district
+
+        $('#district_id').on('change', function() {
+
+            $('#municipality_id').empty();
+
+            var district_id = $('#district_id option:selected').val();
+
+            var url = "{{ route('get.municipality') }}?id=" + district_id;
+
+            $.ajax({
+                url: url, // Replace with your Laravel route
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+
+
+                    $('#municipality_id').append('<option value="">-- Select Option --</option>');
+                    $.each(data, function(key, value) {
+                        $('#municipality_id').append('<option value="' + value.id + '">' + value
+                            .title +
+                            '</option>');
+                    });
+                }
+            });
+        });
+
+        // municipality
+
+
+        $('#municipality_id').on('change', function() {
+
+            $('#woda_id').empty();
+            var district_id = $('#municipality_id option:selected').val();
+            var url = "{{ route('get.woda') }}?id=" + district_id;
+            $.ajax({
+                url: url, // Replace with your Laravel route
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+
+
+                    $('#woda_id').append('<option value="">-- Select Option --</option>');
+                    $.each(data, function(key, value) {
+                        $('#woda_id').append('<option value="' + value.id + '">' + value
+                            .number +
+                            '</option>');
+                    });
+                }
+            });
+        });
+    </script>
+@endpush

@@ -16,6 +16,7 @@ use App\Models\Location;
 use App\Models\Property;
 use App\Models\PropertyFeature;
 use App\Models\PropertyPhoto;
+use App\Models\Province;
 use App\Models\Purpose;
 use App\Models\RoadSize;
 use App\Models\Setting;
@@ -135,7 +136,12 @@ class PropertyController extends Controller
         $data['purposes'] = Purpose::orderBy('order')->get();
 
         $data['road_types'] = RoadSize::orderBy('order')->get();
+
         $data['title']= "Please list your property here.";
+
+        $data['provinces'] = Province::orderBy('id')->get();
+
+        $data['features'] = Feature::orderBy('order')->get();
 
 
         return view('front-new.property.create',$data);
@@ -161,6 +167,10 @@ class PropertyController extends Controller
             'featured_photo'=>'required|image',
             'title'=>'required',
             'purpose_id'=>'required',
+            'province_id'=>'required',
+            'district_id'=>'required',
+            'municipality_id'=>'required',
+            'woda_id'=>'required',
             // 'bedroom'=>'required',
             // 'bathroom'=>'required',
 
@@ -205,6 +215,13 @@ class PropertyController extends Controller
         $information->location_for_map = $request->location_for_map;
         $information->overview = $request->overview??$request->message;
         $information->featured_video = $request->featured_video;
+
+
+
+        $information->province_id = $request->province_id;
+        $information->district_id = $request->district_id;
+        $information->municipality_id = $request->municipality_id;
+        $information->woda_id = $request->woda_id;
 
         $information->area_covered = $request->area_covered;
         $information->buld_up_area = $request->buld_up_area;
@@ -441,6 +458,12 @@ class PropertyController extends Controller
 
         $data['road_types'] = RoadSize::orderBy('order')->get();
 
+        $data['provinces'] = Province::orderBy('id')->get();
+
+        $data['features'] = Feature::orderBy('order')->get();
+
+        
+
         return view('front-new.property.edit',$data);
 
 
@@ -488,6 +511,9 @@ class PropertyController extends Controller
 
             'sub_category_id'=>'required',
             'child_category_id'=>'required',
+            'province_id'=>'required',
+            'district_id'=>'required',
+            'municipality_id'=>'required',
 
             // 'location_id'=>'required',
             // 'floor_id'=>'required',
@@ -526,6 +552,11 @@ class PropertyController extends Controller
 
         $information->category_id = $request->sub_category_id;
         $information->sub_category_id = $request->child_category_id;
+
+        $information->province_id = $request->province_id;
+        $information->district_id = $request->district_id;
+        $information->municipality_id = $request->municipality_id;
+        $information->woda_id = $request->woda_id;
 
 
         if($request->featured_video){
@@ -697,6 +728,24 @@ class PropertyController extends Controller
 
         $information->save();
         return redirect()->route('my-property.index')->with('message','Marked As Fulfulled Successfully!!');
+
+    }
+
+
+    public function removePropertyPhoto($id){
+
+        $information = PropertyPhoto::findOrfail($id);
+        $old_path = public_path().'/uploads/'.$information->photo;
+
+        if(File::exists($old_path)){
+            File::delete($old_path);
+        }
+
+        $information->delete();
+
+
+        return redirect()->back()->with('message','Photo removed successfully!!');
+
 
     }
 

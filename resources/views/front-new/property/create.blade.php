@@ -21,18 +21,13 @@
 @push('script')
     <script>
         function getSubCategory(id, child_category_id) {
-
-
             var url = "{{ route('get.sub-category') }}?id=" + id;
             var mainData;
-
             $.ajax({
                 url: url, // Replace with your Laravel route
                 type: 'GET',
                 dataType: 'json',
                 success: function(data) {
-
-
                     $(child_category_id).append('<option value="">-- Select Sub-Category --</option>');
                     $.each(data.data, function(key, value) {
                         $(child_category_id).append('<option value="' + value.id + '">' + value
@@ -52,10 +47,7 @@
             $('#sub_category_id').empty();
 
             var data = getSubCategory(id, '#sub_category_id');
-
             // console.log('data',data);
-
-
         });
 
 
@@ -63,10 +55,7 @@
         $('#sub_category_id').on('change', function() {
             var id = $('#sub_category_id option:selected').val();
             $('#child_category_id').empty();
-
             var data =  getSubCategory(id,'#child_category_id');
-
-
         });
     </script>
 @endpush

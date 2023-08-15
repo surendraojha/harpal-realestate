@@ -4,11 +4,52 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\District;
+use App\Models\Municipality;
 use App\Models\PropertyPhoto;
+use App\Models\Woda;
 use Illuminate\Http\Request;
 use File;
 class AjaxController extends Controller
 {
+
+
+    public function getDistrict(Request $request){
+
+        $id = $request->id;
+
+        $informations = District::where('province_id',$id)
+                        ->orderBy('id')
+                        ->get();
+
+        return response()->json($informations);
+    }
+
+
+    public function getMunicipality(Request $request){
+        $id = $request->id;
+        $informations = Municipality::where('district_id',$id)
+                        ->orderBy('id')
+                        ->get();
+
+        return response()->json($informations);
+
+    }
+
+
+
+    public function getWoda(Request $request){
+        $id = $request->id;
+
+        $informations = Woda::where('municipality_id',$id)
+                        ->orderBy('id')
+                        ->get();
+
+        return response()->json($informations);
+
+
+    }
+
     public function getSubcategory(Request $request){
 
         $id = $request->id;
