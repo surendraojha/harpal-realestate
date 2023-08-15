@@ -46,6 +46,7 @@ use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\WatermarkController;
 use App\Http\Controllers\Admin\CommercialPropertyController;
+use App\Http\Controllers\Admin\FinancialSupportController;
 use App\Http\Controllers\Admin\MetaController;
 use App\Models\Advertisement;
 use Illuminate\Support\Facades\Route;
@@ -86,6 +87,13 @@ Route::group(['middleware'=>['auth','is-agent'],'prefix'=>'iv-admin'],function()
 
     Route::resource('sub-category',SubCategoryController::class);
     Route::post('sub-category/delete',[SubCategoryController::class,'delete'])->name('sub-category.delete')->middleware('editor');
+
+
+
+    Route::resource('financial-support',FinancialSupportController::class);
+    Route::post('financial-support/delete',[FinancialSupportController::class,'delete'])
+    ->name('financial-support.delete')
+    ->middleware('editor');
 
 
 

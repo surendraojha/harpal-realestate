@@ -299,6 +299,20 @@
 
 
         <?php
+            $route = ['financial-support.index', 'financial-support.edit'];
+        ?>
+
+        <li class="<?php if(in_array($current_route, $route)): ?> active <?php endif; ?>">
+            <a href="<?php echo e(route('financial-support.index')); ?>">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                <span>Financial Support
+                </span></a>
+        </li>
+
+
+
+        <?php
             $route = ['blog.index', 'blog.edit'];
         ?>
         

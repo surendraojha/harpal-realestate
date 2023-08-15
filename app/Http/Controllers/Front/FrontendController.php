@@ -17,6 +17,7 @@ use App\Models\CustomerStory;
 use App\Models\FAQ;
 use App\Models\Feature;
 use App\Models\FeaturedProperty;
+use App\Models\FinancialSupport;
 use App\Models\Floor;
 use App\Models\HomePageProduct;
 use App\Models\Location;
@@ -129,6 +130,8 @@ class FrontendController extends Controller
         $data['main_categories'] = Category::where('depth',1)->get();
 
         $data['featured_properties'] = FeaturedProperty::orderBy('order')->get();
+
+
         return view('front-new.index', $data);
 
 
@@ -169,6 +172,14 @@ class FrontendController extends Controller
             )
         );
     }
+    public function financialSupport(){
+
+        $data['financial_support'] = FinancialSupport::orderBy('order')->get();
+
+
+        return view('front-new.financial-support',$data);
+    }
+
     public function rentalHome()
     {
 

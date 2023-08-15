@@ -21,6 +21,7 @@ use App\Http\Controllers\Front\WishListController;
 
 Route::get('/',[FrontendController::class,'index'])->name('front.home');
 
+Route::get('/front-financial-support',[FrontendController::class,'financialSupport'])->name('front.financial-support');
 
 Route::get('/blog',[FrontendController::class,'blog'])->name('front.blog');
 

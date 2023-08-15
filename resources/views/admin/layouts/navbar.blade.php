@@ -301,6 +301,20 @@
 
 
         @php
+            $route = ['financial-support.index', 'financial-support.edit'];
+        @endphp
+
+        <li class="@if (in_array($current_route, $route)) active @endif">
+            <a href="{{ route('financial-support.index') }}">
+                &nbsp;&nbsp;&nbsp;&nbsp;
+
+                <span>Financial Support
+                </span></a>
+        </li>
+
+
+
+        @php
             $route = ['blog.index', 'blog.edit'];
         @endphp
         {{-- pages --}}
