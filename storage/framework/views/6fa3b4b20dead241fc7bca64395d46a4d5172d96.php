@@ -100,4 +100,5 @@
 
 
 <?php echo $__env->yieldContent('script'); ?>
+<?php echo $__env->yieldPushContent('script'); ?>
 <?php /**PATH E:\xampp\htdocs\harpal-realestate\resources\views/common/links/js.blade.php ENDPATH**/ ?>

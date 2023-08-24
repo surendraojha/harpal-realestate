@@ -15,7 +15,9 @@
 
     <p><strong>Name:</strong> {{$information->name}}</p>
 
-    <p><strong>Subject:</strong> {{$information->subject}}</p>
+    @if($information->contact_for)
+    <p><strong>Subject:</strong> {{$information->contact_for}}</p>
+    @endif
 
     <p><strong>Phone:</strong> {{$information->phone}}</p>
     <p><strong>Email:</strong> {{$information->email}}</p>
@@ -47,7 +49,7 @@
 
 
     <p><strong>Message:</strong> {{$information->message}}</p>
-{{-- 
+{{--
     @if(@$information->deposit_slip)
     <a target="_blank" href="{{asset('uploads/'.@$information->deposit_slip)}}" target="_blank">Click Here For Deposit Slip</a>
     @endif --}}

@@ -100,16 +100,25 @@
                                         </span>
                                     </a>
                                 </li>
+
+
+
+                                <?php if(auth()->user()->role!='user'): ?>
                                 <li>
                                     <a href="<?php echo e(route('my-property.index')); ?>"
                                     class="<?php if($current_route=='my-property.index'  || $current_route=='my-property.create'): ?> active <?php endif; ?>"
                                     >
                                         <i class="fas fa-home"></i>
                                         <span>
-                                            My Rental
+                                            My Properties
                                         </span>
                                     </a>
                                 </li>
+
+                                <?php endif; ?>
+
+
+
 
 
                                 <li>

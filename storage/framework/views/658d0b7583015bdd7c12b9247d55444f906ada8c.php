@@ -41,38 +41,18 @@
             <ul>
 
                 <?php
-                    $route = ['admin-residental-property.index', 'admin-residental-property.edit'];
+                    $route = ['property.index', 'property.edit'];
                 ?>
 
                 <li class="<?php if(in_array($current_route, $route)): ?> active <?php endif; ?>">
-                    <a href="<?php echo e(route('admin-residental-property.index')); ?>">
+                    <a href="<?php echo e(route('property.index')); ?>">
                         &nbsp;&nbsp;&nbsp;&nbsp;
 
-                        <span>Residental Properties
-                            <?php if($residental_pending_property_count > 0): ?>
-                                (<?php echo e($residental_pending_property_count); ?>)
-                            <?php endif; ?>
+                        <span> Properties
+                            
                         </span></a>
 
                 </li>
-
-
-                <?php
-                    $route = ['admin-commercial-property.index', 'admin-commercial-property.edit'];
-                ?>
-
-                <li class="<?php if(in_array($current_route, $route)): ?> active <?php endif; ?>">
-                    <a href="<?php echo e(route('admin-commercial-property.index')); ?>">
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-
-                        <span>Commercial Properties
-                            <?php if($commerical_pending_property_count > 0): ?>
-                                (<?php echo e($commerical_pending_property_count); ?>)
-                            <?php endif; ?>
-                        </span></a>
-
-                </li>
-
 
 
                 <?php
@@ -554,6 +534,19 @@
                 <a href="<?php echo e(route('user.index')); ?>">
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     Users
+                </a>
+            </li>
+
+
+            <?php
+                $route = ['user-upgrade.index', 'user-upgrade.edit'];
+            ?>
+
+            <li class="<?php if(in_array($current_route, $route)): ?> active <?php endif; ?>">
+
+                <a href="<?php echo e(route('user-upgrade.index')); ?>">
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    User Upgrade
                 </a>
             </li>
         <?php endif; ?>

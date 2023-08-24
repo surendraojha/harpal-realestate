@@ -15,7 +15,7 @@ class AddAddressProperty extends Migration
     {
         Schema::table('properties', function (Blueprint $table) {
 
-            
+
             $table->unsignedBigInteger('province_id')->nullable();
             $table->index('province_id');
             $table->foreign('province_id')
@@ -28,7 +28,7 @@ class AddAddressProperty extends Migration
             $table->index('district_id');
             $table->foreign('district_id')
                     ->references('id')
-                    ->on('provinces')
+                    ->on('districts')
                     ->onDelete('cascade');
 
             $table->unsignedBigInteger('municipality_id')->nullable();

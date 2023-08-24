@@ -48,11 +48,13 @@ use App\Http\Controllers\Admin\WatermarkController;
 use App\Http\Controllers\Admin\CommercialPropertyController;
 use App\Http\Controllers\Admin\FinancialSupportController;
 use App\Http\Controllers\Admin\MetaController;
+use App\Http\Controllers\Admin\UserUpgradeController;
 use App\Models\Advertisement;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware'=>['auth','is-agent'],'prefix'=>'iv-admin'],function(){
 
+    Route::resource('user-upgrade',UserUpgradeController::class);
 
     Route::get('settings',[SettingsController::class,'index'])->name('settings.index');
     Route::post('settings-update',[SettingsController::class,'update'])->name('settings.update');

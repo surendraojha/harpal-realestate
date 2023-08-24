@@ -99,16 +99,25 @@
                                         </span>
                                     </a>
                                 </li>
+
+
+
+                                @if(auth()->user()->role!='user')
                                 <li>
                                     <a href="{{route('my-property.index')}}"
                                     class="@if($current_route=='my-property.index'  || $current_route=='my-property.create') active @endif"
                                     >
                                         <i class="fas fa-home"></i>
                                         <span>
-                                            My Rental
+                                            My Properties
                                         </span>
                                     </a>
                                 </li>
+
+                                @endif
+
+
+
 
 
                                 <li>

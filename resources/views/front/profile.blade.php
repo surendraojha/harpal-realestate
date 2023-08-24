@@ -133,6 +133,169 @@
                     </div>
                 </div>
 
+
+                <div class="col-md-4">
+                    <div class="form-floating customForm">
+
+                        <textarea name="about_me" class="form-control {{ $errors->has('about_me') ? ' is-invalid' : '' }}" cols="30" rows="10">{{ old('about_me',@$user->profile->about_me) }}</textarea>
+
+                        <label for="fName">
+                            About Me
+                        </label>
+
+                        @error('about_me')
+                            <span class="invalid-feedback" role="alert">
+
+                                {{ $message }}
+                            </span>
+                        @enderror
+                    </div>
+
+
+                </div>
+
+
+                <div class="col-md-3">
+                    <div class="form-floating customForm">
+                        <input type="text" class="form-control {{ $errors->has('country') ? ' is-invalid' : '' }}"
+
+                             placeholder="eg.Nepal" name="country"
+                             value="{{ old('country', @$user->profile->country) }}">
+                        <label for="pNumber">
+                             country
+                        </label>
+
+                        @error('country')
+                            <span class="invalid-feedback" role="alert">
+
+                                {{ $message }}
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+
+                @if(in_array($user->role,['agent','agency']))
+                <div class="col-md-3">
+                    <div class="form-floating customForm">
+                        <input type="number" class="form-control {{ $errors->has('experience') ? ' is-invalid' : '' }}"
+
+                            id="pNumber" min="0" placeholder="eg.Nepal" name="experience"
+                             value="{{ old('experience', @$user->profile->experience) }}">
+                        <label for="pNumber">
+                            Years of Experience
+                        </label>
+
+                        @error('experience')
+                            <span class="invalid-feedback" role="alert">
+
+                                {{ $message }}
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+                @endif
+
+
+                <div class="col-md-3">
+                    <div class="form-floating customForm">
+                        <input type="text" class="form-control {{ $errors->has('facebook') ? ' is-invalid' : '' }}"
+
+                             placeholder="https://facebook.com/id" name="facebook"
+                             value="{{ old('facebook', @$user->profile->facebook) }}">
+                        <label for="pNumber">
+                             facebook
+                        </label>
+
+                        @error('facebook')
+                            <span class="invalid-feedback" role="alert">
+
+                                {{ $message }}
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+
+                <div class="col-md-3">
+                    <div class="form-floating customForm">
+                        <input type="text" class="form-control {{ $errors->has('twitter') ? ' is-invalid' : '' }}"
+
+                             placeholder="https://twitter.com/id" name="twitter"
+                             value="{{ old('twitter', @$user->profile->twitter) }}">
+                        <label for="pNumber">
+                             twitter
+                        </label>
+
+                        @error('twitter')
+                            <span class="invalid-feedback" role="alert">
+
+                                {{ $message }}
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+
+                <div class="col-md-3">
+                    <div class="form-floating customForm">
+                        <input type="text" class="form-control {{ $errors->has('linkedin') ? ' is-invalid' : '' }}"
+
+                             placeholder="https://linkedin.com/id" name="linkedin"
+                             value="{{ old('linkedin', @$user->profile->linkedin) }}">
+                        <label for="pNumber">
+                             linkedin
+                        </label>
+
+                        @error('linkedin')
+                            <span class="invalid-feedback" role="alert">
+
+                                {{ $message }}
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-floating customForm">
+                        <input type="text" class="form-control {{ $errors->has('instagram') ? ' is-invalid' : '' }}"
+
+                             placeholder="https://instagram.com/id" name="instagram"
+                             value="{{ old('instagram', @$user->profile->instagram) }}">
+                        <label for="pNumber">
+                             instagram
+                        </label>
+
+                        @error('instagram')
+                            <span class="invalid-feedback" role="alert">
+
+                                {{ $message }}
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+
+                <div class="col-md-3">
+                    <div class="form-floating customForm">
+                        <input type="text" class="form-control {{ $errors->has('website') ? ' is-invalid' : '' }}"
+
+                             placeholder="https://website.com/id" name="website"
+                             value="{{ old('website', @$user->profile->website) }}">
+                        <label for="pNumber">
+                             website
+                        </label>
+
+                        @error('website')
+                            <span class="invalid-feedback" role="alert">
+
+                                {{ $message }}
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+
                 {{-- gender --}}
                 {{-- <div class="col-md-3">
                     <div class="form-floating customForm">
@@ -193,40 +356,22 @@
                             Who are You ?
                         </span>
                         <div class="d-flex">
+                            @php
+
+
+                            @endphp
+
                             {{-- general user --}}
-
                             <div class="form-check">
-                                <input class="form-check-input {{ $errors->has('user_type') ? ' is-invalid' : '' }}"
-                                    name="user_type" type="radio" value="user" id="user"
-                                    {{ old('user_type', strtolower(@$profile->user_type)) == 'user' ? 'checked' : '' }}>
+
                                 <label class="form-check-label" for="user">
-                                    General User
-                                </label>
-                            </div>
-
-                            <div class="form-check">
-                                <input class="form-check-input {{ $errors->has('user_type') ? ' is-invalid' : '' }}"
-                                    name="user_type" type="radio" value="agent" id="agent"
-                                    {{ old('user_type', strtolower(@$profile->user_type)) == 'agent' ? 'checked' : '' }}>
-                                <label class="form-check-label" for="agent">
-                                    Agent
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input {{ $errors->has('user_type') ? ' is-invalid' : '' }}"
-                                    name="user_type" type="radio" value="owner" id="Owner"
-                                    {{ old('user_type', strtolower(@$profile->user_type)) == 'owner' ? 'checked' : '' }}>
-                                <label class="form-check-label" for="Owner">
-                                    Owner
+                                    {{ ucwords(auth()->user()->role) }}
                                 </label>
 
-                                @error('user_type')
-                                    <span class="invalid-feedback" role="alert">
-
-                                        {{ $message }}
-                                    </span>
-                                @enderror
+                                <a href="{{ route('user-upgrade') }}">Want to change your role?</a>
                             </div>
+
+
 
 
                         </div>

@@ -1,6 +1,3 @@
-
-
-
 <?php $__env->startSection('title','Profile'); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -125,6 +122,233 @@ unset($__errorArgs, $__bag); ?>
                     </div>
                 </div>
 
+
+                <div class="col-md-4">
+                    <div class="form-floating customForm">
+
+                        <textarea name="about_me" class="form-control <?php echo e($errors->has('about_me') ? ' is-invalid' : ''); ?>" cols="30" rows="10"><?php echo e(old('about_me',@$user->profile->about_me)); ?></textarea>
+
+                        <label for="fName">
+                            About Me
+                        </label>
+
+                        <?php $__errorArgs = ['about_me'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                            <span class="invalid-feedback" role="alert">
+
+                                <?php echo e($message); ?>
+
+                            </span>
+                        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                    </div>
+
+
+                </div>
+
+
+                <div class="col-md-3">
+                    <div class="form-floating customForm">
+                        <input type="text" class="form-control <?php echo e($errors->has('country') ? ' is-invalid' : ''); ?>"
+
+                             placeholder="eg.Nepal" name="country"
+                             value="<?php echo e(old('country', @$user->profile->country)); ?>">
+                        <label for="pNumber">
+                             country
+                        </label>
+
+                        <?php $__errorArgs = ['country'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                            <span class="invalid-feedback" role="alert">
+
+                                <?php echo e($message); ?>
+
+                            </span>
+                        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                    </div>
+                </div>
+
+
+                <?php if(in_array($user->role,['agent','agency'])): ?>
+                <div class="col-md-3">
+                    <div class="form-floating customForm">
+                        <input type="number" class="form-control <?php echo e($errors->has('experience') ? ' is-invalid' : ''); ?>"
+
+                            id="pNumber" min="0" placeholder="eg.Nepal" name="experience"
+                             value="<?php echo e(old('experience', @$user->profile->experience)); ?>">
+                        <label for="pNumber">
+                            Years of Experience
+                        </label>
+
+                        <?php $__errorArgs = ['experience'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                            <span class="invalid-feedback" role="alert">
+
+                                <?php echo e($message); ?>
+
+                            </span>
+                        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+
+                <div class="col-md-3">
+                    <div class="form-floating customForm">
+                        <input type="text" class="form-control <?php echo e($errors->has('facebook') ? ' is-invalid' : ''); ?>"
+
+                             placeholder="https://facebook.com/id" name="facebook"
+                             value="<?php echo e(old('facebook', @$user->profile->facebook)); ?>">
+                        <label for="pNumber">
+                             facebook
+                        </label>
+
+                        <?php $__errorArgs = ['facebook'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                            <span class="invalid-feedback" role="alert">
+
+                                <?php echo e($message); ?>
+
+                            </span>
+                        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                    </div>
+                </div>
+
+
+                <div class="col-md-3">
+                    <div class="form-floating customForm">
+                        <input type="text" class="form-control <?php echo e($errors->has('twitter') ? ' is-invalid' : ''); ?>"
+
+                             placeholder="https://twitter.com/id" name="twitter"
+                             value="<?php echo e(old('twitter', @$user->profile->twitter)); ?>">
+                        <label for="pNumber">
+                             twitter
+                        </label>
+
+                        <?php $__errorArgs = ['twitter'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                            <span class="invalid-feedback" role="alert">
+
+                                <?php echo e($message); ?>
+
+                            </span>
+                        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                    </div>
+                </div>
+
+
+                <div class="col-md-3">
+                    <div class="form-floating customForm">
+                        <input type="text" class="form-control <?php echo e($errors->has('linkedin') ? ' is-invalid' : ''); ?>"
+
+                             placeholder="https://linkedin.com/id" name="linkedin"
+                             value="<?php echo e(old('linkedin', @$user->profile->linkedin)); ?>">
+                        <label for="pNumber">
+                             linkedin
+                        </label>
+
+                        <?php $__errorArgs = ['linkedin'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                            <span class="invalid-feedback" role="alert">
+
+                                <?php echo e($message); ?>
+
+                            </span>
+                        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="form-floating customForm">
+                        <input type="text" class="form-control <?php echo e($errors->has('instagram') ? ' is-invalid' : ''); ?>"
+
+                             placeholder="https://instagram.com/id" name="instagram"
+                             value="<?php echo e(old('instagram', @$user->profile->instagram)); ?>">
+                        <label for="pNumber">
+                             instagram
+                        </label>
+
+                        <?php $__errorArgs = ['instagram'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                            <span class="invalid-feedback" role="alert">
+
+                                <?php echo e($message); ?>
+
+                            </span>
+                        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                    </div>
+                </div>
+
+
+                <div class="col-md-3">
+                    <div class="form-floating customForm">
+                        <input type="text" class="form-control <?php echo e($errors->has('website') ? ' is-invalid' : ''); ?>"
+
+                             placeholder="https://website.com/id" name="website"
+                             value="<?php echo e(old('website', @$user->profile->website)); ?>">
+                        <label for="pNumber">
+                             website
+                        </label>
+
+                        <?php $__errorArgs = ['website'];
+$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
+if ($__bag->has($__errorArgs[0])) :
+if (isset($message)) { $__messageOriginal = $message; }
+$message = $__bag->first($__errorArgs[0]); ?>
+                            <span class="invalid-feedback" role="alert">
+
+                                <?php echo e($message); ?>
+
+                            </span>
+                        <?php unset($message);
+if (isset($__messageOriginal)) { $message = $__messageOriginal; }
+endif;
+unset($__errorArgs, $__bag); ?>
+                    </div>
+                </div>
+
+
                 
                 
 
@@ -143,48 +367,23 @@ unset($__errorArgs, $__bag); ?>
                             Who are You ?
                         </span>
                         <div class="d-flex">
+                            <?php
+
+
+                            ?>
+
                             
-
                             <div class="form-check">
-                                <input class="form-check-input <?php echo e($errors->has('user_type') ? ' is-invalid' : ''); ?>"
-                                    name="user_type" type="radio" value="user" id="user"
-                                    <?php echo e(old('user_type', strtolower(@$profile->user_type)) == 'user' ? 'checked' : ''); ?>>
+
                                 <label class="form-check-label" for="user">
-                                    General User
-                                </label>
-                            </div>
+                                    <?php echo e(ucwords(auth()->user()->role)); ?>
 
-                            <div class="form-check">
-                                <input class="form-check-input <?php echo e($errors->has('user_type') ? ' is-invalid' : ''); ?>"
-                                    name="user_type" type="radio" value="agent" id="agent"
-                                    <?php echo e(old('user_type', strtolower(@$profile->user_type)) == 'agent' ? 'checked' : ''); ?>>
-                                <label class="form-check-label" for="agent">
-                                    Agent
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input <?php echo e($errors->has('user_type') ? ' is-invalid' : ''); ?>"
-                                    name="user_type" type="radio" value="owner" id="Owner"
-                                    <?php echo e(old('user_type', strtolower(@$profile->user_type)) == 'owner' ? 'checked' : ''); ?>>
-                                <label class="form-check-label" for="Owner">
-                                    Owner
                                 </label>
 
-                                <?php $__errorArgs = ['user_type'];
-$__bag = $errors->getBag($__errorArgs[1] ?? 'default');
-if ($__bag->has($__errorArgs[0])) :
-if (isset($message)) { $__messageOriginal = $message; }
-$message = $__bag->first($__errorArgs[0]); ?>
-                                    <span class="invalid-feedback" role="alert">
-
-                                        <?php echo e($message); ?>
-
-                                    </span>
-                                <?php unset($message);
-if (isset($__messageOriginal)) { $message = $__messageOriginal; }
-endif;
-unset($__errorArgs, $__bag); ?>
+                                <a href="<?php echo e(route('user-upgrade')); ?>">Want to change your role?</a>
                             </div>
+
+
 
 
                         </div>

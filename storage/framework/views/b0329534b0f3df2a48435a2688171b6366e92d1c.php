@@ -26,6 +26,8 @@
 
     <link rel="stylesheet" href="<?php echo e(asset('toaster.min.css')); ?>">
 
+    <?php echo $__env->yieldPushContent('css'); ?>
+
 
 </head>
 <body>
@@ -359,7 +361,9 @@
         toastr.error("<?php echo e(\Session::get('error')); ?>");
     <?php endif; ?>
 </script>
-<script>
+
+
+ <script>
   wow = new WOW(
       {
         animateClass: 'animated',
@@ -376,6 +380,8 @@
       this.parentNode.insertBefore(section, this);
     };
 </script>
+
+<?php echo $__env->yieldPushContent('script'); ?>
 </body>
 </html>
 <?php /**PATH E:\xampp\htdocs\harpal-realestate\resources\views/front-new/layouts/main.blade.php ENDPATH**/ ?>

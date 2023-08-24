@@ -59,6 +59,9 @@
                                         </button>
                                     </div>
                                 </div>
+
+
+                                <a class="btn btn-success" href="{{ route('my-property.create') }}">Add New</a>
                             </div>
                         </form>
                     </div>
@@ -71,9 +74,9 @@
                             <li class="nav-item"><a class="nav-link @if (!session()->get('errors')) active show @endif"
                                     data-toggle="tab" href="#Users">{{ $module }} list
                                 </a></li>
-                            <li class="nav-item"><a class="nav-link @if (session()->get('errors')) active show @endif"
+                            {{-- <li class="nav-item"><a class="nav-link @if (session()->get('errors')) active show @endif"
                                     data-toggle="tab" href="#addUser">Add {{ $module }}
-                                </a></li>
+                                </a></li> --}}
                         </ul>
                         <div class="tab-content mt-0">
                             <div class="tab-pane  @if (!session()->get('errors')) active show @endif" id="Users">
@@ -119,7 +122,12 @@
                                                             {{ $value->title }}
 
                                                         </td>
-                                                        <td>{{ $value->location->location }}</td>
+                                                        <td>
+                                                            {{ @$value->province->title }},
+                                                           {{ @$value->district->title }}
+
+
+                                                        </td>
                                                         @php
                                                             $formatted_price = \App\Helpers\NumberHelper::formatnumber($value->price);
                                                         @endphp
@@ -140,7 +148,7 @@
                                                         <td>{{ date('d M, Y', strtotime($value->created_at)) }}</td>
 
                                                         <td>
-                                                            <a href="{{ route('property.edit', $value->id) }}"> <i
+                                                            <a href="{{ route('my-property.edit', $value->id) }}"> <i
                                                                     class="icon-pencil"></i> </a>
                                                             </a>
 

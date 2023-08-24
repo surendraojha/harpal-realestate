@@ -31,6 +31,6 @@ class FindMeRoom extends Mailable
      */
     public function build()
     {
-        return $this->view('admin.mails.find-me-room',['information'=>$this->information]);
+        return $this->subject("Contact Inquiry")->view('admin.mails.find-me-room',['information'=>$this->information]);
     }
 }

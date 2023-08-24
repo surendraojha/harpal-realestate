@@ -41,38 +41,20 @@
             <ul>
 
                 @php
-                    $route = ['admin-residental-property.index', 'admin-residental-property.edit'];
+                    $route = ['property.index', 'property.edit'];
                 @endphp
 
                 <li class="@if (in_array($current_route, $route)) active @endif">
-                    <a href="{{ route('admin-residental-property.index') }}">
+                    <a href="{{ route('property.index') }}">
                         &nbsp;&nbsp;&nbsp;&nbsp;
 
-                        <span>Residental Properties
-                            @if ($residental_pending_property_count > 0)
+                        <span> Properties
+                            {{-- @if ($residental_pending_property_count > 0)
                                 ({{ $residental_pending_property_count }})
-                            @endif
+                            @endif --}}
                         </span></a>
 
                 </li>
-
-
-                @php
-                    $route = ['admin-commercial-property.index', 'admin-commercial-property.edit'];
-                @endphp
-
-                <li class="@if (in_array($current_route, $route)) active @endif">
-                    <a href="{{ route('admin-commercial-property.index') }}">
-                        &nbsp;&nbsp;&nbsp;&nbsp;
-
-                        <span>Commercial Properties
-                            @if ($commerical_pending_property_count > 0)
-                                ({{ $commerical_pending_property_count }})
-                            @endif
-                        </span></a>
-
-                </li>
-
 
 
                 @php
@@ -556,6 +538,19 @@
                 <a href="{{ route('user.index') }}">
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     Users
+                </a>
+            </li>
+
+
+            @php
+                $route = ['user-upgrade.index', 'user-upgrade.edit'];
+            @endphp
+
+            <li class="@if (in_array($current_route, $route)) active @endif">
+
+                <a href="{{ route('user-upgrade.index') }}">
+                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    User Upgrade
                 </a>
             </li>
         @endif

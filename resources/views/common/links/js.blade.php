@@ -116,3 +116,4 @@
 
 
 @yield('script')
+@stack('script')

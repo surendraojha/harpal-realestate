@@ -28,6 +28,7 @@ use App\Models\Page;
 use App\Models\Partner;
 use App\Models\Property;
 use App\Models\PropertyFeature;
+use App\Models\PropertyPhoto;
 use App\Models\Purpose;
 use App\Models\RecommendedProperty;
 use App\Models\RoadSize;
@@ -454,15 +455,25 @@ class FrontendController extends Controller
         $information->email = $request->email;
         $information->phone = $request->phone;
         $information->message = $request->message;
-
+        $information->user_id = $request->user_id??null;
         $information->save();
 
         $setting = Setting::first();
 
-        Mail::to($setting->email)->send(new FindMeRoom($information));
+        if($information->user_id){
+            $user = User::find($information->user_id);
+
+            $emails =[$setting->email,$user->email];
+
+        }else{
+            $emails =[$setting->email];
+
+        }
+
+        Mail::to($emails)->send(new FindMeRoom($information));
 
 
-        return redirect()->route('front.home')->with('message', 'Your Message Is Received, We will contact you sortly!!');
+        return redirect()->back()->with('message', 'Your Message Is Received, We will contact you sortly!!');
     }
 
 
@@ -517,6 +528,18 @@ class FrontendController extends Controller
                 ->orWhere('sub_category_id', $information->sub_category_id)
                 ->orWhere('location_id', $information->location_id);
         })->where('status', '!=', '0')->limit(10)->get();
+
+
+        return view('front-new.property.show',
+            compact(
+                'information',
+                'additional_features',
+                'faqs',
+                'forums',
+                'advertisement',
+                'recommended_properties'
+            )
+        );
 
         return view(
             'front.property.show',
@@ -932,5 +955,14 @@ class FrontendController extends Controller
 
             compact('information', 'properties', 'properties_count')
         );
+    }
+
+
+    public function gallery(){
+        $data['informations'] = PropertyPhoto::orderBy('created_at','DESC')
+                                ->paginate(20);
+
+        return view('front-new.gallery',$data);
+
     }
 }

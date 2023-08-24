@@ -26,6 +26,7 @@
                 type: 'GET',
                 dataType: 'json',
                 success: function(data) {
+                    $(child_category_id).empty();
                     $(child_category_id).append('<option value="">-- Select Sub-Category --</option>');
                     $.each(data.data, function(key, value) {
                         $(child_category_id).append('<option value="' + value.id + '">' + value

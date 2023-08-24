@@ -8,6 +8,7 @@ use App\Models\Property;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use File;
+
 class CategoryController extends Controller
 {
     /**
@@ -16,7 +17,8 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public $module;
-    public function __construct(){
+    public function __construct()
+    {
         $this->module = 'Main Category';
     }
 
@@ -24,10 +26,10 @@ class CategoryController extends Controller
     {
         //
         $keyword = $request->keyword;
-        $informations = Category::orderBy('order')->where('depth',1);
+        $informations = Category::orderBy('order')->where('depth', 1);
 
 
-        if($keyword){
+        if ($keyword) {
             $informations = $informations->where('title', 'like', '%' . $keyword . '%');
         }
 
@@ -35,7 +37,8 @@ class CategoryController extends Controller
         $informations = $informations->paginate(30);
 
         $module = $this->module;
-        return view('admin.category.index',
+        return view(
+            'admin.category.index',
             compact(
                 'informations',
                 'module',
@@ -63,8 +66,8 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'title'=>'required',
-            'order'=>'required',
+            'title' => 'required',
+            'order' => 'required',
             // 'status'=>'required'
         ];
 
@@ -74,39 +77,51 @@ class CategoryController extends Controller
         $information = new Category();
 
         $information->title = $request->title;
-        $information->slug = Str::slug($request->title).'-KB'.date('ymdhis');
+        $information->slug = Str::slug($request->title) . '-KB' . date('ymdhis');
         $information->depth = 1;
         $information->order = $request->order;
-        $information->status = $request->status??1;
+        $information->status = $request->status ?? 1;
 
-        if($request->hasFile('photo'))
-        {
-            $old_file = public_path().'/category/'.$information->photo;
+        if ($request->hasFile('photo')) {
+            $old_file = public_path() . '/category/' . $information->photo;
 
 
-            if(File::exists($old_file)){
+            if (File::exists($old_file)) {
                 File::delete($old_file);
             }
-           $file = $request->file('photo');
-           $extension = '.'.$request->file('photo')->extension();
-           $path = public_path().'/category/';
-           $filename = date('ymdhis').$extension;
-           $file->move($path, $filename);
-           $information->photo = $filename;
+            $file = $request->file('photo');
+            $extension = '.' . $request->file('photo')->extension();
+            $path = public_path() . '/category/';
+            $filename = date('ymdhis') . $extension;
+            $file->move($path, $filename);
+            $information->photo = $filename;
         }
 
-           $information->meta_title = $request->meta_title;
+        $information->meta_title = $request->meta_title;
         $information->meta_keyword = $request->meta_keyword;
         $information->meta_description = $request->meta_description;
+
+        $arr=[];
+        if($request->identifier){
+            for ($i=0; $i < count($request->identifier) ; $i++) {
+                $a=[];
+                $a['identifier'] = $request->identifier[$i];
+                $a['label'] = $request->label[$i];
+                $a['required'] = $request->required[$i];
+                $arr[]=$a;
+            }
+        }
+
+        $information->custom_fields = json_encode($arr);
 
         $information->save();
 
 
+
+
         return redirect()
-                ->route('category.index')
-                ->with('message','Category Created Successfully');
-
-
+            ->route('category.index')
+            ->with('message', 'Category Created Successfully');
     }
 
     /**
@@ -129,10 +144,13 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $information = Category::find($id);
+
+
         $module = $this->module;
 
         return view('admin.category.edit',
-            compact('information',
+            compact(
+                'information',
                 'module'
             )
         );
@@ -148,8 +166,8 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'title'=>'required',
-            'order'=>'required',
+            'title' => 'required',
+            'order' => 'required',
             // 'status'=>'required'
         ];
 
@@ -158,33 +176,45 @@ class CategoryController extends Controller
 
         $information = Category::findorfail($id);
 
-        if($request->hasFile('photo'))
-        {
-            $old_file = public_path().'/category/'.$information->photo;
+        if ($request->hasFile('photo')) {
+            $old_file = public_path() . '/category/' . $information->photo;
 
 
-            if(File::exists($old_file)){
+            if (File::exists($old_file)) {
                 File::delete($old_file);
             }
-           $file = $request->file('photo');
-           $extension = '.'.$request->file('photo')->extension();
-           $path = public_path().'/category/';
-           $filename = date('ymdhis').$extension;
-           $file->move($path, $filename);
-           $information->photo = $filename;
+            $file = $request->file('photo');
+            $extension = '.' . $request->file('photo')->extension();
+            $path = public_path() . '/category/';
+            $filename = date('ymdhis') . $extension;
+            $file->move($path, $filename);
+            $information->photo = $filename;
         }
         $information->title = $request->title;
-        $information->order = $request->order??1;
-        $information->status = $request->status??1;
+        $information->order = $request->order ?? 1;
+        $information->status = $request->status ?? 1;
         $information->meta_title = $request->meta_title;
         $information->meta_keyword = $request->meta_keyword;
         $information->meta_description = $request->meta_description;
+
+        $arr=[];
+        if($request->identifier){
+            for ($i=0; $i < count($request->identifier) ; $i++) {
+                $a=[];
+                $a['identifier'] = $request->identifier[$i];
+                $a['label'] = $request->label[$i];
+                $a['required'] = $request->required[$i];
+                $arr[]=$a;
+            }
+        }
+
+        $information->custom_fields = json_encode($arr);
         $information->save();
 
 
         return redirect()
-                ->route('category.index')
-                ->with('message','Category Updated Successfully');
+            ->route('category.index')
+            ->with('message', 'Category Updated Successfully');
     }
 
     /**
@@ -201,7 +231,6 @@ class CategoryController extends Controller
 
 
         return redirect()->route('category.index')
-        ->with('error','Cannot Delete Category!!');
-
+            ->with('error', 'Cannot Delete Category!!');
     }
 }

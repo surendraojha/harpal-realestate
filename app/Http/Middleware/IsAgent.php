@@ -17,17 +17,14 @@ class IsAgent
     public function handle(Request $request, Closure $next)
     {
         $user = auth()->user();
-        
+
         if($user){
-            if($user->role=='agent'){
+            if(in_array($user->role,['agent','user','agency'])){
 
                 return redirect()->route('profile');
             }
 
-            if($user->role=='user'){
-
-                return redirect()->route('profile');
-            }
+           
         }
         return $next($request);
     }

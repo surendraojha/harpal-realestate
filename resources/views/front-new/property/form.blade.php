@@ -387,10 +387,48 @@
             <a href="#" class="d-block mb-4" onclick="event.preventDefault();addPhotos()" class="a">Add
                 More Photos +</a>
 
-
         </div>
     </div>
 </div>
+
+
+<div class="row" id="custom-fields">
+
+    @if (@$information)
+
+
+        <div class="col-md-12">
+            <div class="md-form">
+                @php
+                    $custom_fields = $information->custom_fields ? json_decode($information->custom_fields) : [];
+                @endphp
+
+
+                @foreach ($custom_fields as $k => $customField)
+                        @php
+
+                            $label = $customField->label;
+                            $value = $customField->value;
+                            $identifier = $customField->identifier;
+                        @endphp
+                        <input type="hidden" name="custom_field_identifier[]" value="{{ $identifier }}">
+
+                        <input type="hidden" name="custom_field_label[]" value="{{ $label }}">
+
+                        <label for="{{ $label }}">{{ $label }}</label>
+                        <input type="text" name="custom_field_value[]" value="{{ $value }}">
+                @endforeach
+
+
+
+            </div>
+        </div>
+
+    @endif
+
+</div>
+
+
 
 
 <div class="row">
@@ -407,6 +445,7 @@
                     'required' => true,
                 ];
             @endphp
+
             <x-textbox :information="$field" :d="@$information" />
 
         </div>
@@ -429,27 +468,54 @@
     <div class="col-md-12">
         <label for="message">Amenities/Local Area Facilities</label>
         @php
-            $selected_features =[];
+            $selected_features = [];
 
-            if(@$information){
+            if (@$information) {
+                $selected_features = \App\Models\PropertyFeature::where('property_id', $information->id)
+                    ->pluck('feature_id', 'feature_id')
+                    ->toArray();
 
-                $selected_features = \App\Models\PropertyFeature::where('property_id',$information->id)
-                                    ->pluck('feature_id','feature_id')
-                                    ->toArray();
-
-                                    // dd($selected_features);
+                // dd($selected_features);
             }
         @endphp
 
         @foreach ($features as $value)
             <div class="md-form">
                 <input type="checkbox" id="feature{{ $value->id }}" name="feature_id[]"
-                    value="{{ $value->id }}"  {{ in_array($value->id,$selected_features)?'checked':'' }} >
+                    value="{{ $value->id }}" {{ in_array($value->id, $selected_features) ? 'checked' : '' }}>
                 <label for="feature{{ $value->id }}">{{ $value->title }}</label>
             </div>
         @endforeach
 
     </div>
+
+
+    @if (in_array(auth()->user()->role, ['admin', 'superadmin']))
+        <div class="row">
+            <div class="col-md-12">
+                <div class="md-form">
+                    <label for="contact_number" class="">Status</label>
+                    @php
+                        $status = [
+                            '0' => 'Pending',
+                            '1' => 'Active',
+                        ];
+                    @endphp
+
+                    <select name="status" class="form-control" required>
+                        @foreach ($status as $key => $value)
+                            <option value="{{ $key }}"
+                                {{ old('status', @$information->status) == $key ? 'selected' : '' }}>
+                                {{ $value }}</option>
+                        @endforeach
+                    </select>
+
+
+                </div>
+            </div>
+        </div>
+
+    @endif
 
 
 
@@ -484,6 +550,35 @@
     </script>
 
 
+    {{-- script to get custom fields --}}
+
+
+    <script>
+        $('#main_category_id').on('change', function() {
+            var category_id = $('#main_category_id option:selected').val();
+
+            var route = "{{ route('get.custom.fields') }}?id=" + category_id;
+            $.ajax({
+                url: route, // Replace with your Laravel route
+                type: 'GET',
+                // dataType: 'json',
+                success: function(data) {
+                    // $('#main_category_id').append('<option value="">-- Select Option --</option>');
+
+                    $('#custom-fields').html(data);
+                    // $.each(data, function(key, value) {
+                    //     $('#district_id').append('<option value="' + value.id + '">' + value
+                    //         .title +
+                    //         '</option>');
+                    // });
+                }
+            });
+
+
+        });
+    </script>
+
+
 
 
 
@@ -492,6 +587,9 @@
         $('#province_id').on('change', function() {
 
             $('#district_id').empty();
+            $('#municipality_id').empty();
+            $('#woda_id').empty();
+
 
             var province_id = $('#province_id option:selected').val();
 
@@ -517,6 +615,7 @@
         $('#district_id').on('change', function() {
 
             $('#municipality_id').empty();
+            $('#woda_id').empty();
 
             var district_id = $('#district_id option:selected').val();
 

@@ -13,7 +13,18 @@ use File;
 class AjaxController extends Controller
 {
 
+    public function getCustomField(Request $request){
+        $id = $request->id;
 
+        $information = Category::findOrfail($id);
+
+        $custom_fields = $information->custom_fields?json_decode($information->custom_fields):[];
+
+        $view = view('front-new.property.custom-fields',compact('custom_fields'));
+
+
+        return $view;
+    }
     public function getDistrict(Request $request){
 
         $id = $request->id;

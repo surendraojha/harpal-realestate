@@ -25,6 +25,7 @@ use Illuminate\Http\Request;
 use File;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+
 class PropertyController extends Controller
 {
     /**
@@ -37,86 +38,86 @@ class PropertyController extends Controller
 
         $page_type = $request->page_type;
 
-        if(!$page_type){
+        if (!$page_type) {
             $page_type = '2';
         }
 
         $user = auth()->user();
         $profile = UserProfile::with('user')
-        ->where('user_id',$user->id)
-        ->first();
+            ->where('user_id', $user->id)
+            ->first();
 
 
         $current_date = date('Y-m-d');
-        $active_properties = Property::where('user_id',$user->id)
-                            ->where('status',1)
-                            ->with('location')
-                            ->where('purpose_id','!=',2)
-                            ->whereDate('expiration_date', '>=', $current_date)
-                            ->orderBy('id','desc')
-                            ->paginate(10);
+        $active_properties = Property::where('user_id', $user->id)
+            ->where('status', 1)
+            ->with('location')
+            ->where('purpose_id', '!=', 2)
+            ->whereDate('expiration_date', '>=', $current_date)
+            ->orderBy('id', 'desc')
+            ->paginate(10);
 
-        $active_propertycount  = Property::where('user_id',$user->id)
-                            ->where('status',1)
-                            ->with('location')
-                            ->where('purpose_id','!=',2)
-                            ->whereDate('expiration_date', '>=', $current_date)
-                            ->orderBy('id','desc')
+        $active_propertycount  = Property::where('user_id', $user->id)
+            ->where('status', 1)
+            ->with('location')
+            ->where('purpose_id', '!=', 2)
+            ->whereDate('expiration_date', '>=', $current_date)
+            ->orderBy('id', 'desc')
 
-                            ->count();
+            ->count();
 
-        $pending_properties = Property::where('user_id',$user->id)
-                            ->where('status',0)
-                            ->with('location')
-                            ->orderBy('id','desc')
-                            ->paginate(10);
+        $pending_properties = Property::where('user_id', $user->id)
+            ->where('status', 0)
+            ->with('location')
+            ->orderBy('id', 'desc')
+            ->paginate(10);
 
 
-        $pending_properties_count = Property::where('user_id',$user->id)
-                            ->where('status',0)
-                            ->where('purpose_id','!=',2)
-                            ->with('location')
-                            ->count();
+        $pending_properties_count = Property::where('user_id', $user->id)
+            ->where('status', 0)
+            ->where('purpose_id', '!=', 2)
+            ->with('location')
+            ->count();
 
-        $fulfilled_properties = Property::where('user_id',$user->id)
-                                ->where(function ($query) use ($current_date) {
-                                    $query->where('status', 2)
-                                    ->orWhereDate('expiration_date', '<', $current_date);
+        $fulfilled_properties = Property::where('user_id', $user->id)
+            ->where(function ($query) use ($current_date) {
+                $query->where('status', 2)
+                    ->orWhereDate('expiration_date', '<', $current_date);
+            })
+            ->where('purpose_id', '!=', 2)
+            ->orderBy('id', 'desc')
+            ->with('location')
+            ->paginate(10);
 
-                                })
-                                ->where('purpose_id','!=',2)
-                                ->orderBy('id','desc')
-                                ->with('location')
-                                ->paginate(10);
+        $fulfilled_properties_count = Property::where('user_id', $user->id)
+            ->where(function ($query) use ($current_date) {
+                $query->where('status', 2)
+                    ->orWhereDate('expiration_date', '<', $current_date);
+            })
+            ->where('purpose_id', '!=', 2)
 
-        $fulfilled_properties_count = Property::where('user_id',$user->id)
-                                ->where(function ($query) use ($current_date) {
-                                    $query->where('status', 2)
-                                    ->orWhereDate('expiration_date', '<', $current_date);
-
-                                })
-                                ->where('purpose_id','!=',2)
-
-                                ->with('location')
-                                ->count();
+            ->with('location')
+            ->count();
 
 
         $subscriptions = BoostSubscription::orderBy('order')
-                                ->where('status',1)
-                                ->get();
+            ->where('status', 1)
+            ->get();
 
-        return view('front.property.index',
+        return view(
+            'front.property.index',
 
-            compact('active_properties',
-                    'pending_properties',
-                    'fulfilled_properties',
-                    'user',
-                    'fulfilled_properties_count',
-                    'pending_properties_count',
-                    'active_propertycount',
-                    'profile',
-                    'page_type',
-                    'subscriptions'
+            compact(
+                'active_properties',
+                'pending_properties',
+                'fulfilled_properties',
+                'user',
+                'fulfilled_properties_count',
+                'pending_properties_count',
+                'active_propertycount',
+                'profile',
+                'page_type',
+                'subscriptions'
             )
         );
     }
@@ -129,22 +130,23 @@ class PropertyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(){
+    public function create()
+    {
 
-        $data['categories'] = Category::where('depth',1)->get();
+        $data['categories'] = Category::where('depth', 1)->get();
 
         $data['purposes'] = Purpose::orderBy('order')->get();
 
         $data['road_types'] = RoadSize::orderBy('order')->get();
 
-        $data['title']= "Please list your property here.";
+        $data['title'] = "Please list your property here.";
 
         $data['provinces'] = Province::orderBy('id')->get();
 
         $data['features'] = Feature::orderBy('order')->get();
 
 
-        return view('front-new.property.create',$data);
+        return view('front-new.property.create', $data);
 
         return view('front.property.create');
     }
@@ -164,45 +166,45 @@ class PropertyController extends Controller
 
         // dd($request->all());
         $rules = [
-            'featured_photo'=>'required|image',
-            'title'=>'required',
-            'purpose_id'=>'required',
-            'province_id'=>'required',
-            'district_id'=>'required',
-            'municipality_id'=>'required',
-            'woda_id'=>'required',
+            'featured_photo' => 'required|image',
+            'title' => 'required',
+            'purpose_id' => 'required',
+            'province_id' => 'required',
+            'district_id' => 'required',
+            'municipality_id' => 'required',
+            'woda_id' => 'required',
             // 'bedroom'=>'required',
             // 'bathroom'=>'required',
 
             // 'water'=>'required',
-            'price'=>'required',
-            'main_category_id'=>'required',
-            'sub_category_id'=>'required',
-            'child_category_id'=>'required',
+            'price' => 'required',
+            'main_category_id' => 'required',
+            'sub_category_id' => 'required',
+            'child_category_id' => 'required',
 
             // 'location_id'=>'required',
             // 'floor_id'=>'required',
-            'road_size_id'=>'required',
-	        'contact_number'=>'required',
-            'price_negotiable'=>'required',
-            'video'=>'mimes:mp4,mov,ogg,qt'
+            'road_size_id' => 'required',
+            'contact_number' => 'required',
+            'price_negotiable' => 'required',
+            'video' => 'mimes:mp4,mov,ogg,qt'
 
         ];
         $msg = [
-                'child_category_id'=>'Category',
-                'location_id'=>'location',
-                'floor_id'=>'floor',
-                'road_size_id'=>'road size'
+            'child_category_id' => 'Category',
+            'location_id' => 'location',
+            'floor_id' => 'floor',
+            'road_size_id' => 'road size'
         ];
 
-        $request->validate($rules,[],$msg);
+        $request->validate($rules, [], $msg);
 
         $user = auth()->user();
         $information = new Property();
         $information->title = $request->title;
 
-        $information->ad_id = 'KB'.date('ymdhis').$user->id;
-        $information->slug = Str::slug($request->title).'-'.$information->ad_id;
+        $information->ad_id = 'KB' . date('ymdhis') . $user->id;
+        $information->slug = Str::slug($request->title) . '-' . $information->ad_id;
         $information->date_of_build = $request->date_of_build;
 
         $information->purpose_id = $request->purpose_id;
@@ -213,7 +215,7 @@ class PropertyController extends Controller
         $information->balcony = $request->balcony;
         $information->water = $request->water;
         $information->location_for_map = $request->location_for_map;
-        $information->overview = $request->overview??$request->message;
+        $information->overview = $request->overview ?? $request->message;
         $information->featured_video = $request->featured_video;
 
 
@@ -227,8 +229,8 @@ class PropertyController extends Controller
         $information->buld_up_area = $request->buld_up_area;
 
 
-        if($request->featured_video){
-            $information = VideoHelper::saveVideoCode($information,$request);
+        if ($request->featured_video) {
+            $information = VideoHelper::saveVideoCode($information, $request);
         }
 
 
@@ -240,13 +242,13 @@ class PropertyController extends Controller
 
         $information->user_id = $user->id;
 
-        $information->view =0;
-        $information->status =0;
+        $information->view = 0;
+        $information->status = 0;
 
         // $information->floor_id = $request->floor_id;
 
 
-        if($request->road_size_id){
+        if ($request->road_size_id) {
             $information->road_size_id = $request->road_size_id;
         }
 
@@ -263,26 +265,24 @@ class PropertyController extends Controller
 
         // }
 
-        if($request->hasFile('featured_photo'))
-        {
-           $file = $request->file('featured_photo');
-           $extension = '.'.$request->file('featured_photo')->extension();
-           $path = public_path().'/uploads/';
-           $filename = date('ymdhis').$extension;
-           $file->move($path, $filename);
-           $information->featured_photo = $filename;
+        if ($request->hasFile('featured_photo')) {
+            $file = $request->file('featured_photo');
+            $extension = '.' . $request->file('featured_photo')->extension();
+            $path = public_path() . '/uploads/';
+            $filename = date('ymdhis') . $extension;
+            $file->move($path, $filename);
+            $information->featured_photo = $filename;
         }
 
 
 
-        if($request->hasFile('video'))
-        {
-           $file = $request->file('video');
-           $extension = '.'.$request->file('video')->extension();
-           $path = public_path().'/uploads/';
-           $filename = date('ymdhis').$extension;
-           $file->move($path, $filename);
-           $information->video = $filename;
+        if ($request->hasFile('video')) {
+            $file = $request->file('video');
+            $extension = '.' . $request->file('video')->extension();
+            $path = public_path() . '/uploads/';
+            $filename = date('ymdhis') . $extension;
+            $file->move($path, $filename);
+            $information->video = $filename;
         }
 
 
@@ -298,6 +298,50 @@ class PropertyController extends Controller
         $information->buld_up_area = $request->buld_up_area;
         $information->price_negotiable = $request->price_negotiable;
 
+        // dd($request->all());
+
+
+        // $arr=[];
+        // if($request->identifier){
+        //     for ($i=0; $i < count($request->identifier) ; $i++) {
+        //         $a=[];
+        //         $field = $request->identifier[$i];
+        //         $field = str_replace('[]','',$field);
+        //         // dd($field);
+        //         $a['label'] = $request->label[$i];
+        //         $a['value'] = $request->$field[$i];
+        //         $arr[]=$a;
+        //     }
+        // }
+
+
+
+        $arr = [];
+        if ($request->has('custom_field_identifier')) {
+            $identifiers = $request->input('custom_field_identifier');
+            $labels = $request->input('custom_field_label');
+            $values = $request->input('custom_field_value');
+
+            foreach ($identifiers as $index => $identifier) {
+                $a = [
+                    // 'identifier' => $identifier,
+                    'identifier'=> $identifiers[$index],
+                    'label' => $labels[$index],
+                    'value' => $values[$index]
+                ];
+
+                $arr[] = $a;
+            }
+        }
+
+
+
+        // dd($arr);
+        $information->custom_fields = json_encode($arr);
+
+
+        $information->status = $request->status??0;
+
 
 
         $information->save();
@@ -306,8 +350,8 @@ class PropertyController extends Controller
         // save additonal features
 
 
-        if($request->feature_id){
-            for($i =0;$i<count($request->feature_id);$i++){
+        if ($request->feature_id) {
+            for ($i = 0; $i < count($request->feature_id); $i++) {
                 $additional_feature = new PropertyFeature();
                 $additional_feature->property_id = $information->id;
                 $additional_feature->feature_id = $request->feature_id[$i];
@@ -316,7 +360,7 @@ class PropertyController extends Controller
         }
 
 
-        if($request->photo){
+        if ($request->photo) {
 
             foreach ($request->file('photo') as $imagefile) {
 
@@ -324,11 +368,11 @@ class PropertyController extends Controller
 
                 $photo->property_id = $information->id;
 
-                $extension = '.'.$imagefile->extension();
+                $extension = '.' . $imagefile->extension();
 
-                $path = public_path().'/uploads/';
+                $path = public_path() . '/uploads/';
 
-                $filename = date('ymdhis').rand().$extension;
+                $filename = date('ymdhis') . rand() . $extension;
 
                 $imagefile->move($path, $filename);
 
@@ -346,14 +390,19 @@ class PropertyController extends Controller
         Mail::to($setting->email)->send(new PropertyNotify($information));
 
 
-        return redirect()
-        ->route('my-property.index',['page_type'=>1])
-        ->with('message','Your Property Listed Successfully!!');
+        if(!in_array(auth()->user()->role ,['admin','superadmin'])){
+
+            return redirect()
+            ->route('my-property.index', ['page_type' => 1])
+            ->with('message', 'Your Property Listed Successfully!!');
+        }else{
+            return redirect()
+            ->route('property.index')
+            ->with('message', 'Property Listed Successfully!!');
 
 
 
-
-
+        }
 
     }
 
@@ -365,23 +414,26 @@ class PropertyController extends Controller
      */
     public function show($id)
     {
-        $information = Property::where('slug',$id)->firstOrFail();
+        $information = Property::where('slug', $id)->firstOrFail();
 
-        $information->overview = str_replace("&nbsp;"," ",$information->overview);
+        $information->overview = str_replace("&nbsp;", " ", $information->overview);
         $information->overview  = preg_replace('#<script(.*?)>(.*?)</script>#is', '', $information->overview);
 
         // dd($information);
-        $additional_features = PropertyFeature::where('property_id',$information->id)->get();
+        $additional_features = PropertyFeature::where('property_id', $information->id)->get();
 
 
-        $faqs = FAQ::where('property_id',$information->id)->orderBy('order')->get();
+        $faqs = FAQ::where('property_id', $information->id)->orderBy('order')->get();
 
 
 
 
-
-        return view('front.property.show',
+        return view('front-new.property.show',
             compact('information','additional_features','faqs')
+        );
+        return view(
+            'front.property.show',
+            compact('information', 'additional_features', 'faqs')
         );
     }
 
@@ -394,65 +446,95 @@ class PropertyController extends Controller
     public function edit($id)
     {
         // dd($id);
-        $information = Property::where('slug',$id)->firstOrFail();
 
-        // if($information->category_id==1){
-        //     return redirect()->route('residental-property.edit',$information->slug);
-        // }else{
-        //     return redirect()->route('commercial-property.edit',$information->slug);
 
-        // }
+        $information = Property::where(function ($query) use ($id) {
+            $query->where('slug', $id)
+                  ->orWhere('id', $id);
+        })
+        ->firstOrFail();
+
+
+
+
+
+
+
+
+
+
 
         $user = auth()->user();
 
         $profile = UserProfile::with('user')
-        ->where('user_id',$user->id)
-        ->first();
+            ->where('user_id', $user->id)
+            ->first();
 
-        $purposes = Purpose::orderBy('order')->where('id','!=',2)->get();
+        $purposes = Purpose::orderBy('order')->where('id', '!=', 2)->get();
 
         $profile = UserProfile::with('user')
-                ->where('user_id',$user->id)
-                ->first();
-        $categories = Category::where('parent')->where('status',1)->orderBy('order')->get();
+            ->where('user_id', $user->id)
+            ->first();
+        $categories = Category::where('parent')->where('status', 1)->orderBy('order')->get();
 
-        $floors = Floor::where('status',1)->orderBy('order')->get();
+        $floors = Floor::where('status', 1)->orderBy('order')->get();
 
-        $road_sizes = RoadSize::where('status','1')->orderBy('order')->get();
+        $road_sizes = RoadSize::where('status', '1')->orderBy('order')->get();
 
-        $additional_features = Feature::where('status','1')->orderBy('order')->get();
-
-
-        $locations = Location::orderBy('order')->where('status',1)->get();
+        $additional_features = Feature::where('status', '1')->orderBy('order')->get();
 
 
+        $locations = Location::orderBy('order')->where('status', 1)->get();
 
-        $years =[];
+
+
+        $years = [];
 
 
 
         $current_year = date('Y');
 
-        for($i=$current_year;$i>=1970;$i--){
+        for ($i = $current_year; $i >= 1970; $i--) {
 
-            $date = $i.'-'.date('m-d');
+            $date = $i . '-' . date('m-d');
             $nepali_year = DateHelper::englishToNepaliYear($date);
-            $years[]=$nepali_year;
+            $years[] = $nepali_year;
         }
 
 
-        $photos = PropertyPhoto::where('property_id',$information->id)->get();
+        $photos = PropertyPhoto::where('property_id', $information->id)->get();
 
-        $checked_features = PropertyFeature::where('property_id',$information->id)
-        ->pluck('feature_id','feature_id')
-        ->toArray();
+        $checked_features = PropertyFeature::where('property_id', $information->id)
+            ->pluck('feature_id', 'feature_id')
+            ->toArray();
 
-        $data['title']= "Edit Your Property";
-
-        $data['information'] = Property::where('slug',$id)->where('user_id',auth()->user()->id)->firstOrfail();
+        $data['title'] = "Edit Your Property";
 
 
-        $data['categories'] = Category::where('depth',1)->get();
+        if(!in_array(auth()->user()->role ,['admin','superadmin'])){
+            // dd('bye');
+           $data['information'] =    $information = Property::where(function ($query) use ($id) {
+                $query->where('slug', $id)
+                      ->orWhere('id', $id);
+            })
+            ->where('user_id', auth()->user()->id)
+            ->firstOrfail();
+
+
+
+        }else{
+
+            // dd('hii');
+            $data['information'] =    $information = Property::where(function ($query) use ($id) {
+                $query->where('slug', $id)
+                      ->orWhere('id', $id);
+            })
+            // ->where('user_id', auth()->user()->id)
+            ->firstOrfail();
+
+        }
+
+        $data['categories'] = Category::where('depth', 1)->get();
 
         $data['purposes'] = Purpose::orderBy('order')->get();
 
@@ -462,9 +544,9 @@ class PropertyController extends Controller
 
         $data['features'] = Feature::orderBy('order')->get();
 
-        
 
-        return view('front-new.property.edit',$data);
+
+        return view('front-new.property.edit', $data);
 
 
 
@@ -472,6 +554,7 @@ class PropertyController extends Controller
             compact(
                 'information',
                 'user',
+                'customData',
                 'profile',
                 'categories',
                 'floors',
@@ -485,7 +568,6 @@ class PropertyController extends Controller
                 'profile'
             )
         );
-
     }
 
     /**
@@ -498,34 +580,34 @@ class PropertyController extends Controller
     public function update(Request $request, $id)
     {
         $rules = [
-            'featured_photo'=>'image',
-            'title'=>'required',
+            'featured_photo' => 'image',
+            'title' => 'required',
             // 'bedroom'=>'required',
             // 'bathroom'=>'required',
             // 'parking'=>'required',
             // 'balcony'=>'required',
             // 'water'=>'required',
-            'price'=>'required',
-            'purpose_id'=>'required',
-            'main_category_id'=>'required',
+            'price' => 'required',
+            'purpose_id' => 'required',
+            'main_category_id' => 'required',
 
-            'sub_category_id'=>'required',
-            'child_category_id'=>'required',
-            'province_id'=>'required',
-            'district_id'=>'required',
-            'municipality_id'=>'required',
+            'sub_category_id' => 'required',
+            'child_category_id' => 'required',
+            'province_id' => 'required',
+            'district_id' => 'required',
+            'municipality_id' => 'required',
 
             // 'location_id'=>'required',
             // 'floor_id'=>'required',
             // 'kitchen'=>'required',
-	        // 'furnishing'=>'required',
-	        // 'faced'=>'required',
-	        'contact_number'=>'required',
+            // 'furnishing'=>'required',
+            // 'faced'=>'required',
+            'contact_number' => 'required',
             // 'area_covered'=>'required',
             // 'buld_up_area'=>'required',
-            'price_negotiable'=>'required',
+            'price_negotiable' => 'required',
 
-            'video'=>'mimes:mp4,mov,ogg,qt'
+            'video' => 'mimes:mp4,mov,ogg,qt'
 
         ];
 
@@ -559,9 +641,8 @@ class PropertyController extends Controller
         $information->woda_id = $request->woda_id;
 
 
-        if($request->featured_video){
-            $information = VideoHelper::saveVideoCode($information,$request);
-
+        if ($request->featured_video) {
+            $information = VideoHelper::saveVideoCode($information, $request);
         }
 
 
@@ -573,43 +654,41 @@ class PropertyController extends Controller
         $information->floor_id = $request->floor_id;
 
 
-        if($request->road_size_id){
+        if ($request->road_size_id) {
             $information->road_size_id = $request->road_size_id;
         }
 
         $information->location_id = $request->location_id;
 
-        if($request->hasFile('featured_photo'))
-        {
+        if ($request->hasFile('featured_photo')) {
 
-        $old_file = public_path().'/uploads/'.$information->featured_photo;
+            $old_file = public_path() . '/uploads/' . $information->featured_photo;
 
-            if(File::exists($old_file)){
+            if (File::exists($old_file)) {
                 File::delete($old_file);
             }
-           $file = $request->file('featured_photo');
-           $extension = '.'.$request->file('featured_photo')->extension();
-           $path = public_path().'/uploads/';
-           $filename = date('ymdhis').$extension;
-           $file->move($path, $filename);
-           $information->featured_photo = $filename;
+            $file = $request->file('featured_photo');
+            $extension = '.' . $request->file('featured_photo')->extension();
+            $path = public_path() . '/uploads/';
+            $filename = date('ymdhis') . $extension;
+            $file->move($path, $filename);
+            $information->featured_photo = $filename;
         }
 
 
-        if($request->hasFile('video'))
-        {
+        if ($request->hasFile('video')) {
 
-        $old_file = public_path().'/uploads/'.$information->video;
+            $old_file = public_path() . '/uploads/' . $information->video;
 
-        if(File::exists($old_file)){
-            File::delete($old_file);
-        }
-           $file = $request->file('video');
-           $extension = '.'.$request->file('video')->extension();
-           $path = public_path().'/uploads/';
-           $filename = date('ymdhis').$extension;
-           $file->move($path, $filename);
-           $information->video = $filename;
+            if (File::exists($old_file)) {
+                File::delete($old_file);
+            }
+            $file = $request->file('video');
+            $extension = '.' . $request->file('video')->extension();
+            $path = public_path() . '/uploads/';
+            $filename = date('ymdhis') . $extension;
+            $file->move($path, $filename);
+            $information->video = $filename;
         }
 
 
@@ -625,7 +704,27 @@ class PropertyController extends Controller
         $information->price_negotiable = $request->price_negotiable;
 
 
+        $arr = [];
+        if ($request->has('custom_field_identifier')) {
+            $identifiers = $request->input('custom_field_identifier');
+            $labels = $request->input('custom_field_label');
+            $values = $request->input('custom_field_value');
 
+            foreach ($identifiers as $index => $identifier) {
+                $a = [
+                    // 'identifier' => $identifier,
+                    'identifier'=> $identifiers[$index],
+                    'label' => $labels[$index],
+                    'value' => $values[$index]
+                ];
+
+                $arr[] = $a;
+            }
+        }
+
+        $information->custom_fields = json_encode($arr);
+
+        $information->status = $request->status??0;
 
         $information->save();
 
@@ -633,8 +732,8 @@ class PropertyController extends Controller
         // save additonal features
 
 
-        if($request->feature_id){
-            for($i =0;$i<count($request->feature_id);$i++){
+        if ($request->feature_id) {
+            for ($i = 0; $i < count($request->feature_id); $i++) {
                 $additional_feature = new PropertyFeature();
                 $additional_feature->property_id = $information->id;
                 $additional_feature->feature_id = $request->feature_id[$i];
@@ -645,7 +744,7 @@ class PropertyController extends Controller
 
         // upload multiple photos
 
-        if($request->photo){
+        if ($request->photo) {
 
             foreach ($request->file('photo') as $imagefile) {
 
@@ -653,11 +752,11 @@ class PropertyController extends Controller
 
                 $photo->property_id = $information->id;
 
-                $extension = '.'.$imagefile->extension();
+                $extension = '.' . $imagefile->extension();
 
-                $path = public_path().'/uploads/';
+                $path = public_path() . '/uploads/';
 
-                $filename = date('ymdhis').rand().$extension;
+                $filename = date('ymdhis') . rand() . $extension;
 
                 $imagefile->move($path, $filename);
 
@@ -668,10 +767,20 @@ class PropertyController extends Controller
         }
 
 
-        return redirect()
-                ->route('my-property.index',['page_type'=>1])
-                ->with('message','Your Property Listed Successfully!!');
 
+        if(!in_array(auth()->user()->role ,['admin','superadmin'])){
+
+            return redirect()
+            ->route('my-property.index', ['page_type' => 1])
+            ->with('message', 'Your Property Listed Successfully!!');
+        }else{
+            return redirect()
+            ->route('property.index')
+            ->with('message', 'Property Listed Successfully!!');
+
+
+
+        }
     }
 
     /**
@@ -684,69 +793,82 @@ class PropertyController extends Controller
     {
         $information = Property::findorFail($id);
 
-        $old_path = public_path().'/uploads/'.$information->featured_photo;
+        $old_path = public_path() . '/uploads/' . $information->featured_photo;
 
-        if(File::exists($old_path)){
+        if (File::exists($old_path)) {
             File::delete($old_path);
         }
 
 
-        $photos = PropertyPhoto::where('property_id',$id)->get();
+        $photos = PropertyPhoto::where('property_id', $id)->get();
 
 
         foreach ($photos as $value) {
 
-            $old_path = public_path().'/uploads/'.$value->photo;
+            $old_path = public_path() . '/uploads/' . $value->photo;
 
-            if(File::exists($old_path)){
+            if (File::exists($old_path)) {
                 File::delete($old_path);
             }
 
             $value->delete();
-
         }
 
         $information->delete();
 
+
+        // if(!in_array(auth()->user()->role ,['admin','superadmin'])){
+
+        //     return redirect()
+        //     ->route('my-property.index', ['page_type' => 1])
+        //     ->with('message', 'Your Property Listed Successfully!!');
+        // }else{
+        //     return redirect()
+        //     ->route('property.index')
+        //     ->with('message', 'Property Listed Successfully!!');
+
+
+
+        // }
+
         return redirect()->back()
-            ->with('error','Property Unlisted Successfully!!');
+            ->with('error', 'Property Unlisted Successfully!!');
     }
 
-    public function fulfilled($id){
+    public function fulfilled($id)
+    {
 
         $user = auth()->user();
-        $information = Property::where('id',$id)
-                        ->where('user_id',$user->id)
-                        ->first();
+        $information = Property::where('id', $id)
+            ->where('user_id', $user->id)
+            ->first();
 
-        if(!$information){
-            return redirect()->route('front.home')->with('error','You Are Not Authorized To Perform This Action!!');
+        if (!$information) {
+            return redirect()->route('front.home')->with('error', 'You Are Not Authorized To Perform This Action!!');
         }
 
 
         $information->status = 2;
 
         $information->save();
-        return redirect()->route('my-property.index')->with('message','Marked As Fulfulled Successfully!!');
-
+        return redirect()->route('my-property.index')->with('message', 'Marked As Fulfulled Successfully!!');
     }
 
 
-    public function removePropertyPhoto($id){
+    public function removePropertyPhoto($id)
+    {
 
         $information = PropertyPhoto::findOrfail($id);
-        $old_path = public_path().'/uploads/'.$information->photo;
+        $old_path = public_path() . '/uploads/' . $information->photo;
 
-        if(File::exists($old_path)){
+        if (File::exists($old_path)) {
             File::delete($old_path);
         }
 
         $information->delete();
 
 
-        return redirect()->back()->with('message','Photo removed successfully!!');
-
-
+        return redirect()->back()->with('message', 'Photo removed successfully!!');
     }
 
 

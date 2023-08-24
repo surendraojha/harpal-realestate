@@ -26,6 +26,8 @@
 
     <link rel="stylesheet" href="{{asset('toaster.min.css')}}">
 
+    @stack('css')
+
 
 </head>
 <body>
@@ -359,7 +361,9 @@
         toastr.error("{{ \Session::get('error') }}");
     @endif
 </script>
-<script>
+
+
+ <script>
   wow = new WOW(
       {
         animateClass: 'animated',
@@ -376,5 +380,7 @@
       this.parentNode.insertBefore(section, this);
     };
 </script>
+
+@stack('script')
 </body>
 </html>

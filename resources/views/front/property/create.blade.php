@@ -122,6 +122,8 @@
 
             // alert(category_id);
             var url = "{{ url('get-sub-category') }}/" + category_id;
+
+            
             $.ajax({
                 url: url,
                 success: function(result) {
