@@ -29,6 +29,7 @@ use App\Models\Partner;
 use App\Models\Property;
 use App\Models\PropertyFeature;
 use App\Models\PropertyPhoto;
+use App\Models\Province;
 use App\Models\Purpose;
 use App\Models\RecommendedProperty;
 use App\Models\RoadSize;
@@ -66,10 +67,15 @@ class FrontendController extends Controller
 
         $homepage_categories =  Category::whereNull('parent')->orderBy('order')->get();
 
-        $homepage_properties = HomePageProduct::orderBy('order')->pluck('property_id', 'property_id')->toArray();
+        $homepage_properties = HomePageProduct::orderBy('order')
+                                ->pluck('property_id', 'property_id')
+                                ->toArray();
 
 
         $partners = Partner::where('status', '1')->limit(6)->orderBy('order')->get();
+
+
+
 
 
         // for filtering
@@ -131,6 +137,9 @@ class FrontendController extends Controller
         $data['main_categories'] = Category::where('depth',1)->get();
 
         $data['featured_properties'] = FeaturedProperty::orderBy('order')->get();
+
+        $data['provinces'] = Province::orderBy('id')->get();
+
 
 
         return view('front-new.index', $data);

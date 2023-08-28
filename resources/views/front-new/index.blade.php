@@ -7,48 +7,97 @@
                 <div class="row">
                     <div class="col-12 col-sm-12 dream-box">
                         <h1>Find it. Tour it. Own it.</h1>
-                        <form>
+                        <form action="{{ route('filter.property') }}">
                             <div class="row">
                                 <div class="col-md-2">
                                     <div class="md-form">
-                                        <input type="text" class="form-control" placeholder="Property Type">
+
+                                        <select name="category_id[]" class="form-control">
+                                            <option value="" selected>Property Type</option>
+
+                                            @foreach ($main_categories as $value)
+                                                <option value="{{ $value->id }}">{{ $value->title }}</option>
+                                            @endforeach
+                                        </select>
+                                        {{-- <input type="text" class="form-control" placeholder="Property Type"> --}}
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="md-form">
-                                        <input type="text" class="form-control" placeholder="Listing Type">
+                                        <select name="purpose_id" class="form-control">
+                                            <option value="" selected>Listing Type</option>
+
+                                            @foreach ($purposes as $value)
+                                                <option value="{{ $value->id }}"
+                                                    >{{ $value->title }}</option>
+                                            @endforeach
+                                        </select>
+                                        {{-- <input type="text" class="form-control" placeholder="Listing Type"> --}}
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="md-form">
-                                        <input type="text" class="form-control" placeholder="District">
+
+                                        <select name="province_id" id="province_id" class="form-control">
+                                            <option value="" disabled selected>Select Province</option>
+
+                                            @foreach ($provinces as $value)
+                                                <option value="{{ $value->id }}">{{ $value->title }}</option>
+                                            @endforeach
+                                        </select>
+                                        {{-- <input type="text" class="form-control" placeholder="District"> --}}
                                     </div>
                                     <div class="md-form">
-                                        <input type="text" class="form-control" placeholder="Gau/Nagarpalika">
+
+                                        <select name="district_id" id="district_id" class="form-control">
+                                            <option value="" disabled selected>Select District</option>
+
+                                            {{-- @foreach ($provinces as $value)
+                                                <option value="{{ $value->id }}">{{ $value->title }}</option>
+                                            @endforeach --}}
+                                        </select>
+
+
+                                        {{-- <input type="text" class="form-control" placeholder="Gau/Nagarpalika"> --}}
                                     </div>
                                     <div class="md-form">
-                                        <input type="text" class="form-control" placeholder="Ward No.">
+                                        <select name="municipality_id" id="municipality_id" class="form-control">
+                                            <option value="" disabled selected>Select Municipality</option>
+
+                                            {{-- @foreach ($provinces as $value)
+                                                <option value="{{ $value->id }}">{{ $value->title }}</option>
+                                            @endforeach --}}
+                                        </select>
+                                        {{-- <input type="text" class="form-control" placeholder="Ward No."> --}}
                                     </div>
                                     <div class="md-form">
-                                        <input type="text" class="form-control" placeholder="Tole">
+                                        <select name="woda_id" id="woda_id" class="form-control">
+                                            <option value="" disabled selected>Select Woda</option>
+
+                                            {{-- @foreach ($provinces as $value)
+                                                <option value="{{ $value->id }}">{{ $value->title }}</option>
+                                            @endforeach --}}
+                                        </select>
+                                        {{-- <input type="text" class="form-control" placeholder="Tole"> --}}
                                     </div>
-                                    <div class="md-form">
+                                    {{-- <div class="md-form">
                                         <input type="text" class="form-control" placeholder="Street">
+                                    </div> --}}
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="md-form">
+                                        <input type="number" name="min" class="form-control" placeholder="Min Price">
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="md-form">
-                                        <input type="number" class="form-control" placeholder="Min Price">
+                                        <input type="number" name="max" class="form-control" placeholder="Max Price">
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="md-form">
-                                        <input type="number" class="form-control" placeholder="Max Price">
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="md-form">
-                                        <a class="btn btn-sends">Send</a>
+                                        <button class="btn btn-sends" type="submit">Send</button>
+                                        {{-- <a class="btn btn-sends">Send</a> --}}
                                     </div>
                                 </div>
                             </div>
@@ -338,3 +387,8 @@
         </div>
     @endforeach
 @endsection
+
+
+@push('script')
+    @include('front-new.includes.location')
+@endpush

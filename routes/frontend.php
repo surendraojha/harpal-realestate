@@ -60,7 +60,8 @@ Route::get('/rental-property', [FrontendController::class, 'rentalHome'])->name(
 
 
 
-Route::get('all-properties', [SearchController::class, 'filterProperty'])->name('filter.property');
+Route::get('all-properties', [SearchController::class, 'filterProperty'])
+->name('filter.property');
 
 
 

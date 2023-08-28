@@ -5,48 +5,89 @@
                 <div class="row">
                     <div class="col-12 col-sm-12 dream-box">
                         <h1>Find it. Tour it. Own it.</h1>
-                        <form>
+                        <form action="<?php echo e(route('filter.property')); ?>">
                             <div class="row">
                                 <div class="col-md-2">
                                     <div class="md-form">
-                                        <input type="text" class="form-control" placeholder="Property Type">
+
+                                        <select name="category_id[]" class="form-control">
+                                            <option value="" selected>Property Type</option>
+
+                                            <?php $__currentLoopData = $main_categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <option value="<?php echo e($value->id); ?>"><?php echo e($value->title); ?></option>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        </select>
+                                        
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="md-form">
-                                        <input type="text" class="form-control" placeholder="Listing Type">
+                                        <select name="purpose_id" class="form-control">
+                                            <option value="" selected>Listing Type</option>
+
+                                            <?php $__currentLoopData = $purposes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <option value="<?php echo e($value->id); ?>"
+                                                    ><?php echo e($value->title); ?></option>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        </select>
+                                        
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="md-form">
-                                        <input type="text" class="form-control" placeholder="District">
+
+                                        <select name="province_id" id="province_id" class="form-control">
+                                            <option value="" disabled selected>Select Province</option>
+
+                                            <?php $__currentLoopData = $provinces; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <option value="<?php echo e($value->id); ?>"><?php echo e($value->title); ?></option>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        </select>
+                                        
                                     </div>
                                     <div class="md-form">
-                                        <input type="text" class="form-control" placeholder="Gau/Nagarpalika">
+
+                                        <select name="district_id" id="district_id" class="form-control">
+                                            <option value="" disabled selected>Select District</option>
+
+                                            
+                                        </select>
+
+
+                                        
                                     </div>
                                     <div class="md-form">
-                                        <input type="text" class="form-control" placeholder="Ward No.">
+                                        <select name="municipality_id" id="municipality_id" class="form-control">
+                                            <option value="" disabled selected>Select Municipality</option>
+
+                                            
+                                        </select>
+                                        
                                     </div>
                                     <div class="md-form">
-                                        <input type="text" class="form-control" placeholder="Tole">
+                                        <select name="woda_id" id="woda_id" class="form-control">
+                                            <option value="" disabled selected>Select Woda</option>
+
+                                            
+                                        </select>
+                                        
                                     </div>
+                                    
+                                </div>
+                                <div class="col-md-2">
                                     <div class="md-form">
-                                        <input type="text" class="form-control" placeholder="Street">
+                                        <input type="number" name="min" class="form-control" placeholder="Min Price">
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="md-form">
-                                        <input type="number" class="form-control" placeholder="Min Price">
+                                        <input type="number" name="max" class="form-control" placeholder="Max Price">
                                     </div>
                                 </div>
                                 <div class="col-md-2">
                                     <div class="md-form">
-                                        <input type="number" class="form-control" placeholder="Max Price">
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="md-form">
-                                        <a class="btn btn-sends">Send</a>
+                                        <button class="btn btn-sends" type="submit">Send</button>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -372,5 +413,10 @@
         </div>
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 <?php $__env->stopSection(); ?>
+
+
+<?php $__env->startPush('script'); ?>
+    <?php echo $__env->make('front-new.includes.location', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+<?php $__env->stopPush(); ?>
 
 <?php echo $__env->make('front-new.layouts.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\xampp\htdocs\harpal-realestate\resources\views/front-new/index.blade.php ENDPATH**/ ?>
