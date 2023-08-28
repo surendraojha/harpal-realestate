@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\ProfileController;
+use App\Http\Controllers\Api\PropertyController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -43,6 +44,9 @@ Route::group(['prefix'=>'v1'],function(){
 
 
     Route::get('blogs',[PageController::class,'blogs']);
+
+
+    Route::get('property',[PropertyController::class,'index']);
 
 
 

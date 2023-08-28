@@ -47,6 +47,10 @@ class Property extends Model
         return $this->hasMany(PropertyPhoto::class,'property_id');
     }
 
+    public function propertyFeature(){
+        return $this->hasMany(PropertyFeature::class,'feature_id');
+    }
+
     public function boostPost(){
         return $this->hasOne(BoostPost::class,'property_id');
     }
