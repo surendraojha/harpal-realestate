@@ -60,4 +60,22 @@ class Property extends Model
         return $this->hasMany(WishList::class,'property_id');
 
     }
+
+    
+    public function province(){
+        return $this->belongsTo(Province::class);
+    }
+
+
+    public function district(){
+        return $this->belongsTo(District::class);
+    }
+
+    public function municipality(){
+        return $this->belongsTo(Municipality::class);
+    }
+
+    public function woda(){
+        return $this->belongsTo(Woda::class);
+    }
 }

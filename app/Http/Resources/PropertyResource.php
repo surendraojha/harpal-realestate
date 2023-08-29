@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Municipality;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PropertyResource extends JsonResource
@@ -23,7 +24,13 @@ class PropertyResource extends JsonResource
             'featured_photo'=>$this->featured_photo?asset('uploads/'.$this->featured_photo):null,
             'photos'=> PropertyPhotoResource::collection($this->photo),
             'features'=> PropertyFeatureResource::collection($this->propertyFeature),
-
+            'price'=>$this->price,
+            'price_negotiable'=>$this->price_negotiable,
+            'province'=>new ProvinceResource($this->province),
+            'district'=>new DistrictResource($this->district),
+            'municipality'=>new MunicipalityResource($this->municipality),
+            'category'=>new CategoryResource($this->subcategory),
+            'woda'=>new WodaResource($this->woda)
         ];
         // return parent::toArray($request);
     }
