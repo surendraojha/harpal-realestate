@@ -34,7 +34,16 @@ Route::group(['prefix'=>'v1'],function(){
 
     Route::get('refresh-token',[ProfileController::class,'refresh']);
     // Route::post('account-setup',[ProfileController::class,'accountSetup']);
+
+
+
+
     Route::get('logout',[LoginController::class,'logout']);
+
+
+
+
+    Route::post('contact-us',[PageController::class,'contactUs']);
 
     Route::get('about-us',[PageController::class,'aboutUs']);
 
