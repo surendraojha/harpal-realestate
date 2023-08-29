@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\GetController;
 use App\Http\Controllers\Api\PageController;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\ProfileController;
@@ -36,6 +37,16 @@ Route::group(['prefix'=>'v1'],function(){
     // Route::post('account-setup',[ProfileController::class,'accountSetup']);
 
 
+
+    // get apis
+
+
+    Route::get('get-province',[GetController::class,'getProvince']);
+    Route::get('get-district',[GetController::class,'getDistrict']);
+    Route::get('get-municipality',[GetController::class,'getMunicipality']);
+    Route::get('get-woda',[GetController::class,'getWoda']);
+    Route::get('get-purpose',[GetController::class,'getPurpose']);
+    Route::get('get-category',[GetController::class,'getCategory']);
 
 
     Route::get('logout',[LoginController::class,'logout']);
