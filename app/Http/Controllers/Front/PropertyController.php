@@ -209,11 +209,11 @@ class PropertyController extends Controller
 
         $information->purpose_id = $request->purpose_id;
 
-        $information->bedroom = $request->bedroom;
-        $information->bathroom = $request->bathroom;
-        $information->parking = $request->parking;
-        $information->balcony = $request->balcony;
-        $information->water = $request->water;
+        // $information->bedroom = $request->bedroom;
+        // $information->bathroom = $request->bathroom;
+        // $information->parking = $request->parking;
+        // $information->balcony = $request->balcony;
+        // $information->water = $request->water;
         $information->location_for_map = $request->location_for_map;
         $information->overview = $request->overview ?? $request->message;
         $information->featured_video = $request->featured_video;
@@ -628,7 +628,7 @@ class PropertyController extends Controller
         // $information->bathroom = $request->bathroom;
         // $information->parking = $request->parking;
         // $information->balcony = $request->balcony;
-        $information->water = $request->water;
+        // $information->water = $request->water;
         $information->location_for_map = $request->location_for_map;
         $information->overview = $request->overview;
 

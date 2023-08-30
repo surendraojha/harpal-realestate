@@ -55,18 +55,17 @@ Route::group(['prefix'=>'v1'],function(){
 
 
     Route::post('contact-us',[PageController::class,'contactUs']);
-
     Route::get('about-us',[PageController::class,'aboutUs']);
-
     Route::get('faq',[PageController::class,'faq']);
-
     Route::get('page/{slug}',[PageController::class,'page']);
-
-
     Route::get('blogs',[PageController::class,'blogs']);
 
 
     Route::get('property',[PropertyController::class,'index']);
+    Route::post('property-store',[PropertyController::class,'store']);
+    Route::put('property-update/{id}',[PropertyController::class,'update']);
+    Route::delete('property-destroy/{id}',[PropertyController::class,'destroy']);
+
 
 
 
