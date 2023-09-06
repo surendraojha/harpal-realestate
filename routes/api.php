@@ -47,6 +47,9 @@ Route::group(['prefix'=>'v1'],function(){
     Route::get('get-woda',[GetController::class,'getWoda']);
     Route::get('get-purpose',[GetController::class,'getPurpose']);
     Route::get('get-category',[GetController::class,'getCategory']);
+    Route::get('get-category-detail/{id}',[GetController::class,'getCategoryDetail']);
+
+
 
 
     Route::get('logout',[LoginController::class,'logout']);
@@ -63,6 +66,8 @@ Route::group(['prefix'=>'v1'],function(){
 
     Route::get('property',[PropertyController::class,'index']);
     Route::post('property-store',[PropertyController::class,'store']);
+    Route::get('property/{id}',[PropertyController::class,'show']);
+
     Route::put('property-update/{id}',[PropertyController::class,'update']);
     Route::delete('property-destroy/{id}',[PropertyController::class,'destroy']);
 

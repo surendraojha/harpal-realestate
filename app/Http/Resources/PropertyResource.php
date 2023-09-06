@@ -30,6 +30,7 @@ class PropertyResource extends JsonResource
             'district'=>new DistrictResource($this->district),
             'municipality'=>new MunicipalityResource($this->municipality),
             'category'=>new CategoryResource($this->subcategory),
+            'road_size'=>new RoadSizeResource($this->roadSize),
             'woda'=>new WodaResource($this->woda)
         ];
         // return parent::toArray($request);

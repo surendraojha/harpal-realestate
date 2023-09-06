@@ -99,7 +99,15 @@ class GetController extends Controller
 
         $parent = $request->parent;
 
+        $type = $request->type;
+
         $informations = Category::orderBy('order');
+
+
+        if($type=='main'){
+          $informations =  $informations->whereNull('parent');
+
+        }
 
 
 
@@ -116,4 +124,26 @@ class GetController extends Controller
 
 
     }
+
+
+    public function getCategoryDetail($id){
+
+        $information = Category::find($id);
+
+        if(!$information){
+            if(!$information){
+                return response()->json(['status' => 'failed', 'errors' => 'Category not found'], 404);
+
+            }
+        }
+
+
+        $data = new CategoryResource($information);
+        return response()->json(['status' => 'success', 'data' => $data], 200);
+
+
+    }
+
+
+
 }

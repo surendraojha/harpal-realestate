@@ -34,10 +34,95 @@ use Illuminate\Support\Facades\Validator;
 
 class PropertyController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
 
-        $informations = Property::orderBy('id', 'DESC')->get();
+        $province_id = $request->province_id;
+        $district_id = $request->district_id;
+        $municipality_id = $request->municipality_id;
+        $woda_id = $request->woda_id;
+
+        $category_id = $request->category_id;
+        $sub_category_id = $request->sub_category_id;
+        $child_category_id = $request->child_category_id;
+
+        $purpose_id = $request->purpose_id;
+
+        $road_size_id = $request->road_size_id;
+
+
+        $informations = Property::orderBy('id', 'DESC');
+
+        if($purpose_id){
+            $informations = $informations->where('purpose_id',$purpose_id);
+        }
+
+        if($province_id){
+            $informations = $informations->where('province_id',$province_id);
+
+        }
+
+
+        if($district_id){
+            $informations = $informations->where('district_id',$district_id);
+
+        }
+
+
+        if($municipality_id){
+            $informations = $informations->where('municipality_id',$municipality_id);
+
+        }
+
+
+        if($woda_id){
+            $informations = $informations->where('woda_id',$woda_id);
+
+        }
+
+
+        if($road_size_id){
+            $informations = $informations->where('road_size_id',$road_size_id);
+
+        }
+
+
+       if($category_id){
+
+            if($sub_category_id){
+                if($child_category_id){
+                    $informations = $informations->where('sub_category_id',$child_category_id);
+
+                }else{
+
+                    $child_categories = Category::where('parent',$sub_category_id)
+                                    ->pluck('id','id')
+                                    ->toArray();
+
+                    $informations = $informations->where('sub_category_id',$child_categories);
+
+
+                }
+
+            }else{
+                $sub_categories = Category::where('parent',$category_id)
+                                ->pluck('id','id')
+                                ->toArray();
+                $child_categories = Category::whereIn('parent',$sub_categories)
+                                    ->pluck('id','id')
+                                    ->toArray();
+
+            $informations = $informations->where('sub_category_id',$child_categories);
+
+            }
+
+       }
+
+
+
+
+
+        $informations = $informations->get();
 
         $data = PropertyResource::collection($informations);
 
@@ -286,6 +371,20 @@ class PropertyController extends Controller
 
 
         return response()->json(['status' => 'success', 'message' => 'Your Property Listed Successfully!!']);
+    }
+
+    public function show($id){
+        $information = Property::find($id);
+
+        if(!$information){
+            return response()->json(['status' => 'failed', 'errors' => 'Propety not found'], 404);
+
+        }
+
+        $data = new PropertyResource($information);
+        return response()->json(['status' => 'success', 'data' => $data], 200);
+
+
     }
 
 
